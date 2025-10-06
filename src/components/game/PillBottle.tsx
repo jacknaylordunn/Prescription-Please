@@ -16,10 +16,10 @@ export const PillBottle = ({
 
   return (
     <div 
-      className="pixel-text select-none document-shadow transition-all duration-300 hover:scale-110 hover:-translate-y-2 hover:rotate-2 animate-fade-in cursor-pointer"
+      className="pixel-text select-none document-shadow transition-all duration-300 hover:scale-105 hover:-translate-y-2 hover:rotate-1 animate-fade-in cursor-pointer"
       style={{ 
-        width: "120px",
-        height: "160px",
+        width: "140px",
+        height: "180px",
         position: "relative",
         filter: "drop-shadow(0 6px 10px rgba(0,0,0,0.25))"
       }}
@@ -28,8 +28,8 @@ export const PillBottle = ({
       <div 
         className="absolute top-0 left-1/2 -translate-x-1/2 transition-transform hover:scale-105"
         style={{
-          width: "45px",
-          height: "18px",
+          width: "50px",
+          height: "20px",
           backgroundColor: "#fff",
           border: "3px solid #333",
           borderBottom: "none",
@@ -40,7 +40,7 @@ export const PillBottle = ({
         <div 
           className="absolute top-1 left-1/2 -translate-x-1/2"
           style={{
-            width: "30px",
+            width: "32px",
             height: "6px",
             backgroundColor: "#666",
             borderRadius: "2px",
@@ -50,30 +50,30 @@ export const PillBottle = ({
         {/* Cap ridges for grip */}
         <div className="absolute top-0 left-0 right-0 flex justify-around px-1">
           {Array.from({ length: 5 }).map((_, i) => (
-            <div key={i} style={{ width: "2px", height: "18px", backgroundColor: "rgba(0,0,0,0.1)" }} />
+            <div key={i} style={{ width: "2px", height: "20px", backgroundColor: "rgba(0,0,0,0.1)" }} />
           ))}
         </div>
       </div>
 
       {/* Bottle Body with glass effect */}
       <div 
-        className="absolute top-4"
+        className="absolute top-5"
         style={{
-          width: "120px",
-          height: "140px",
+          width: "140px",
+          height: "165px",
           backgroundColor: "rgba(255, 200, 150, 0.85)",
           border: "3px solid #8b4513",
-          borderRadius: "8px",
-          padding: "8px",
+          borderRadius: "10px",
+          padding: "10px 8px 8px 8px",
           display: "flex",
           flexDirection: "column",
-          gap: "6px",
+          gap: "4px",
           boxShadow: "inset -4px 0 8px rgba(255,255,255,0.4), inset 4px 0 8px rgba(0,0,0,0.1), 0 4px 8px rgba(0,0,0,0.2)"
         }}
       >
         {/* Glass highlight */}
         <div 
-          className="absolute top-4 left-2 w-6 h-32 rounded-full pointer-events-none"
+          className="absolute top-6 left-2 w-8 h-36 rounded-full pointer-events-none"
           style={{
             background: "linear-gradient(to right, rgba(255,255,255,0.4), rgba(255,255,255,0))",
             filter: "blur(4px)"
@@ -81,27 +81,30 @@ export const PillBottle = ({
         />
         {/* Label Background */}
         <div 
-          className="flex-grow"
+          className="relative flex-grow"
           style={{
             backgroundColor: "#fff",
             border: "2px solid #333",
-            padding: "6px",
-            borderRadius: "4px"
+            padding: "5px",
+            borderRadius: "4px",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "space-between"
           }}
         >
           {/* Pharmacy Header */}
           <div 
-            className="text-center border-b-2 border-primary pb-1 mb-2"
-            style={{ fontSize: "6px", color: '#000', fontWeight: "bold" }}
+            className="text-center border-b border-primary pb-0.5 mb-1"
+            style={{ fontSize: "5px", color: '#000', fontWeight: "bold" }}
           >
-            COMMUNITY PHARMACY
+            PHARMACY
           </div>
 
           {/* Medication Name */}
           <div 
-            className="font-bold text-center mb-2"
+            className="font-bold text-center mb-1"
             style={{ 
-              fontSize: "9px",
+              fontSize: medicationName.length > 12 ? "8px" : "9px",
               color: '#000',
               lineHeight: "1.1"
             }}
@@ -111,9 +114,9 @@ export const PillBottle = ({
 
           {/* Dosage */}
           <div 
-            className="text-center mb-2 pb-1 border-b border-gray-300"
+            className="text-center pb-0.5 border-b border-gray-300"
             style={{ 
-              fontSize: "7px",
+              fontSize: "6px",
               color: '#000',
               fontWeight: "600"
             }}
@@ -121,34 +124,24 @@ export const PillBottle = ({
             {dosage}
           </div>
 
-          {/* Quantity */}
-          <div 
-            className="text-center"
-            style={{ fontSize: "6px", color: '#000' }}
-          >
-            <span className="font-bold">Qty:</span> {quantity}
-          </div>
-
-          {/* Date */}
-          <div 
-            className="text-center"
-            style={{ fontSize: "6px", color: '#000' }}
-          >
-            <span className="font-bold">Date:</span> {formattedDate}
+          {/* Quantity and Date in compact layout */}
+          <div className="text-center" style={{ fontSize: "5px", color: '#000' }}>
+            <div><span className="font-bold">Qty:</span> {quantity}</div>
+            <div><span className="font-bold">Date:</span> {formattedDate}</div>
           </div>
 
           {/* Warning */}
           <div 
-            className="mt-2 text-center bg-yellow-100 border border-yellow-600 px-1 py-1"
-            style={{ fontSize: "5px", color: '#000', fontWeight: "bold" }}
+            className="text-center bg-yellow-100 border border-yellow-600 px-1"
+            style={{ fontSize: "4px", color: '#000', fontWeight: "bold", padding: "2px 4px" }}
           >
             ⚠ READ LEAFLET
           </div>
         </div>
 
         {/* Pills visible through bottle - animated */}
-        <div className="absolute bottom-2 left-2 right-2 flex flex-wrap gap-1 opacity-70">
-          {Array.from({ length: 12 }).map((_, i) => (
+        <div className="absolute bottom-3 left-3 right-3 flex flex-wrap gap-1 opacity-60 pointer-events-none">
+          {Array.from({ length: 14 }).map((_, i) => (
             <div 
               key={i}
               className="animate-pulse"
@@ -159,7 +152,7 @@ export const PillBottle = ({
                 border: "1px solid #ccc",
                 borderRadius: i % 3 === 0 ? "30%" : "50%",
                 boxShadow: "inset 0 1px 2px rgba(0,0,0,0.3), 0 1px 2px rgba(0,0,0,0.2)",
-                animationDelay: `${i * 0.1}s`,
+                animationDelay: `${i * 0.15}s`,
                 animationDuration: "3s"
               }}
             />
