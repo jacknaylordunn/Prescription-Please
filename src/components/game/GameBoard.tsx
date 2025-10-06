@@ -10,7 +10,9 @@ import { DischargeLetter } from "./documents/DischargeLetter";
 import { scenarios } from "@/data/scenarios";
 import { generateRandomScenario } from "@/data/scenarioGenerator";
 import type { Scenario } from "@/data/scenarios";
-import background from "@/assets/background-lamp-off.png";
+import background from "@/assets/background.png";
+import lampOffImg from "@/assets/lamp-off.png";
+import lampOnImg from "@/assets/lamp-on.png";
 import { Lightbulb } from "lucide-react";
 
 type GameState = "idle" | "dispatch" | "assessing" | "quiz" | "complete";
@@ -88,17 +90,32 @@ export const GameBoard = () => {
         backgroundImage: `url(${background})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
-        filter: lampOn ? "brightness(1.2)" : "brightness(1)",
-        transition: "filter 0.6s ease",
       }}
     >
-      {/* Lamp Glow Effect */}
-      {lampOn && <div className="lamp-glow" />}
+      {/* Lamp off - always visible at the back */}
+      <img 
+        src={lampOffImg} 
+        alt="Lamp off" 
+        className="absolute inset-0 w-full h-full object-cover pointer-events-none"
+        style={{ zIndex: 1 }}
+      />
+      
+      {/* Lamp on overlay - toggles visibility */}
+      <img 
+        src={lampOnImg} 
+        alt="Lamp on" 
+        className="absolute inset-0 w-full h-full object-cover pointer-events-none transition-opacity duration-600"
+        style={{ 
+          zIndex: 100, 
+          opacity: lampOn ? 1 : 0 
+        }}
+      />
       
       {/* Lamp Toggle Button */}
       <button
         onClick={() => setLampOn(!lampOn)}
-        className="absolute top-6 right-24 z-50 p-4 rounded-full bg-background/30 hover:bg-background/50 transition-all border-2 border-foreground/20 retro-shadow"
+        className="absolute top-6 right-24 p-4 rounded-full bg-background/30 hover:bg-background/50 transition-all border-2 border-foreground/20 retro-shadow"
+        style={{ zIndex: 101 }}
         title="Toggle lamp"
       >
         <Lightbulb className={`w-8 h-8 transition-all duration-300 ${lampOn ? 'text-yellow-300 drop-shadow-[0_0_12px_rgba(253,224,71,0.8)]' : 'text-muted-foreground'}`} />
