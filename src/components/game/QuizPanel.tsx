@@ -21,6 +21,28 @@ export const QuizPanel = ({ scenario, onComplete }: QuizPanelProps) => {
   const [answered, setAnswered] = useState(false);
   const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
 
+  // Helper function to create unique options
+  const createUniqueOptions = (correctAnswer: string, alternatives: string[]): string[] => {
+    const options = [correctAnswer];
+    for (const alt of alternatives) {
+      if (alt !== correctAnswer && !options.includes(alt)) {
+        options.push(alt);
+      }
+      if (options.length >= 4) break;
+    }
+    // Add more generic options if needed
+    const genericOptions = [
+      "Aspirin", "Paracetamol", "Ibuprofen", "Omeprazole", "Amoxicillin",
+      "Vitamin D", "Lactulose", "Ranitidine", "Cetirizine", "Loratadine"
+    ];
+    for (const opt of genericOptions) {
+      if (!options.includes(opt) && options.length < 4) {
+        options.push(opt);
+      }
+    }
+    return options;
+  };
+
   // Generate questions based on the scenario
   const generateQuestions = (): Question[] => {
     const questions: Question[] = [];
@@ -30,13 +52,13 @@ export const QuizPanel = ({ scenario, onComplete }: QuizPanelProps) => {
     if (meds.length > 0) {
       const med = meds[Math.floor(Math.random() * meds.length)];
       const correctAnswer = med.class;
-      const options = [
-        correctAnswer,
-        "Beta-blocker",
-        "Calcium channel blocker",
-        "Proton pump inhibitor"
+      const alternatives = [
+        "Beta-blocker", "Calcium channel blocker", "Proton pump inhibitor",
+        "NSAID", "ACE inhibitor", "Antihistamine", "Antibiotic", "Opioid",
+        "Benzodiazepine", "SSRI", "Statin", "Diuretic"
       ];
-      const shuffledOptions = [...options].sort(() => Math.random() - 0.5);
+      const uniqueOptions = createUniqueOptions(correctAnswer, alternatives);
+      const shuffledOptions = [...uniqueOptions].sort(() => Math.random() - 0.5);
       questions.push({
         question: `What drug class does ${med.name} belong to?`,
         options: shuffledOptions,
@@ -49,13 +71,13 @@ export const QuizPanel = ({ scenario, onComplete }: QuizPanelProps) => {
     if (meds.length > 0) {
       const med = meds[Math.floor(Math.random() * meds.length)];
       const correctSideEffect = med.sideEffects[0];
-      const options = [
-        correctSideEffect,
-        "Hair loss",
-        "Increased appetite",
-        "Blurred vision"
+      const alternatives = [
+        "Hair loss", "Increased appetite", "Blurred vision", "Headache",
+        "Drowsiness", "Nausea", "Weight gain", "Dry mouth", "Insomnia",
+        "Dizziness", "Rash", "Palpitations"
       ];
-      const shuffledOptions = [...options].sort(() => Math.random() - 0.5);
+      const uniqueOptions = createUniqueOptions(correctSideEffect, alternatives);
+      const shuffledOptions = [...uniqueOptions].sort(() => Math.random() - 0.5);
       questions.push({
         question: `Which is a common side effect of ${med.name}?`,
         options: shuffledOptions,
@@ -63,16 +85,42 @@ export const QuizPanel = ({ scenario, onComplete }: QuizPanelProps) => {
         explanation: `${med.name} commonly causes ${correctSideEffect.toLowerCase()}.`
       });
     }
+    
+    // Question 2b: Multiple medication side effects
+    if (meds.length >= 2) {
+      const medWithBleeding = meds.find(m => 
+        m.sideEffects.some(s => s.toLowerCase().includes("bleeding")) || 
+        m.category === "Anticoagulant"
+      );
+      if (medWithBleeding) {
+        questions.push({
+          question: "A patient on anticoagulation therapy has fallen. What is your main concern?",
+          options: [
+            "Potential internal bleeding or head injury",
+            "Broken bones only",
+            "Bruising to the skin",
+            "Patient anxiety"
+          ],
+          correctAnswer: 0,
+          explanation: `Patients on anticoagulants like ${medWithBleeding.name} are at high risk of serious bleeding, especially after trauma. Head injuries and internal bleeding are critical concerns.`
+        });
+      }
+    }
 
     // Question 3: Time-critical medications - MISSED mnemonic
     const timeCriticalMeds = meds.filter(m => m.timeCritical);
     if (timeCriticalMeds.length > 0) {
       const med = timeCriticalMeds[0];
+      const allMedNames = meds.map(m => m.name);
+      const nonTimeCriticalAlternatives = [
+        "Paracetamol", "Vitamin D", "Lactulose", "Gaviscon",
+        "Ibuprofen", "Cetirizine", "Ranitidine"
+      ];
       const questionTypes = [
         {
           question: "Which of these medications is time-critical and must be taken to hospital?",
           correctAnswer: med.name,
-          options: [med.name, "Paracetamol", "Vitamin D", "Lactulose"],
+          options: createUniqueOptions(med.name, nonTimeCriticalAlternatives),
           explanation: `${med.name} is time-critical (${med.class}). Time-critical medicines should be taken to hospital and must not be missed unless there's a valid clinical or safety issue.`
         },
         {
@@ -121,17 +169,17 @@ export const QuizPanel = ({ scenario, onComplete }: QuizPanelProps) => {
       else if (med.category === "Anticoagulant") missedCategory = "Direct Oral Anticoagulants and warfarin";
       
       if (missedCategory) {
-        const options = [
-          missedCategory,
+        const allCategories = [
           "Movement disorders",
+          "Immunomodulators",
+          "Sugar - diabetes medication",
+          "Steroids",
           "Epilepsy - anticonvulsants",
-          "Sugar - diabetes medication"
+          "Direct Oral Anticoagulants and warfarin"
         ];
-        const uniqueOptions = [...new Set(options)];
-        if (uniqueOptions.length < 4) {
-          uniqueOptions.push("Immunomodulators", "Steroids", "Anticoagulants");
-        }
-        const shuffledOptions = uniqueOptions.slice(0, 4).sort(() => Math.random() - 0.5);
+        const alternatives = allCategories.filter(c => c !== missedCategory);
+        const uniqueOptions = createUniqueOptions(missedCategory, alternatives);
+        const shuffledOptions = [...uniqueOptions].sort(() => Math.random() - 0.5);
         questions.push({
           question: `${med.name} belongs to which category of the MISSED mnemonic for time-critical medications?`,
           options: shuffledOptions,
@@ -140,18 +188,50 @@ export const QuizPanel = ({ scenario, onComplete }: QuizPanelProps) => {
         });
       }
     }
+    
+    // Question 4b: Clinical scenario with time-critical medication
+    if (timeCriticalMeds.length > 0) {
+      const parkinsonMed = timeCriticalMeds.find(m => m.category === "Antiparkinsonian");
+      if (parkinsonMed) {
+        questions.push({
+          question: "A Parkinson's patient hasn't taken their medication for 12 hours. What might you observe?",
+          options: [
+            "Increased rigidity, tremor, and difficulty moving",
+            "Improved mobility and reduced tremor",
+            "No noticeable change in symptoms",
+            "Sudden increase in energy levels"
+          ],
+          correctAnswer: 0,
+          explanation: `Missing doses of Parkinson's medication like ${parkinsonMed.name} can cause rapid deterioration. Patients may become 'frozen' with severe rigidity within hours. Even a 30-minute delay can be harmful.`
+        });
+      }
+      
+      const diabetesMed = timeCriticalMeds.find(m => m.category === "Antidiabetic");
+      if (diabetesMed) {
+        questions.push({
+          question: "A diabetic patient has missed their morning insulin. What is the most appropriate action?",
+          options: [
+            "Check blood glucose and seek medical advice immediately",
+            "Wait until their next scheduled dose",
+            "Give double the dose at lunchtime",
+            "No action needed"
+          ],
+          correctAnswer: 0,
+          explanation: "Missing insulin doses can lead to dangerous hyperglycaemia and diabetic ketoacidosis. Blood glucose should be checked immediately and medical advice sought."
+        });
+      }
+    }
 
     // Question 5: Indication
     if (meds.length > 0) {
       const med = meds[Math.floor(Math.random() * meds.length)];
       const correctAnswer = med.indication;
-      const options = [
-        correctAnswer,
-        "Headache",
-        "Insomnia",
-        "Fever"
+      const alternatives = [
+        "Headache", "Insomnia", "Fever", "Anxiety", "Depression",
+        "High blood pressure", "Pain relief", "Infection", "Inflammation"
       ];
-      const shuffledOptions = [...options].sort(() => Math.random() - 0.5);
+      const uniqueOptions = createUniqueOptions(correctAnswer, alternatives);
+      const shuffledOptions = [...uniqueOptions].sort(() => Math.random() - 0.5);
       questions.push({
         question: `What is ${med.name} primarily used for?`,
         options: shuffledOptions,
@@ -159,56 +239,99 @@ export const QuizPanel = ({ scenario, onComplete }: QuizPanelProps) => {
         explanation: `${med.name} is used for ${med.indication.toLowerCase()}.`
       });
     }
+    
+    // Question 5b: Drug interactions
+    const anticoagulant = meds.find(m => m.category === "Anticoagulant");
+    const nsaid = meds.find(m => m.class === "NSAID");
+    if (anticoagulant || nsaid) {
+      questions.push({
+        question: "Why should NSAIDs be used cautiously in patients on anticoagulants?",
+        options: [
+          "Both increase bleeding risk significantly",
+          "They cancel each other out",
+          "NSAIDs have no interaction with anticoagulants",
+          "It improves pain relief"
+        ],
+        correctAnswer: 0,
+        explanation: "NSAIDs like ibuprofen inhibit platelet function and can cause gastric bleeding. Combined with anticoagulants, this creates a very high bleeding risk."
+      });
+    }
 
-    // Question 6: Category-based question
+    // Question 6: Diuretics and clinical implications
     const diuretics = meds.filter(m => m.category === "Diuretic");
     if (diuretics.length > 0) {
       const correctAnswer = diuretics[0].name;
-      const options = [
-        correctAnswer,
-        "Amoxicillin",
-        "Paracetamol",
-        "Omeprazole"
+      const alternatives = [
+        "Amoxicillin", "Paracetamol", "Omeprazole", "Sertraline",
+        "Atorvastatin", "Levothyroxine"
       ];
-      const shuffledOptions = [...options].sort(() => Math.random() - 0.5);
+      const uniqueOptions = createUniqueOptions(correctAnswer, alternatives);
+      const shuffledOptions = [...uniqueOptions].sort(() => Math.random() - 0.5);
       questions.push({
         question: "Which medication would have a diuretic effect?",
         options: shuffledOptions,
         correctAnswer: shuffledOptions.indexOf(correctAnswer),
         explanation: `${diuretics[0].name} is a ${diuretics[0].class}, which increases urine production.`
       });
+      
+      // Additional diuretic question
+      questions.push({
+        question: `A patient on ${diuretics[0].name} is dehydrated. What is the most likely cause?`,
+        options: [
+          "Excessive fluid loss from the diuretic effect",
+          "Not drinking enough water",
+          "Unrelated to medication",
+          "Dietary changes"
+        ],
+        correctAnswer: 0,
+        explanation: `${diuretics[0].name} increases urine output, which can lead to dehydration, especially if the patient isn't drinking enough fluids or has been vomiting.`
+      });
     }
 
-    // Question 7: Anticoagulation
+    // Question 7: Anticoagulation and clinical scenarios
     const anticoagulants = meds.filter(m => m.category === "Anticoagulant");
     if (anticoagulants.length > 0) {
       const correctAnswer = anticoagulants[0].name;
-      const options = [
-        correctAnswer,
-        "Paracetamol",
-        "Amoxicillin",
-        "Omeprazole"
+      const alternatives = [
+        "Paracetamol", "Amoxicillin", "Omeprazole", "Atorvastatin",
+        "Ramipril", "Metformin", "Salbutamol"
       ];
-      const shuffledOptions = [...options].sort(() => Math.random() - 0.5);
+      const uniqueOptions = createUniqueOptions(correctAnswer, alternatives);
+      const shuffledOptions = [...uniqueOptions].sort(() => Math.random() - 0.5);
       questions.push({
         question: "Which medication increases bleeding risk?",
         options: shuffledOptions,
         correctAnswer: shuffledOptions.indexOf(correctAnswer),
         explanation: `${anticoagulants[0].name} is an anticoagulant and significantly increases bleeding risk.`
       });
+      
+      // Warfarin-specific question
+      const warfarin = anticoagulants.find(m => m.name === "Warfarin");
+      if (warfarin) {
+        questions.push({
+          question: "Why does Warfarin require regular blood monitoring (INR tests)?",
+          options: [
+            "To ensure the blood is thin enough but not too thin",
+            "To check kidney function",
+            "To monitor liver damage",
+            "It doesn't require monitoring"
+          ],
+          correctAnswer: 0,
+          explanation: "Warfarin's effect varies between individuals and with diet. INR monitoring ensures the blood is adequately anticoagulated (preventing clots) without being over-thinned (causing bleeding)."
+        });
+      }
     }
 
     // Question 8: Condition inference
     if (scenario.patient.medicalHistory.length > 0) {
       const condition = scenario.patient.medicalHistory[0];
       const correctAnswer = condition;
-      const options = [
-        correctAnswer,
-        "Migraine",
-        "Asthma",
-        "Gout"
+      const alternatives = [
+        "Migraine", "Asthma", "Gout", "Bronchitis", "Arthritis",
+        "Pneumonia", "Gastritis", "Cellulitis"
       ];
-      const shuffledOptions = [...options].sort(() => Math.random() - 0.5);
+      const uniqueOptions = createUniqueOptions(correctAnswer, alternatives);
+      const shuffledOptions = [...uniqueOptions].sort(() => Math.random() - 0.5);
       questions.push({
         question: `Based on the prescription, what condition does the patient likely have?`,
         options: shuffledOptions,
@@ -216,8 +339,73 @@ export const QuizPanel = ({ scenario, onComplete }: QuizPanelProps) => {
         explanation: `The combination of medications suggests ${condition.toLowerCase()}.`
       });
     }
+    
+    // Question 9: Clinical presentation
+    if (scenario.patient.presentation) {
+      const betaBlocker = meds.find(m => m.class === "Beta-blocker");
+      if (betaBlocker) {
+        questions.push({
+          question: `What vital sign must you monitor closely in a patient taking ${betaBlocker.name}?`,
+          options: [
+            "Heart rate - risk of bradycardia",
+            "Temperature only",
+            "Respiratory rate only",
+            "Oxygen saturation only"
+          ],
+          correctAnswer: 0,
+          explanation: `Beta-blockers like ${betaBlocker.name} slow the heart rate. Patients can develop dangerously slow heart rates (bradycardia), so pulse monitoring is essential.`
+        });
+      }
+      
+      const acei = meds.find(m => m.class === "ACE inhibitor");
+      if (acei) {
+        questions.push({
+          question: `A patient on ${acei.name} has developed a persistent dry cough. What should you suspect?`,
+          options: [
+            "Common side effect of ACE inhibitors",
+            "Chest infection",
+            "Allergic reaction requiring adrenaline",
+            "Heart failure"
+          ],
+          correctAnswer: 0,
+          explanation: `Dry cough is a very common side effect of ACE inhibitors like ${acei.name}, affecting up to 10% of patients. It's caused by increased bradykinin levels.`
+        });
+      }
+    }
+    
+    // Question 10: Polypharmacy awareness
+    if (meds.length >= 4) {
+      questions.push({
+        question: "This patient is on multiple medications (polypharmacy). What is a key concern?",
+        options: [
+          "Increased risk of drug interactions and adverse effects",
+          "Medications work better together",
+          "No concerns with multiple medications",
+          "Easier to manage treatment"
+        ],
+        correctAnswer: 0,
+        explanation: `This patient is on ${meds.length} medications. Polypharmacy increases risks of drug interactions, side effects, poor adherence, and medication errors. Regular medication reviews are essential.`
+      });
+    }
+    
+    // Question 11: Epilepsy medication
+    const anticonvulsants = meds.filter(m => m.category === "Anticonvulsant");
+    if (anticonvulsants.length > 0) {
+      questions.push({
+        question: "If an epilepsy patient misses several doses of their anticonvulsant, what is the major risk?",
+        options: [
+          "Breakthrough seizures or status epilepticus",
+          "Mild headache only",
+          "Improved alertness",
+          "No significant risk"
+        ],
+        correctAnswer: 0,
+        explanation: `Missing anticonvulsant doses like ${anticonvulsants[0].name} can trigger seizures, including life-threatening status epilepticus. These are time-critical medications that must not be missed.`
+      });
+    }
 
-    return questions.slice(0, 7); // Return up to 7 questions
+    // Shuffle all questions and return up to 10
+    return questions.sort(() => Math.random() - 0.5).slice(0, 10);
   };
 
   const questions = useMemo(() => generateQuestions(), [scenario]);
