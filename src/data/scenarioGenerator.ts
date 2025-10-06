@@ -143,7 +143,8 @@ const conditionTemplates = [
     presentation: "Tremor, rigidity, difficulty walking",
     medications: ["Co-careldopa", "Ropinirole", "Selegiline", "Bisacodyl"],
     history: ["Parkinson's disease", "Depression", "Constipation"],
-    dispatch: "fallen at home, Parkinson's patient. Patient on floor, no obvious injury, tremor noted."
+    dispatch: "fallen at home, Parkinson's patient. Patient on floor, no obvious injury, tremor noted.",
+    gpLetters: ["Medication Review", "Appointment Summary"] as GPLetterType[]
   },
   {
     condition: "Chronic Kidney Disease",
@@ -207,7 +208,35 @@ const conditionTemplates = [
     presentation: "Hallucinations, paranoia, non-compliance with medication",
     medications: ["Clozapine", "Aripiprazole", "Procyclidine", "Diazepam"],
     history: ["Schizophrenia", "Previous sectioning"],
-    dispatch: "mental health crisis, paranoid behavior. Patient hearing voices, family concerned."
+    dispatch: "mental health crisis, paranoid behavior. Patient hearing voices, family concerned.",
+    gpLetters: ["Medication Review"] as GPLetterType[]
+  },
+  {
+    condition: "Myasthenia Gravis",
+    ageRange: [30, 60],
+    presentation: "Muscle weakness, difficulty swallowing, double vision",
+    medications: ["Pyridostigmine", "Prednisolone", "Omeprazole"],
+    history: ["Myasthenia gravis", "Thymectomy"],
+    dispatch: "difficulty breathing and swallowing, muscle weakness. Patient struggling to speak, ptosis noted.",
+    gpLetters: ["Appointment Summary", "Blood Test Results"] as GPLetterType[]
+  },
+  {
+    condition: "Addison's Disease",
+    ageRange: [25, 55],
+    presentation: "Extreme fatigue, dizziness, nausea, abdominal pain",
+    medications: ["Hydrocortisone", "Fludrocortisone", "Omeprazole"],
+    history: ["Addison's disease", "Type 1 diabetes"],
+    dispatch: "very unwell, Addison's patient. Patient hypotensive, appears dehydrated, weak.",
+    gpLetters: ["Blood Test Results", "Medication Review"] as GPLetterType[]
+  },
+  {
+    condition: "Transplant Patient",
+    ageRange: [35, 70],
+    presentation: "Fever, fatigue, recent kidney transplant",
+    medications: ["Tacrolimus", "Azathioprine", "Prednisolone", "Co-trimoxazole"],
+    history: ["Kidney transplant", "Hypertension", "Previous kidney failure"],
+    dispatch: "transplant patient feeling unwell. Patient febrile, concerned about rejection.",
+    gpLetters: ["Blood Test Results", "Appointment Confirmation"] as GPLetterType[]
   }
 ];
 

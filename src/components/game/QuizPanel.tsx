@@ -64,27 +64,84 @@ export const QuizPanel = ({ scenario, onComplete }: QuizPanelProps) => {
       });
     }
 
-    // Question 3: Time-critical medications
+    // Question 3: Time-critical medications - MISSED mnemonic
     const timeCriticalMeds = meds.filter(m => m.timeCritical);
     if (timeCriticalMeds.length > 0) {
       const med = timeCriticalMeds[0];
-      const correctAnswer = med.name;
-      const options = [
-        correctAnswer,
-        "Paracetamol",
-        "Vitamin D",
-        "Lactulose"
+      const questionTypes = [
+        {
+          question: "Which of these medications is time-critical and must be taken to hospital?",
+          correctAnswer: med.name,
+          options: [med.name, "Paracetamol", "Vitamin D", "Lactulose"],
+          explanation: `${med.name} is time-critical (${med.class}). Time-critical medicines should be taken to hospital and must not be missed unless there's a valid clinical or safety issue.`
+        },
+        {
+          question: "What should you do with time-critical medications when transporting a patient?",
+          correctAnswer: "Take them to hospital and inform staff of timing",
+          options: [
+            "Take them to hospital and inform staff of timing",
+            "Leave them at home",
+            "Give them all to the patient before leaving",
+            "Dispose of them"
+          ],
+          explanation: "Time-critical medications should be taken to hospital. Alert hospital staff when the patient last took the medication and when the next dose is due."
+        },
+        {
+          question: `If ${med.name} (a time-critical medication) is unavailable, what should you do?`,
+          correctAnswer: "Seek alternative supply from the hospital",
+          options: [
+            "Seek alternative supply from the hospital",
+            "Skip the dose",
+            "Wait until the patient gets home",
+            "Give a different medication"
+          ],
+          explanation: "If time-critical medicines are unavailable, you should seek alternative supply from the hospital. These medications should not be missed or omitted."
+        }
       ];
-      const shuffledOptions = [...options].sort(() => Math.random() - 0.5);
+      
+      const selectedQuestion = questionTypes[Math.floor(Math.random() * questionTypes.length)];
+      const shuffledOptions = [...selectedQuestion.options].sort(() => Math.random() - 0.5);
       questions.push({
-        question: "Which of these medications is time-critical?",
+        question: selectedQuestion.question,
         options: shuffledOptions,
-        correctAnswer: shuffledOptions.indexOf(correctAnswer),
-        explanation: `${med.name} is time-critical for managing ${med.indication.toLowerCase()}.`
+        correctAnswer: shuffledOptions.indexOf(selectedQuestion.correctAnswer),
+        explanation: selectedQuestion.explanation
       });
     }
+    
+    // Question 4: MISSED mnemonic category identification
+    if (timeCriticalMeds.length > 0) {
+      const med = timeCriticalMeds[Math.floor(Math.random() * timeCriticalMeds.length)];
+      let missedCategory = "";
+      if (med.category === "Antiparkinsonian" || med.category === "Antimyasthenic") missedCategory = "Movement disorders";
+      else if (med.category === "Immunosuppressant") missedCategory = "Immunomodulators";
+      else if (med.category === "Antidiabetic") missedCategory = "Sugar - diabetes medication";
+      else if (med.category === "Steroid") missedCategory = "Steroids";
+      else if (med.category === "Anticonvulsant") missedCategory = "Epilepsy - anticonvulsants";
+      else if (med.category === "Anticoagulant") missedCategory = "Direct Oral Anticoagulants and warfarin";
+      
+      if (missedCategory) {
+        const options = [
+          missedCategory,
+          "Movement disorders",
+          "Epilepsy - anticonvulsants",
+          "Sugar - diabetes medication"
+        ];
+        const uniqueOptions = [...new Set(options)];
+        if (uniqueOptions.length < 4) {
+          uniqueOptions.push("Immunomodulators", "Steroids", "Anticoagulants");
+        }
+        const shuffledOptions = uniqueOptions.slice(0, 4).sort(() => Math.random() - 0.5);
+        questions.push({
+          question: `${med.name} belongs to which category of the MISSED mnemonic for time-critical medications?`,
+          options: shuffledOptions,
+          correctAnswer: shuffledOptions.indexOf(missedCategory),
+          explanation: `${med.name} is part of "${missedCategory}" in the MISSED mnemonic. A missed dose can cause rapid deterioration in these patients.`
+        });
+      }
+    }
 
-    // Question 4: Indication
+    // Question 5: Indication
     if (meds.length > 0) {
       const med = meds[Math.floor(Math.random() * meds.length)];
       const correctAnswer = med.indication;
@@ -103,7 +160,7 @@ export const QuizPanel = ({ scenario, onComplete }: QuizPanelProps) => {
       });
     }
 
-    // Question 5: Category-based question
+    // Question 6: Category-based question
     const diuretics = meds.filter(m => m.category === "Diuretic");
     if (diuretics.length > 0) {
       const correctAnswer = diuretics[0].name;
@@ -122,7 +179,7 @@ export const QuizPanel = ({ scenario, onComplete }: QuizPanelProps) => {
       });
     }
 
-    // Question 6: Anticoagulation
+    // Question 7: Anticoagulation
     const anticoagulants = meds.filter(m => m.category === "Anticoagulant");
     if (anticoagulants.length > 0) {
       const correctAnswer = anticoagulants[0].name;
@@ -141,7 +198,7 @@ export const QuizPanel = ({ scenario, onComplete }: QuizPanelProps) => {
       });
     }
 
-    // Question 7: Condition inference
+    // Question 8: Condition inference
     if (scenario.patient.medicalHistory.length > 0) {
       const condition = scenario.patient.medicalHistory[0];
       const correctAnswer = condition;
@@ -160,7 +217,7 @@ export const QuizPanel = ({ scenario, onComplete }: QuizPanelProps) => {
       });
     }
 
-    return questions.slice(0, 6); // Return up to 6 questions
+    return questions.slice(0, 7); // Return up to 7 questions
   };
 
   const questions = useMemo(() => generateQuestions(), [scenario]);
