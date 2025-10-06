@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { Button } from "@/components/ui/button";
 import { Scenario } from "@/data/scenarios";
 import { toast } from "sonner";
@@ -163,7 +163,7 @@ export const QuizPanel = ({ scenario, onComplete }: QuizPanelProps) => {
     return questions.slice(0, 6); // Return up to 6 questions
   };
 
-  const questions = generateQuestions();
+  const questions = useMemo(() => generateQuestions(), [scenario]);
 
   const handleAnswer = (answerIndex: number) => {
     if (answered) return;
@@ -213,7 +213,7 @@ export const QuizPanel = ({ scenario, onComplete }: QuizPanelProps) => {
   }
 
   return (
-    <div className="border-4 border-accent p-4 pixel-text document-shadow" style={{ width: "380px", backgroundColor: "hsl(142, 76%, 88%)" }}>
+    <div className="border-4 border-accent p-4 pixel-text document-shadow" style={{ width: "380px", backgroundColor: "hsl(35, 25%, 75%)" }}>
       {/* Header */}
       <div className="border-b-2 border-accent pb-2 mb-3 bg-accent/20">
         <h2 className="font-bold" style={{ fontSize: "11px", color: "#000" }}>
