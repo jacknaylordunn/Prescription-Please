@@ -10,8 +10,8 @@ interface RadioProps {
 export const Radio = ({ dispatchInfo, onStartAssessment, onNewCase, gameState }: RadioProps) => {
   return (
     <div 
-      className="bg-radio-body border-4 border-muted p-6 rounded-sm retro-shadow pixel-text"
-      style={{ width: "400px" }}
+      className="border-4 border-muted p-6 rounded-sm retro-shadow pixel-text animate-scale-in"
+      style={{ width: "400px", backgroundColor: "hsl(240, 10%, 25%)" }}
     >
       {/* Radio Header */}
       <div className="flex items-center justify-between mb-4 pb-3 border-b-2 border-muted">

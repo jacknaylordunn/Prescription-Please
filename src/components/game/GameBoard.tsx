@@ -23,6 +23,7 @@ export const GameBoard = () => {
   const [enlargedDoc, setEnlargedDoc] = useState<number | null>(null);
   const [showQuiz, setShowQuiz] = useState(false);
   const [allScenarios, setAllScenarios] = useState<Scenario[]>([]);
+  const [lastClickedItem, setLastClickedItem] = useState<string | null>(null);
   const [documentConfig, setDocumentConfig] = useState({
     showDNACPR: false,
     showGPLetter: false,
@@ -71,11 +72,13 @@ export const GameBoard = () => {
     setShowQuiz(false);
     setEnlargedPrescription(false);
     setEnlargedDoc(null);
+    setLastClickedItem("radio"); // Bring radio to front
   };
 
   const handleQuizComplete = () => {
     setGameState("complete");
     setShowQuiz(false);
+    setLastClickedItem("radio"); // Bring radio to front on completion
   };
 
   return (
@@ -102,7 +105,12 @@ export const GameBoard = () => {
       </button>
 
       {/* Draggable Radio */}
-      <DraggableItem initialX={50} initialY={50} zIndexBase={20}>
+      <DraggableItem 
+        initialX={50} 
+        initialY={50} 
+        zIndexBase={gameState === "complete" ? 80 : lastClickedItem === "radio" ? 80 : 20}
+        onMouseDown={() => setLastClickedItem("radio")}
+      >
         <Radio
           dispatchInfo={currentScenario.dispatchInfo}
           onStartAssessment={handleStartGame}
@@ -116,9 +124,10 @@ export const GameBoard = () => {
         <DraggableItem 
           initialX={350} 
           initialY={180} 
-          zIndexBase={15}
+          zIndexBase={lastClickedItem === "prescription" ? 75 : 15}
           isEnlarged={enlargedPrescription}
           onDoubleClick={() => setEnlargedPrescription(!enlargedPrescription)}
+          onMouseDown={() => setLastClickedItem("prescription")}
         >
           <Prescription scenario={currentScenario} isEnlarged={enlargedPrescription} />
         </DraggableItem>
@@ -131,9 +140,10 @@ export const GameBoard = () => {
             <DraggableItem 
               initialX={750} 
               initialY={250} 
-              zIndexBase={14}
+              zIndexBase={lastClickedItem === "dnacpr" ? 75 : 14}
               isEnlarged={enlargedDoc === 0}
               onDoubleClick={() => setEnlargedDoc(enlargedDoc === 0 ? null : 0)}
+              onMouseDown={() => setLastClickedItem("dnacpr")}
             >
               <DNACPR 
                 patientName={currentScenario.patient.name}
@@ -148,9 +158,10 @@ export const GameBoard = () => {
             <DraggableItem 
               initialX={600} 
               initialY={420} 
-              zIndexBase={13}
+              zIndexBase={lastClickedItem === "gpletter" ? 75 : 13}
               isEnlarged={enlargedDoc === 1}
               onDoubleClick={() => setEnlargedDoc(enlargedDoc === 1 ? null : 1)}
+              onMouseDown={() => setLastClickedItem("gpletter")}
             >
               <GPLetter 
                 patientName={currentScenario.patient.name}
@@ -167,9 +178,10 @@ export const GameBoard = () => {
             <DraggableItem 
               initialX={200} 
               initialY={380} 
-              zIndexBase={12}
+              zIndexBase={lastClickedItem === "careplan" ? 75 : 12}
               isEnlarged={enlargedDoc === 2}
               onDoubleClick={() => setEnlargedDoc(enlargedDoc === 2 ? null : 2)}
+              onMouseDown={() => setLastClickedItem("careplan")}
             >
               <CarePlan 
                 patientName={currentScenario.patient.name}
@@ -184,9 +196,10 @@ export const GameBoard = () => {
             <DraggableItem 
               initialX={950} 
               initialY={450} 
-              zIndexBase={11}
+              zIndexBase={lastClickedItem === "discharge" ? 75 : 11}
               isEnlarged={enlargedDoc === 3}
               onDoubleClick={() => setEnlargedDoc(enlargedDoc === 3 ? null : 3)}
+              onMouseDown={() => setLastClickedItem("discharge")}
             >
               <DischargeLetter 
                 patientName={currentScenario.patient.name}
@@ -201,7 +214,12 @@ export const GameBoard = () => {
 
       {/* Draggable Quiz Panel */}
       {showQuiz && (
-        <DraggableItem initialX={window.innerWidth / 2 - 250} initialY={100} zIndexBase={25}>
+        <DraggableItem 
+          initialX={window.innerWidth / 2 - 250} 
+          initialY={100} 
+          zIndexBase={90}
+          onMouseDown={() => setLastClickedItem("quiz")}
+        >
           <QuizPanel scenario={currentScenario} onComplete={handleQuizComplete} />
         </DraggableItem>
       )}

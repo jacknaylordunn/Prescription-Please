@@ -7,6 +7,7 @@ interface DraggableItemProps {
   zIndexBase?: number;
   isEnlarged?: boolean;
   onDoubleClick?: () => void;
+  onMouseDown?: () => void;
 }
 
 export const DraggableItem = ({ 
@@ -15,7 +16,8 @@ export const DraggableItem = ({
   initialY = 100, 
   zIndexBase = 10,
   isEnlarged = false,
-  onDoubleClick 
+  onDoubleClick,
+  onMouseDown: onMouseDownProp
 }: DraggableItemProps) => {
   const [position, setPosition] = useState({ x: initialX, y: initialY });
   const [isDragging, setIsDragging] = useState(false);
@@ -57,6 +59,7 @@ export const DraggableItem = ({
       };
       setIsDragging(true);
       setZIndex(100); // Bring to front
+      onMouseDownProp?.(); // Notify parent
     }
   };
 
