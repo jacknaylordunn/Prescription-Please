@@ -9,11 +9,8 @@ interface DischargeLetterProps {
 }
 
 export const DischargeLetter = ({ patientName, age, condition, isEnlarged = false, doctorName = "Anderson", admissionDate, dischargeDate }: DischargeLetterProps) => {
-  const defaultAdmissionDate = new Date(Date.now() - Math.floor(Math.random() * 7 + 1) * 24 * 60 * 60 * 1000);
-  const defaultDischargeDate = new Date();
-  
-  const admitDate = admissionDate || defaultAdmissionDate;
-  const disDate = dischargeDate || defaultDischargeDate;
+  const admitDate = admissionDate || new Date();
+  const disDate = dischargeDate || new Date();
   
   return (
     <div 

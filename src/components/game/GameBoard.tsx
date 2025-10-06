@@ -65,6 +65,8 @@ export const GameBoard = () => {
     const today = new Date();
     const admissionDate = new Date(Date.now() - Math.floor(Math.random() * 7 + 1) * 24 * 60 * 60 * 1000);
     const doctorNames = ["Smith", "Jones", "Williams", "Brown", "Taylor", "Davies", "Wilson", "Evans", "Anderson", "Mitchell", "Patterson", "Thompson", "Roberts", "Johnson"];
+    const appointmentTimes = ["09:30", "10:45", "14:20", "15:30"];
+    const medicationChanges = ["Dose increased", "New medication added"];
     
     currentScenario.documentMetadata = {
       prescriptionDoctor: doctorNames[Math.floor(Math.random() * doctorNames.length)],
@@ -77,7 +79,15 @@ export const GameBoard = () => {
       respectGMC: Math.floor(1000000 + Math.random() * 9000000).toString(),
       admissionDate,
       dischargeDate: today,
-      formattedDate: today.toLocaleDateString('en-GB')
+      formattedDate: today.toLocaleDateString('en-GB'),
+      fp10Code: `FP10-${Math.floor(Math.random() * 10000).toString().padStart(4, '0')}`,
+      bloodTestDate: new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000).toLocaleDateString('en-GB'),
+      cholesterolValue: Math.random() > 0.5 ? "5.8 mmol/L (high)" : "4.2 mmol/L (target)",
+      appointmentSummaryDate: new Date(today.getTime() - 3 * 24 * 60 * 60 * 1000).toLocaleDateString('en-GB'),
+      heartRate: Math.floor(Math.random() * 20) + 72,
+      appointmentTime: appointmentTimes[Math.floor(Math.random() * appointmentTimes.length)],
+      medicationReviewDate: new Date(today.getTime() - 5 * 24 * 60 * 60 * 1000).toLocaleDateString('en-GB'),
+      medicationChange: medicationChanges[Math.floor(Math.random() * medicationChanges.length)]
     };
   }
   
@@ -359,6 +369,13 @@ export const GameBoard = () => {
                 letterType={letterType}
                 doctorName={currentScenario.documentMetadata?.gpDoctor}
                 formattedDate={currentScenario.documentMetadata?.formattedDate}
+                bloodTestDate={currentScenario.documentMetadata?.bloodTestDate}
+                cholesterolValue={currentScenario.documentMetadata?.cholesterolValue}
+                appointmentSummaryDate={currentScenario.documentMetadata?.appointmentSummaryDate}
+                heartRate={currentScenario.documentMetadata?.heartRate}
+                appointmentTime={currentScenario.documentMetadata?.appointmentTime}
+                medicationReviewDate={currentScenario.documentMetadata?.medicationReviewDate}
+                medicationChange={currentScenario.documentMetadata?.medicationChange}
               />
             </DraggableItem>
           ))}

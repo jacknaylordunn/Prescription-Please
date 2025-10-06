@@ -99,7 +99,7 @@ export const Prescription = ({ scenario, isEnlarged = false }: PrescriptionProps
       {/* Footer */}
       <div className="flex justify-between items-center mt-1 pt-1 border-t border-paper-border">
         <div className="bg-primary text-primary-foreground px-2 py-0.5 font-bold border border-primary" style={{ fontSize: "7px" }}>NHS</div>
-        <div className="font-bold" style={{ fontSize: "6px", color: '#000' }}>FP10-{Math.floor(Math.random() * 10000).toString().padStart(4, '0')}</div>
+        <div className="font-bold" style={{ fontSize: "6px", color: '#000' }}>{scenario.documentMetadata?.fp10Code || 'FP10-0000'}</div>
       </div>
     </div>
   );

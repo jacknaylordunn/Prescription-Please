@@ -8,9 +8,33 @@ interface GPLetterProps {
   letterType: "Blood Test Results" | "Appointment Summary" | "Appointment Confirmation" | "Medication Review";
   doctorName?: string;
   formattedDate?: string;
+  bloodTestDate?: string;
+  cholesterolValue?: string;
+  appointmentSummaryDate?: string;
+  heartRate?: number;
+  appointmentTime?: string;
+  medicationReviewDate?: string;
+  medicationChange?: string;
 }
 
-export const GPLetter = ({ patientName, age, gender, address, condition, isEnlarged = false, letterType, doctorName = "Smith", formattedDate }: GPLetterProps) => {
+export const GPLetter = ({ 
+  patientName, 
+  age, 
+  gender, 
+  address, 
+  condition, 
+  isEnlarged = false, 
+  letterType, 
+  doctorName = "Smith", 
+  formattedDate,
+  bloodTestDate,
+  cholesterolValue,
+  appointmentSummaryDate,
+  heartRate,
+  appointmentTime,
+  medicationReviewDate,
+  medicationChange
+}: GPLetterProps) => {
   const today = new Date();
   const dateToShow = formattedDate || today.toLocaleDateString('en-GB');
   
@@ -20,12 +44,12 @@ export const GPLetter = ({ patientName, age, gender, address, condition, isEnlar
       type: "Blood Test Results",
       content: (
         <>
-          <p>Your recent blood tests from {new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000).toLocaleDateString('en-GB')} show:</p>
+          <p>Your recent blood tests from {bloodTestDate || new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000).toLocaleDateString('en-GB')} show:</p>
           <div className="border-l-2 border-nhs-blue pl-2 bg-nhs-blue/10 py-2">
             <div style={{ fontSize: "6px" }}>
               • HbA1c: {age > 60 ? "68 mmol/mol (elevated)" : "42 mmol/mol (normal)"}<br/>
               • eGFR: {age > 70 ? "52 ml/min (reduced)" : "78 ml/min (acceptable)"}<br/>
-              • Cholesterol: {Math.random() > 0.5 ? "5.8 mmol/L (high)" : "4.2 mmol/L (target)"}<br/>
+              • Cholesterol: {cholesterolValue || "4.2 mmol/L (target)"}<br/>
               • TSH: {condition.includes("Hypothyroidism") ? "8.2 mU/L (high)" : "2.4 mU/L (normal)"}
             </div>
           </div>
@@ -37,13 +61,13 @@ export const GPLetter = ({ patientName, age, gender, address, condition, isEnlar
       type: "Appointment Summary",
       content: (
         <>
-          <p>Summary of consultation on<br/>{new Date(today.getTime() - 3 * 24 * 60 * 60 * 1000).toLocaleDateString('en-GB')}:</p>
+          <p>Summary of consultation on<br/>{appointmentSummaryDate || new Date(today.getTime() - 3 * 24 * 60 * 60 * 1000).toLocaleDateString('en-GB')}:</p>
           <div className="border-l-2 border-nhs-blue pl-2 bg-nhs-blue/10 py-2">
             <div style={{ fontSize: "6px" }}>
               Presenting complaint: {condition}<br/>
               <br/>
               Examination: BP {age > 65 ? "162/94" : "138/86"} mmHg<br/>
-              Heart rate: {Math.floor(Math.random() * 20) + 72} bpm<br/>
+              Heart rate: {heartRate || 72} bpm<br/>
               SpO2: {age > 70 ? "94%" : "97%"} on air<br/>
               <br/>
               Plan: Medication review.<br/>
@@ -63,7 +87,7 @@ export const GPLetter = ({ patientName, age, gender, address, condition, isEnlar
             <div className="font-bold mb-1" style={{ fontSize: "7px" }}>Details:</div>
             <div style={{ fontSize: "6px" }}>
               Date: {new Date(today.getTime() + 14 * 24 * 60 * 60 * 1000).toLocaleDateString('en-GB')}<br/>
-              Time: {["09:30", "10:45", "14:20", "15:30"][Math.floor(Math.random() * 4)]}<br/>
+              Time: {appointmentTime || "09:30"}<br/>
               With: Dr. {doctorName}<br/>
               Purpose: Medication review<br/>
               <br/>
@@ -78,13 +102,13 @@ export const GPLetter = ({ patientName, age, gender, address, condition, isEnlar
       type: "Medication Review",
       content: (
         <>
-          <p>Following our discussion on<br/>{new Date(today.getTime() - 5 * 24 * 60 * 60 * 1000).toLocaleDateString('en-GB')}:</p>
+          <p>Following our discussion on<br/>{medicationReviewDate || new Date(today.getTime() - 5 * 24 * 60 * 60 * 1000).toLocaleDateString('en-GB')}:</p>
           <div className="border-l-2 border-nhs-blue pl-2 bg-nhs-blue/10 py-2">
             <div style={{ fontSize: "6px" }}>
               We have reviewed your<br/>medications for {condition}.<br/>
               <br/>
               Changes made:<br/>
-              • {Math.random() > 0.5 ? "Dose increased" : "New medication added"}<br/>
+              • {medicationChange || "Dose increased"}<br/>
               • See updated prescription<br/>
               <br/>
               Continue all other medications<br/>as previously prescribed.
