@@ -478,7 +478,7 @@ export const QuizPanel = ({ scenario, onComplete }: QuizPanelProps) => {
       setAnswered(false);
       setSelectedAnswer(null);
     } else {
-      toast.success(`Assessment complete! Score: ${score + 1}/${questions.length}`);
+      toast.success(`Assessment complete! Score: ${score}/${questions.length}`);
       onComplete();
     }
   };
