@@ -92,12 +92,12 @@ export const GameBoard = () => {
         backgroundPosition: "center",
       }}
     >
-      {/* Lamp off - always visible at the back */}
+      {/* Lamp off - always visible at the front */}
       <img 
         src={lampOffImg} 
         alt="Lamp off" 
         className="absolute inset-0 w-full h-full object-cover pointer-events-none"
-        style={{ zIndex: 1 }}
+        style={{ zIndex: 100 }}
       />
       
       {/* Lamp on overlay - toggles visibility */}
