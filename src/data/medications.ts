@@ -136,4 +136,102 @@ export const medications: Medication[] = [
   { name: "Memantine", category: "Anti-dementia", dose: "10-20mg", frequency: "Once daily", indication: "Moderate to severe dementia", sideEffects: ["Dizziness", "Headache"], timeCritical: false, class: "NMDA receptor antagonist" },
   { name: "Mesalazine", category: "Anti-inflammatory", dose: "800mg-2.4g", frequency: "Three times daily", indication: "Ulcerative colitis, Crohn's disease", sideEffects: ["Nausea", "Headache", "Rash"], timeCritical: false, class: "5-aminosalicylic acid" },
   { name: "Naproxen", category: "NSAID", dose: "250-500mg", frequency: "Twice daily", indication: "Pain, inflammation", sideEffects: ["Gastric irritation", "Bleeding risk"], timeCritical: false, class: "NSAID" },
+  
+  // Additional Cardiovascular
+  { name: "Losartan", category: "Cardiovascular", dose: "25-100mg", frequency: "Once daily", indication: "Hypertension, diabetic nephropathy", sideEffects: ["Dizziness", "Hypotension", "Hyperkalaemia"], timeCritical: false, class: "Angiotensin receptor blocker (ARB)" },
+  { name: "Candesartan", category: "Cardiovascular", dose: "4-32mg", frequency: "Once daily", indication: "Hypertension, heart failure", sideEffects: ["Dizziness", "Hypotension"], timeCritical: false, class: "Angiotensin receptor blocker (ARB)" },
+  { name: "Perindopril", category: "Cardiovascular", dose: "2-8mg", frequency: "Once daily", indication: "Hypertension, heart failure", sideEffects: ["Dry cough", "Dizziness"], timeCritical: false, class: "ACE inhibitor" },
+  { name: "Diltiazem", category: "Cardiovascular", dose: "60-120mg", frequency: "Twice daily", indication: "Hypertension, angina", sideEffects: ["Ankle swelling", "Bradycardia", "Constipation"], timeCritical: false, class: "Calcium channel blocker" },
+  { name: "Verapamil", category: "Cardiovascular", dose: "40-120mg", frequency: "Three times daily", indication: "Hypertension, angina, arrhythmias", sideEffects: ["Constipation", "Bradycardia", "Ankle swelling"], timeCritical: false, class: "Calcium channel blocker" },
+  { name: "Isosorbide Mononitrate", category: "Cardiovascular", dose: "20-60mg", frequency: "Twice daily", indication: "Angina prophylaxis", sideEffects: ["Headache", "Dizziness", "Flushing"], timeCritical: false, class: "Nitrate" },
+  { name: "GTN Spray", category: "Cardiovascular", dose: "400mcg", frequency: "As required", indication: "Angina relief", sideEffects: ["Headache", "Dizziness", "Hypotension"], timeCritical: false, class: "Nitrate" },
+  { name: "Aspirin", category: "Antiplatelet", dose: "75mg", frequency: "Once daily", indication: "Cardiovascular protection", sideEffects: ["Gastric irritation", "Bleeding risk"], timeCritical: false, class: "Antiplatelet" },
+  { name: "Clopidogrel", category: "Antiplatelet", dose: "75mg", frequency: "Once daily", indication: "Post-MI, stroke prevention", sideEffects: ["Bleeding risk", "Dyspepsia"], timeCritical: false, class: "Antiplatelet" },
+  { name: "Ticagrelor", category: "Antiplatelet", dose: "90mg", frequency: "Twice daily", indication: "Acute coronary syndrome", sideEffects: ["Bleeding risk", "Dyspnoea"], timeCritical: false, class: "Antiplatelet" },
+  { name: "Propranolol", category: "Cardiovascular", dose: "40-80mg", frequency: "Two to three times daily", indication: "Migraine prophylaxis, hypertension, anxiety", sideEffects: ["Bradycardia", "Fatigue", "Cold extremities"], timeCritical: false, class: "Beta-blocker" },
+  
+  // Additional Respiratory
+  { name: "Beclometasone", category: "Corticosteroid inhaler", dose: "100-400mcg", frequency: "Twice daily", indication: "Asthma, COPD", sideEffects: ["Oral thrush", "Hoarse voice"], timeCritical: false, class: "Inhaled corticosteroid" },
+  { name: "Budesonide", category: "Corticosteroid inhaler", dose: "200-800mcg", frequency: "Twice daily", indication: "Asthma, COPD", sideEffects: ["Oral thrush", "Hoarse voice"], timeCritical: false, class: "Inhaled corticosteroid" },
+  { name: "Fluticasone", category: "Corticosteroid inhaler", dose: "100-500mcg", frequency: "Twice daily", indication: "Asthma", sideEffects: ["Oral thrush", "Hoarse voice"], timeCritical: false, class: "Inhaled corticosteroid" },
+  { name: "Tiotropium", category: "Bronchodilator", dose: "18mcg", frequency: "Once daily", indication: "COPD", sideEffects: ["Dry mouth", "Constipation"], timeCritical: false, class: "Long-acting anticholinergic" },
+  { name: "Montelukast", category: "Leukotriene antagonist", dose: "10mg", frequency: "Once daily at night", indication: "Asthma prophylaxis", sideEffects: ["Headache", "Abdominal pain"], timeCritical: false, class: "Leukotriene receptor antagonist" },
+  { name: "Carbocisteine", category: "Mucolytic", dose: "375-750mg", frequency: "Three times daily", indication: "COPD, chronic bronchitis", sideEffects: ["Gastrointestinal upset"], timeCritical: false, class: "Mucolytic" },
+  { name: "Theophylline", category: "Bronchodilator", dose: "200-400mg", frequency: "Twice daily", indication: "Asthma, COPD", sideEffects: ["Nausea", "Palpitations", "Insomnia"], timeCritical: false, class: "Methylxanthine" },
+  
+  // Additional Antibiotics
+  { name: "Doxycycline", category: "Antibiotic", dose: "100mg", frequency: "Once or twice daily", indication: "Respiratory infections, acne", sideEffects: ["Nausea", "Photosensitivity", "Oesophagitis"], timeCritical: false, class: "Tetracycline" },
+  { name: "Nitrofurantoin", category: "Antibiotic", dose: "50-100mg", frequency: "Four times daily", indication: "UTI treatment and prophylaxis", sideEffects: ["Nausea", "Pulmonary fibrosis (long-term)"], timeCritical: false, class: "Nitrofuran" },
+  { name: "Ciprofloxacin", category: "Antibiotic", dose: "250-750mg", frequency: "Twice daily", indication: "UTI, respiratory infections", sideEffects: ["Nausea", "Tendon damage", "Photosensitivity"], timeCritical: false, class: "Fluoroquinolone" },
+  { name: "Metronidazole", category: "Antibiotic", dose: "400mg", frequency: "Three times daily", indication: "Anaerobic infections, C. difficile", sideEffects: ["Metallic taste", "Nausea", "Disulfiram reaction with alcohol"], timeCritical: false, class: "Nitroimidazole" },
+  { name: "Cefalexin", category: "Antibiotic", dose: "250-500mg", frequency: "Three or four times daily", indication: "Skin and soft tissue infections", sideEffects: ["Diarrhoea", "Nausea"], timeCritical: false, class: "Cephalosporin" },
+  { name: "Erythromycin", category: "Antibiotic", dose: "250-500mg", frequency: "Four times daily", indication: "Respiratory infections, penicillin allergy", sideEffects: ["Nausea", "Diarrhoea", "Hepatotoxicity"], timeCritical: false, class: "Macrolide" },
+  { name: "Azithromycin", category: "Antibiotic", dose: "250-500mg", frequency: "Once daily", indication: "Respiratory infections, atypical pneumonia", sideEffects: ["Nausea", "Diarrhoea"], timeCritical: false, class: "Macrolide" },
+  
+  // Additional Analgesics
+  { name: "Diclofenac", category: "Analgesic", dose: "50mg", frequency: "Three times daily", indication: "Pain and inflammation", sideEffects: ["Gastric irritation", "Cardiovascular risk"], timeCritical: false, class: "NSAID" },
+  { name: "Fentanyl patch", category: "Analgesic", dose: "12-100mcg/hr", frequency: "Change every 72 hours", indication: "Chronic severe pain", sideEffects: ["Respiratory depression", "Constipation", "Drowsiness"], timeCritical: false, class: "Opioid" },
+  { name: "Oxycodone", category: "Analgesic", dose: "5-10mg", frequency: "Four to six hourly", indication: "Moderate to severe pain", sideEffects: ["Constipation", "Drowsiness", "Respiratory depression"], timeCritical: false, class: "Opioid" },
+  { name: "Pregabalin", category: "Analgesic", dose: "75-300mg", frequency: "Twice daily", indication: "Neuropathic pain, anxiety", sideEffects: ["Dizziness", "Drowsiness", "Weight gain"], timeCritical: false, class: "Anticonvulsant (used for pain)" },
+  { name: "Duloxetine", category: "Analgesic", dose: "60mg", frequency: "Once daily", indication: "Neuropathic pain, depression", sideEffects: ["Nausea", "Dry mouth", "Insomnia"], timeCritical: false, class: "SNRI" },
+  
+  // Additional Antidiabetic
+  { name: "Sitagliptin", category: "Antidiabetic", dose: "100mg", frequency: "Once daily", indication: "Type 2 diabetes", sideEffects: ["Headache", "Upper respiratory tract infection"], timeCritical: true, class: "DPP-4 inhibitor" },
+  { name: "Empagliflozin", category: "Antidiabetic", dose: "10-25mg", frequency: "Once daily", indication: "Type 2 diabetes, heart failure", sideEffects: ["Urinary tract infections", "Genital infections"], timeCritical: true, class: "SGLT2 inhibitor" },
+  { name: "Dapagliflozin", category: "Antidiabetic", dose: "10mg", frequency: "Once daily", indication: "Type 2 diabetes, heart failure", sideEffects: ["Urinary tract infections", "Hypotension"], timeCritical: true, class: "SGLT2 inhibitor" },
+  { name: "Glimepiride", category: "Antidiabetic", dose: "1-4mg", frequency: "Once daily", indication: "Type 2 diabetes", sideEffects: ["Hypoglycaemia", "Weight gain"], timeCritical: true, class: "Sulfonylurea" },
+  
+  // Additional Thyroid
+  { name: "Carbimazole", category: "Thyroid", dose: "20-40mg", frequency: "Once daily", indication: "Hyperthyroidism", sideEffects: ["Agranulocytosis", "Rash", "Nausea"], timeCritical: false, class: "Antithyroid drug" },
+  
+  // Urological
+  { name: "Tamsulosin", category: "Urological", dose: "400mcg", frequency: "Once daily", indication: "Benign prostatic hyperplasia", sideEffects: ["Dizziness", "Postural hypotension", "Ejaculatory dysfunction"], timeCritical: false, class: "Alpha-blocker" },
+  { name: "Finasteride", category: "Urological", dose: "5mg", frequency: "Once daily", indication: "Benign prostatic hyperplasia", sideEffects: ["Erectile dysfunction", "Reduced libido"], timeCritical: false, class: "5-alpha reductase inhibitor" },
+  { name: "Solifenacin", category: "Urological", dose: "5-10mg", frequency: "Once daily", indication: "Overactive bladder", sideEffects: ["Dry mouth", "Constipation", "Blurred vision"], timeCritical: false, class: "Antimuscarinic" },
+  { name: "Tolterodine", category: "Urological", dose: "2-4mg", frequency: "Twice daily", indication: "Overactive bladder", sideEffects: ["Dry mouth", "Constipation"], timeCritical: false, class: "Antimuscarinic" },
+  
+  // Antihistamines
+  { name: "Cetirizine", category: "Antihistamine", dose: "10mg", frequency: "Once daily", indication: "Allergies, hay fever", sideEffects: ["Drowsiness", "Dry mouth"], timeCritical: false, class: "Non-sedating antihistamine" },
+  { name: "Loratadine", category: "Antihistamine", dose: "10mg", frequency: "Once daily", indication: "Allergies, hay fever", sideEffects: ["Headache", "Drowsiness"], timeCritical: false, class: "Non-sedating antihistamine" },
+  { name: "Fexofenadine", category: "Antihistamine", dose: "120-180mg", frequency: "Once daily", indication: "Allergies, hay fever", sideEffects: ["Headache", "Drowsiness"], timeCritical: false, class: "Non-sedating antihistamine" },
+  { name: "Chlorphenamine", category: "Antihistamine", dose: "4mg", frequency: "Four to six hourly", indication: "Allergies, anaphylaxis", sideEffects: ["Sedation", "Dry mouth", "Urinary retention"], timeCritical: false, class: "Sedating antihistamine" },
+  
+  // Gout
+  { name: "Allopurinol", category: "Antigout", dose: "100-300mg", frequency: "Once daily", indication: "Gout prophylaxis", sideEffects: ["Rash", "Hepatotoxicity"], timeCritical: false, class: "Xanthine oxidase inhibitor" },
+  { name: "Colchicine", category: "Antigout", dose: "500mcg", frequency: "Two to four times daily", indication: "Acute gout", sideEffects: ["Diarrhoea", "Nausea", "Abdominal pain"], timeCritical: false, class: "Anti-inflammatory" },
+  
+  // Osteoporosis
+  { name: "Alendronic Acid", category: "Bisphosphonate", dose: "70mg", frequency: "Once weekly", indication: "Osteoporosis", sideEffects: ["Oesophagitis", "Musculoskeletal pain"], timeCritical: false, class: "Bisphosphonate" },
+  { name: "Risedronate", category: "Bisphosphonate", dose: "35mg", frequency: "Once weekly", indication: "Osteoporosis", sideEffects: ["Oesophagitis", "Headache"], timeCritical: false, class: "Bisphosphonate" },
+  { name: "Denosumab", category: "Bone agent", dose: "60mg", frequency: "Every 6 months (injection)", indication: "Osteoporosis", sideEffects: ["Hypocalcaemia", "Musculoskeletal pain"], timeCritical: false, class: "Monoclonal antibody" },
+  
+  // Migraine
+  { name: "Sumatriptan", category: "Antimigraine", dose: "50-100mg", frequency: "As required (max 2 doses/24hr)", indication: "Acute migraine", sideEffects: ["Chest tightness", "Tingling", "Flushing"], timeCritical: false, class: "Triptan" },
+  { name: "Topiramate", category: "Anticonvulsant", dose: "50-100mg", frequency: "Twice daily", indication: "Migraine prophylaxis, epilepsy", sideEffects: ["Cognitive impairment", "Weight loss", "Paraesthesia"], timeCritical: false, class: "Anticonvulsant" },
+  
+  // Antivirals
+  { name: "Aciclovir", category: "Antiviral", dose: "200-800mg", frequency: "Five times daily", indication: "Herpes simplex, shingles", sideEffects: ["Nausea", "Headache"], timeCritical: false, class: "Antiviral" },
+  { name: "Oseltamivir", category: "Antiviral", dose: "75mg", frequency: "Twice daily", indication: "Influenza", sideEffects: ["Nausea", "Vomiting"], timeCritical: false, class: "Neuraminidase inhibitor" },
+  
+  // Additional Anticoagulants
+  { name: "Dabigatran", category: "Anticoagulant", dose: "110-150mg", frequency: "Twice daily", indication: "DVT prevention, AF", sideEffects: ["Bleeding risk", "Dyspepsia"], timeCritical: true, class: "Direct oral anticoagulant (DOAC)" },
+  { name: "Enoxaparin", category: "Anticoagulant", dose: "40mg", frequency: "Once daily (injection)", indication: "DVT prophylaxis", sideEffects: ["Bleeding risk", "Injection site reactions"], timeCritical: true, class: "Low molecular weight heparin" },
+  
+  // Eye drops
+  { name: "Latanoprost", category: "Eye drops", dose: "One drop", frequency: "Once daily at night", indication: "Glaucoma", sideEffects: ["Eye irritation", "Darkening of iris"], timeCritical: false, class: "Prostaglandin analogue" },
+  { name: "Timolol eye drops", category: "Eye drops", dose: "One drop", frequency: "Twice daily", indication: "Glaucoma", sideEffects: ["Eye irritation", "Systemic beta-blocker effects"], timeCritical: false, class: "Beta-blocker" },
+  
+  // Muscle relaxants
+  { name: "Baclofen", category: "Muscle relaxant", dose: "5-25mg", frequency: "Three times daily", indication: "Muscle spasticity", sideEffects: ["Drowsiness", "Weakness", "Nausea"], timeCritical: false, class: "Muscle relaxant" },
+  { name: "Tizanidine", category: "Muscle relaxant", dose: "2-4mg", frequency: "Three times daily", indication: "Muscle spasticity", sideEffects: ["Drowsiness", "Dry mouth", "Hypotension"], timeCritical: false, class: "Alpha-2 agonist" },
+  
+  // Additional Anti-dementia
+  { name: "Donepezil", category: "Anti-dementia", dose: "5-10mg", frequency: "Once daily at night", indication: "Alzheimer's disease", sideEffects: ["Nausea", "Diarrhoea", "Insomnia"], timeCritical: false, class: "Acetylcholinesterase inhibitor" },
+  { name: "Rivastigmine", category: "Anti-dementia", dose: "3-6mg", frequency: "Twice daily", indication: "Alzheimer's disease, Parkinson's dementia", sideEffects: ["Nausea", "Vomiting", "Dizziness"], timeCritical: false, class: "Acetylcholinesterase inhibitor" },
+  
+  // Additional Steroids
+  { name: "Fludrocortisone", category: "Steroid", dose: "50-300mcg", frequency: "Once daily", indication: "Adrenal insufficiency", sideEffects: ["Hypertension", "Hypokalaemia", "Fluid retention"], timeCritical: true, class: "Mineralocorticoid" },
+  
+  // Additional Antibiotics
+  { name: "Co-trimoxazole", category: "Antibiotic", dose: "960mg", frequency: "Twice daily", indication: "Pneumocystis prophylaxis, UTI", sideEffects: ["Rash", "Nausea", "Blood disorders"], timeCritical: false, class: "Sulfonamide combination" },
 ];

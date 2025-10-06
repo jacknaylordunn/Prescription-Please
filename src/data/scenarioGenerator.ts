@@ -150,93 +150,181 @@ const conditionTemplates = [
     condition: "Chronic Kidney Disease",
     ageRange: [55, 80],
     presentation: "Fatigue, nausea, swelling",
-    medications: ["Furosemide", "Ramipril", "Ferrous sulfate", "Alfacalcidol"],
-    history: ["CKD stage 4", "Anaemia", "Hypertension"],
-    dispatch: "unwell, kidney disease patient. Patient lethargic, appears pale, ankles swollen."
+    medications: ["Furosemide", "Ramipril", "Ferrous Sulphate", "Alfacalcidol"],
+    history: ["CKD stage 4 eGFR 22", "Anaemia of chronic disease", "Hypertension"],
+    dispatch: "unwell, kidney disease patient. Patient lethargic, appears pale, periorbital and bilateral ankle oedema, uraemic fetor noted.",
+    gpLetters: ["Blood Test Results", "Appointment Summary"] as GPLetterType[]
   },
   {
     condition: "Rheumatoid Arthritis",
     ageRange: [40, 70],
-    presentation: "Joint pain and swelling, morning stiffness",
+    presentation: "Symmetrical polyarthritis with severe morning stiffness lasting 2 hours, swan-neck deformities, joint pain and swelling",
     medications: ["Methotrexate", "Folic Acid", "Naproxen", "Omeprazole"],
-    history: ["Rheumatoid arthritis", "Hypertension"],
-    dispatch: "severe joint pain, arthritis patient. Patient struggling to move, hands swollen."
+    history: ["Rheumatoid arthritis seropositive", "Hypertension", "Previous pericarditis"],
+    dispatch: "severe joint pain, longstanding arthritis patient. Patient struggling to move, hands showing ulnar deviation and swan-neck deformities, warm swollen joints.",
+    gpLetters: ["Medication Review", "Blood Test Results"] as GPLetterType[]
+  },
+  {
+    condition: "Acute Gout",
+    ageRange: [45, 70],
+    presentation: "Severe pain and swelling in first metatarsophalangeal joint, red hot tender joint, unable to weight bear",
+    medications: ["Colchicine", "Naproxen", "Omeprazole", "Allopurinol"],
+    history: ["Recurrent gout", "Hypertension", "High alcohol intake"],
+    dispatch: "acute severe foot pain. Patient in severe pain, first toe red hot and swollen, refusing to weight bear, previous gout episodes.",
+    gpLetters: ["Blood Test Results"] as GPLetterType[]
   },
   {
     condition: "Hypothyroidism",
     ageRange: [30, 65],
-    presentation: "Fatigue, weight gain, cold intolerance",
+    presentation: "Severe fatigue, weight gain 10kg over 6 months, cold intolerance, constipation, dry skin",
     medications: ["Levothyroxine", "Sertraline", "Vitamin D"],
-    history: ["Hypothyroidism", "Depression", "Vitamin D deficiency"],
-    dispatch: "very tired, feeling unwell. Patient sitting, appears exhausted but stable."
+    history: ["Primary hypothyroidism", "Depression", "Vitamin D deficiency"],
+    dispatch: "very tired, feeling generally unwell. Patient sitting, appears exhausted but observations stable, bradycardic HR 52.",
+    gpLetters: ["Blood Test Results", "Appointment Confirmation"] as GPLetterType[]
   },
   {
     condition: "Gastro-oesophageal Reflux",
     ageRange: [40, 70],
-    presentation: "Severe heartburn, chest discomfort, regurgitation",
+    presentation: "Severe retrosternal burning pain worse after meals and lying flat, regurgitation of acid, water brash",
     medications: ["Lansoprazole", "Gaviscon", "Ranitidine"],
-    history: ["GORD", "Hiatus hernia"],
-    dispatch: "chest pain query cardiac, reflux history. Patient anxious, chest discomfort but obs stable."
+    history: ["GORD", "Hiatus hernia", "Barrett's oesophagus on surveillance"],
+    dispatch: "chest pain query cardiac, longstanding reflux history. Patient anxious about chest discomfort but observations stable, pain worse after eating.",
+    gpLetters: ["Appointment Summary"] as GPLetterType[]
   },
   {
-    condition: "Bipolar Disorder",
+    condition: "Bipolar Disorder Manic Episode",
     ageRange: [25, 55],
-    presentation: "Mood swings, manic episode, risk assessment needed",
-    medications: ["Lithium", "Olanzapine", "Sodium valproate", "Sertraline"],
-    history: ["Bipolar disorder", "Previous suicide attempt"],
-    dispatch: "mental health concern, manic behaviour. Patient agitated but cooperative, family present."
-  },
-  {
-    condition: "Dementia with Agitation",
-    ageRange: [75, 95],
-    presentation: "Confusion, agitation, wandering",
-    medications: ["Memantine", "Risperidone", "Zopiclone", "Adcal D3"],
-    history: ["Vascular dementia", "Hypertension", "Previous falls"],
-    dispatch: "confused elderly patient, care home. Patient wandering, trying to leave, distressed."
-  },
-  {
-    condition: "Inflammatory Bowel Disease",
-    ageRange: [25, 50],
-    presentation: "Abdominal pain, bloody diarrhea, weight loss",
-    medications: ["Mesalazine", "Azathioprine", "Prednisolone", "Folic Acid"],
-    history: ["Crohn's disease", "Anaemia"],
-    dispatch: "severe abdominal pain, Crohn's patient. Patient doubled over, multiple toilet visits."
-  },
-  {
-    condition: "Schizophrenia",
-    ageRange: [30, 60],
-    presentation: "Hallucinations, paranoia, non-compliance with medication",
-    medications: ["Clozapine", "Aripiprazole", "Procyclidine", "Diazepam"],
-    history: ["Schizophrenia", "Previous sectioning"],
-    dispatch: "mental health crisis, paranoid behavior. Patient hearing voices, family concerned.",
+    presentation: "Decreased need for sleep, racing thoughts, pressured speech, grandiose ideas, increased spending, risk-taking behaviour for 5 days",
+    medications: ["Lithium", "Olanzapine", "Sodium Valproate", "Sertraline"],
+    history: ["Bipolar affective disorder Type 1", "Previous suicide attempt", "Non-compliance with medication"],
+    dispatch: "mental health concern, manic behaviour, family worried. Patient extremely talkative, flight of ideas, agitated but cooperative, family report financial concerns, needs mental health assessment.",
     gpLetters: ["Medication Review"] as GPLetterType[]
   },
   {
-    condition: "Myasthenia Gravis",
-    ageRange: [30, 60],
-    presentation: "Myasthenic crisis with progressive muscle weakness, diplopia, dysphagia, respiratory compromise",
-    medications: ["Pyridostigmine", "Prednisolone", "Omeprazole"],
-    history: ["Myasthenia gravis", "Post-thymectomy 2 years ago", "Recent chest infection"],
-    dispatch: "urgent respiratory emergency, myasthenia patient in crisis. Patient severe weakness, bilateral ptosis, nasal speech, difficulty swallowing secretions, weak respiratory effort, needs close monitoring.",
-    gpLetters: ["Appointment Summary", "Blood Test Results"] as GPLetterType[]
+    condition: "Vascular Dementia with BPSD",
+    ageRange: [75, 95],
+    presentation: "Progressive cognitive decline, wandering at night, aggression towards carers, visual hallucinations, refusing care",
+    medications: ["Memantine", "Risperidone", "Zopiclone", "Adcal D3"],
+    history: ["Vascular dementia with behavioural disturbance", "Hypertension", "Previous falls x3", "Multiple TIAs"],
+    dispatch: "confused elderly patient, care home calling. Patient agitated, trying to leave building, shouting at staff, MMSE 14/30, needs safeguarding assessment.",
+    gpLetters: ["Medication Review", "Appointment Summary"] as GPLetterType[]
   },
   {
-    condition: "Addison's Disease",
-    ageRange: [25, 55],
-    presentation: "Addisonian crisis with severe hypotension, vomiting, abdominal pain, extreme weakness and confusion",
-    medications: ["Hydrocortisone", "Fludrocortisone", "Omeprazole"],
-    history: ["Addison's disease diagnosed 5 years", "Type 1 diabetes", "Recent gastroenteritis"],
-    dispatch: "critical adrenal crisis, Addison's patient collapsed. Patient hypotensive 85/50, tachycardic 118, dehydrated, hyperpigmented skin, vomiting, GCS 14/15, missed hydrocortisone doses due to vomiting.",
-    gpLetters: ["Blood Test Results", "Medication Review"] as GPLetterType[]
-  },
-  {
-    condition: "Transplant Patient",
-    ageRange: [35, 70],
-    presentation: "Post-renal transplant patient with fever 38.5°C, rigors, reduced urine output, graft site tenderness",
-    medications: ["Tacrolimus", "Azathioprine", "Prednisolone", "Co-trimoxazole"],
-    history: ["Renal transplant 8 months ago", "Hypertension", "End-stage renal failure secondary to diabetes"],
-    dispatch: "transplant rejection query, immunosuppressed patient unwell. Patient pyrexial 38.5°C, tachycardic, graft site tender, reduced urine output, concerned about acute rejection, needs urgent assessment.",
+    condition: "Inflammatory Bowel Disease Flare",
+    ageRange: [25, 50],
+    presentation: "Severe abdominal cramping pain, bloody diarrhoea 15 times daily, weight loss 8kg, fever, mouth ulcers",
+    medications: ["Mesalazine", "Azathioprine", "Prednisolone", "Folic Acid"],
+    history: ["Crohn's disease terminal ileum and colon", "Anaemia", "Previous bowel resection"],
+    dispatch: "severe abdominal pain, Crohn's disease patient in flare. Patient pale, cachectic, doubled over with pain, multiple toilet visits, tachycardic, appears dehydrated.",
     gpLetters: ["Blood Test Results", "Appointment Confirmation"] as GPLetterType[]
+  },
+  {
+    condition: "Treatment-Resistant Schizophrenia",
+    ageRange: [30, 60],
+    presentation: "Auditory hallucinations commanding voices, paranoid delusions, thought disorder, neglecting self-care, non-compliance with depot",
+    medications: ["Clozapine", "Aripiprazole", "Procyclidine", "Diazepam"],
+    history: ["Paranoid schizophrenia", "Multiple hospital admissions", "Previous violence when unwell"],
+    dispatch: "mental health crisis, hearing voices, threatening behaviour. Patient responding to internal stimuli, thought disordered speech, family very concerned, police may be required.",
+    gpLetters: ["Medication Review"] as GPLetterType[]
+  },
+  {
+    condition: "Multiple Sclerosis Relapse",
+    ageRange: [30, 55],
+    presentation: "Acute onset numbness and weakness in left leg, bladder urgency, optic neuritis with blurred vision, extreme fatigue",
+    medications: ["Baclofen", "Gabapentin", "Solifenacin", "Fampridine"],
+    history: ["Relapsing-remitting MS", "Previous relapses affecting mobility", "Neuropathic pain"],
+    dispatch: "worsening weakness, known MS patient. Patient struggling to mobilize, left leg weakness, visual disturbance, needs urgent neurology input.",
+    gpLetters: ["Appointment Summary", "Medication Review"] as GPLetterType[]
+  },
+  {
+    condition: "Angina Pectoris",
+    ageRange: [55, 80],
+    presentation: "Central crushing chest pain on exertion walking uphill, relieved by rest, radiation to left arm and jaw, breathlessness",
+    medications: ["Aspirin", "Atorvastatin", "Bisoprolol", "Isosorbide Mononitrate", "GTN Spray"],
+    history: ["Stable angina CCS Class II", "Hypertension", "Type 2 diabetes", "Ex-smoker"],
+    dispatch: "chest pain on exertion, known angina patient. Patient currently pain-free, anxious, used GTN spray with relief, ECG shows old changes.",
+    gpLetters: ["Blood Test Results", "Appointment Confirmation"] as GPLetterType[]
+  },
+  {
+    condition: "Peripheral Arterial Disease",
+    ageRange: [60, 85],
+    presentation: "Intermittent claudication right calf after 50 meters, rest pain at night, cold pale foot, absent pedal pulses",
+    medications: ["Aspirin", "Atorvastatin", "Clopidogrel", "Ramipril"],
+    history: ["Peripheral arterial disease", "Type 2 diabetes", "Active smoker 40 pack years", "Previous TIA"],
+    dispatch: "leg pain, circulation problems. Patient pale foot noted, capillary refill 5 seconds, absent pulses, needs urgent vascular assessment.",
+    gpLetters: ["Appointment Summary"] as GPLetterType[]
+  },
+  {
+    condition: "Pulmonary Embolism",
+    ageRange: [45, 75],
+    presentation: "Sudden onset pleuritic chest pain and breathlessness, haemoptysis, recent long-haul flight, unilateral leg swelling",
+    medications: ["Apixaban", "Paracetamol"],
+    history: ["Previous DVT", "Factor V Leiden thrombophilia", "Oral contraceptive pill"],
+    dispatch: "sudden breathlessness and chest pain. Patient tachycardic HR 118, tachypnoeic RR 26, SpO2 91% on air, pleuritic pain, swollen left calf, Wells score high risk PE.",
+    gpLetters: ["Blood Test Results"] as GPLetterType[]
+  },
+  {
+    condition: "Sepsis from UTI",
+    ageRange: [75, 95],
+    presentation: "Rigors, fever 39.8°C, confusion, hypotension, tachycardia, dysuria, offensive urine, reduced urine output",
+    medications: ["Co-amoxiclav", "Paracetamol"],
+    history: ["Recurrent UTIs", "Type 2 diabetes", "Chronic kidney disease stage 3"],
+    dispatch: "unwell elderly patient, query sepsis. Patient confused baseline AMTS 4/10, pyrexial 39.8°C, HR 124, BP 88/54, RR 24, NEWS2 score 9 - RED flag sepsis criteria met.",
+    gpLetters: ["Blood Test Results"] as GPLetterType[]
+  },
+  {
+    condition: "Acute Coronary Syndrome",
+    ageRange: [50, 80],
+    presentation: "Crushing central chest pain 45 minutes, radiation to jaw and left arm, sweating, nausea, breathlessness, sense of impending doom",
+    medications: ["Aspirin", "Atorvastatin", "Ramipril"],
+    history: ["Hypertension", "High cholesterol", "Type 2 diabetes", "Family history of MI", "Smoker"],
+    dispatch: "severe chest pain, possible heart attack. Patient pale, clammy, severe pain 9/10, BP 98/64, HR 108, ST elevation on ECG - STEMI activation required.",
+    gpLetters: [] as GPLetterType[]
+  },
+  {
+    condition: "Alcohol Withdrawal",
+    ageRange: [40, 70],
+    presentation: "Tremor, sweating, agitation, visual hallucinations, confusion, last drink 48 hours ago, CIWA-Ar score 22",
+    medications: ["Diazepam", "Thiamine", "Pabrinex"],
+    history: ["Alcohol dependence 80 units/week", "Previous DTs", "Chronic liver disease", "Wernicke's encephalopathy"],
+    dispatch: "alcohol withdrawal, becoming confused and agitated. Patient tremulous, tachycardic 118, hypertensive 168/98, seeing spiders on walls, needs urgent treatment to prevent seizures.",
+    gpLetters: ["Medication Review"] as GPLetterType[]
+  },
+  {
+    condition: "Acute Pancreatitis",
+    ageRange: [40, 70],
+    presentation: "Severe epigastric pain radiating to back, vomiting, unable to eat, pain worse lying flat, relieved by sitting forward",
+    medications: ["Morphine", "Ondansetron"],
+    history: ["Gallstones", "Heavy alcohol use", "Hyperlipidaemia"],
+    dispatch: "severe abdominal pain radiating to back. Patient in agony, vomiting, epigastric tenderness, tachycardic, needs urgent hospital assessment.",
+    gpLetters: [] as GPLetterType[]
+  },
+  {
+    condition: "Thyrotoxic Crisis",
+    ageRange: [30, 60],
+    presentation: "Severe agitation, confusion, fever 39.5°C, palpitations, diarrhoea, tremor, lid lag, goitre palpable",
+    medications: ["Carbimazole", "Propranolol"],
+    history: ["Graves disease", "Recent upper respiratory infection", "Non-compliance with carbimazole"],
+    dispatch: "very unwell, thyroid problem. Patient extremely agitated, pyrexial 39.5°C, tachycardic AF 152, tremulous, life-threatening thyroid storm - needs immediate treatment.",
+    gpLetters: ["Blood Test Results", "Appointment Summary"] as GPLetterType[]
+  },
+  {
+    condition: "Diverticulitis",
+    ageRange: [55, 80],
+    presentation: "Left lower quadrant pain, fever, change in bowel habit, per rectal bleeding, nausea",
+    medications: ["Co-amoxiclav", "Metronidazole", "Paracetamol"],
+    history: ["Known diverticular disease", "Previous diverticulitis", "IBS"],
+    dispatch: "abdominal pain left side, fever. Patient guarding left iliac fossa, tender on palpation, pyrexial 38.2°C, needs imaging to exclude perforation.",
+    gpLetters: ["Appointment Confirmation"] as GPLetterType[]
+  },
+  {
+    condition: "Giant Cell Arteritis",
+    ageRange: [65, 85],
+    presentation: "Severe temporal headache, scalp tenderness, jaw claudication, sudden vision loss right eye, temporal artery pulseless and tender",
+    medications: ["Prednisolone", "Omeprazole", "Adcal D3"],
+    history: ["Polymyalgia rheumatica", "Recent visual disturbance", "Weight loss"],
+    dispatch: "severe headache and vision loss. Patient elderly, tender temples, cannot see from right eye, needs urgent high-dose steroids to save left eye - ophthalmology emergency.",
+    gpLetters: ["Blood Test Results"] as GPLetterType[]
   }
 ];
 

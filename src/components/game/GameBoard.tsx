@@ -33,17 +33,21 @@ export const GameBoard = () => {
     showDischarge: false
   });
 
-  // Generate mixed scenarios on mount
+  // Generate mixed scenarios on mount - ensure no repeats until all scenarios seen
   useEffect(() => {
     const mixed: Scenario[] = [];
-    // Add some predefined scenarios
-    mixed.push(...scenarios.slice(0, 10));
-    // Add random scenarios
-    for (let i = 0; i < 20; i++) {
+    // Add all predefined scenarios
+    mixed.push(...scenarios);
+    // Add many random scenarios for variety
+    for (let i = 0; i < 50; i++) {
       mixed.push(generateRandomScenario());
     }
-    // Shuffle
-    setAllScenarios(mixed.sort(() => Math.random() - 0.5));
+    // Fisher-Yates shuffle for proper randomization
+    for (let i = mixed.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [mixed[i], mixed[j]] = [mixed[j], mixed[i]];
+    }
+    setAllScenarios(mixed);
   }, []);
 
   const currentScenario = allScenarios[currentScenarioIndex] || scenarios[0];
@@ -69,7 +73,25 @@ export const GameBoard = () => {
   };
 
   const handleNewCase = () => {
-    setCurrentScenarioIndex((currentScenarioIndex + 1) % allScenarios.length);
+    // Move to next scenario, reshuffle when we've seen all
+    const nextIndex = (currentScenarioIndex + 1) % allScenarios.length;
+    
+    // If we've completed the full cycle, generate new scenarios and reshuffle
+    if (nextIndex === 0 && allScenarios.length > 0) {
+      const newMixed: Scenario[] = [];
+      newMixed.push(...scenarios);
+      for (let i = 0; i < 50; i++) {
+        newMixed.push(generateRandomScenario());
+      }
+      // Fisher-Yates shuffle
+      for (let i = newMixed.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [newMixed[i], newMixed[j]] = [newMixed[j], newMixed[i]];
+      }
+      setAllScenarios(newMixed);
+    }
+    
+    setCurrentScenarioIndex(nextIndex);
     setGameState("dispatch");
     setShowQuiz(false);
     setEnlargedPrescription(false);
