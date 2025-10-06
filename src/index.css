@@ -162,9 +162,49 @@ All colors MUST be HSL.
       transform: scale(1);
     }
     50% {
-      opacity: 0.8;
-      transform: scale(1.05);
+      opacity: 0.85;
+      transform: scale(1.03);
     }
+  }
+  
+  /* Subtle scan line effect for authenticity */
+  @keyframes scan-line {
+    0% {
+      transform: translateY(-100%);
+    }
+    100% {
+      transform: translateY(100vh);
+    }
+  }
+  
+  /* Paper fold effect */
+  .paper-fold {
+    position: relative;
+  }
+  
+  .paper-fold::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 20px 20px 0;
+    border-color: transparent hsl(40 20% 70%) transparent transparent;
+  }
+  
+  /* Enhanced prescription paper effect */
+  .prescription-texture {
+    background: 
+      repeating-linear-gradient(
+        0deg,
+        hsl(var(--nhs-green)) 0px,
+        hsl(var(--nhs-green)) 1px,
+        hsl(145 45% 92%) 1px,
+        hsl(145 45% 92%) 2px
+      ),
+      linear-gradient(135deg, hsl(var(--nhs-green)) 0%, hsl(145 40% 88%) 100%);
   }
   
   .document-shadow {

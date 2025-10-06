@@ -51,9 +51,10 @@ export const Radio = ({ dispatchInfo, onStartAssessment, onNewCase, gameState }:
         
         {gameState === "quiz" && (
           <div className="text-accent-foreground font-bold animate-fade-in">
-            &gt; *** ASSESSMENT IN PROGRESS ***<br/>
-            &gt; ANSWER ALL QUESTIONS<br/>
-            &gt; <span className="text-accent animate-pulse">KNOWLEDGE CHECK</span>
+            &gt; *** ON SCENE - ASSESSMENT ***<br/>
+            &gt; {dispatchInfo}<br/>
+            <br/>
+            &gt; <span className="text-accent animate-pulse">COMPLETE KNOWLEDGE CHECK</span>
           </div>
         )}
         

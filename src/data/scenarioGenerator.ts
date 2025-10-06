@@ -40,28 +40,28 @@ const conditionTemplates = [
   {
     condition: "Heart Failure",
     ageRange: [65, 85],
-    presentation: "Shortness of breath, ankle swelling, fatigue",
+    presentation: "Shortness of breath, ankle swelling, fatigue for past week",
     medications: ["Furosemide", "Bisoprolol", "Ramipril", "Atorvastatin"],
-    history: ["Heart failure", "Atrial fibrillation", "Hypertension"],
-    dispatch: "elderly patient, difficulty breathing, swollen ankles. Patient conscious, appears breathless at rest.",
+    history: ["Heart failure NYHA Class III", "Atrial fibrillation", "Hypertension"],
+    dispatch: "elderly patient, difficulty breathing, bilateral ankle swelling. Patient sitting upright, orthopnoea, RR 24, SpO2 91% on air.",
     gpLetters: ["Blood Test Results", "Appointment Summary"] as GPLetterType[]
   },
   {
     condition: "COPD Exacerbation",
     ageRange: [55, 80],
-    presentation: "Increased breathlessness, productive cough, wheeze",
+    presentation: "Worsening breathlessness, productive cough with green sputum, wheeze for 3 days",
     medications: ["Salbutamol", "Ipratropium", "Amoxicillin", "Omeprazole"],
-    history: ["COPD", "Ex-smoker", "Hypertension"],
-    dispatch: "breathing difficulty, history of lung disease, productive cough. Patient using accessory muscles to breathe.",
+    history: ["COPD Gold Stage 3", "Ex-smoker 40 pack years", "Hypertension"],
+    dispatch: "severe breathing difficulty, known COPD patient. Using accessory muscles, pursed lip breathing, audible wheeze, SpO2 88% on air.",
     gpLetters: ["Medication Review"] as GPLetterType[]
   },
   {
     condition: "Type 2 Diabetes",
     ageRange: [45, 75],
-    presentation: "High blood sugar readings, increased thirst, tiredness",
+    presentation: "Hyperglycaemia with blood glucose 18mmol/L, polyuria, polydipsia, fatigue for 4 days",
     medications: ["Metformin", "Gliclazide", "Simvastatin", "Ramipril"],
-    history: ["Type 2 diabetes", "Obesity", "High cholesterol"],
-    dispatch: "diabetic patient feeling unwell, blood sugar elevated at home. Patient alert but lethargic.",
+    history: ["Type 2 diabetes poorly controlled HbA1c 72", "Obesity BMI 34", "Hyperlipidaemia"],
+    dispatch: "diabetic emergency, BM 18 at home. Patient alert, appears dehydrated, increased urination, fruity breath noted.",
     gpLetters: ["Appointment Confirmation", "Blood Test Results"] as GPLetterType[]
   },
   {
@@ -76,10 +76,10 @@ const conditionTemplates = [
   {
     condition: "Epilepsy",
     ageRange: [20, 50],
-    presentation: "Recent seizure, post-ictal confusion",
+    presentation: "Tonic-clonic seizure 10 minutes ago, post-ictal phase with confusion and drowsiness",
     medications: ["Levetiracetam", "Sertraline", "Folic Acid"],
-    history: ["Epilepsy", "Depression"],
-    dispatch: "witnessed seizure, now recovering. Patient confused but breathing normally, GCS improving."
+    history: ["Generalised epilepsy", "Depression", "Non-compliance with medications"],
+    dispatch: "witnessed tonic-clonic seizure, now post-ictal. Patient GCS 13/15 (E4 V4 M5), confused to time and place, tongue bitten, incontinent of urine."
   },
   {
     condition: "Depression with Chronic Pain",
@@ -108,10 +108,10 @@ const conditionTemplates = [
   {
     condition: "Asthma",
     ageRange: [20, 45],
-    presentation: "Severe wheeze, breathlessness, unable to complete sentences",
+    presentation: "Acute severe asthma exacerbation, unable to complete sentences, severe wheeze",
     medications: ["Salbutamol", "Omeprazole"],
-    history: ["Asthma", "Eczema"],
-    dispatch: "severe asthma attack, struggling to breathe. Patient using own inhaler with little effect."
+    history: ["Asthma with previous ICU admission", "Eczema", "Hayfever"],
+    dispatch: "life-threatening asthma attack, severe respiratory distress. Patient sat forward, RR 32, SpO2 90%, peak flow 40% predicted, used salbutamol 10 puffs with minimal effect."
   },
   {
     condition: "Cellulitis",
@@ -124,10 +124,10 @@ const conditionTemplates = [
   {
     condition: "Pneumonia",
     ageRange: [65, 85],
-    presentation: "Productive cough, fever, breathlessness, chest pain",
+    presentation: "Community acquired pneumonia with productive cough, fever 39.2°C, pleuritic chest pain, breathlessness for 5 days",
     medications: ["Co-amoxiclav", "Clarithromycin", "Digoxin", "Paracetamol"],
-    history: ["COPD", "Atrial fibrillation"],
-    dispatch: "very breathless, high fever, productive cough. Patient SpO2 low, needs oxygen."
+    history: ["COPD", "Atrial fibrillation rate controlled", "Previous pneumonia x2"],
+    dispatch: "elderly patient, severe respiratory infection. Patient hypoxic SpO2 86% on air, pyrexial 39.2°C, RR 28, productive cough rusty sputum, reduced air entry left base, dull percussion."
   },
   {
     condition: "Hypertension",
@@ -140,10 +140,10 @@ const conditionTemplates = [
   {
     condition: "Parkinson's Disease",
     ageRange: [60, 80],
-    presentation: "Tremor, rigidity, difficulty walking",
+    presentation: "Fall at home with resting tremor, bradykinesia, rigidity, postural instability",
     medications: ["Co-careldopa", "Ropinirole", "Selegiline", "Bisacodyl"],
-    history: ["Parkinson's disease", "Depression", "Constipation"],
-    dispatch: "fallen at home, Parkinson's patient. Patient on floor, no obvious injury, tremor noted.",
+    history: ["Parkinson's disease Hoehn & Yahr Stage 3", "Depression", "Constipation", "Multiple falls"],
+    dispatch: "mechanical fall, known Parkinson's patient. Patient on floor unable to get up, pill-rolling tremor noted, cogwheel rigidity, no head injury, wearing off period noted.",
     gpLetters: ["Medication Review", "Appointment Summary"] as GPLetterType[]
   },
   {
@@ -214,28 +214,28 @@ const conditionTemplates = [
   {
     condition: "Myasthenia Gravis",
     ageRange: [30, 60],
-    presentation: "Muscle weakness, difficulty swallowing, double vision",
+    presentation: "Myasthenic crisis with progressive muscle weakness, diplopia, dysphagia, respiratory compromise",
     medications: ["Pyridostigmine", "Prednisolone", "Omeprazole"],
-    history: ["Myasthenia gravis", "Thymectomy"],
-    dispatch: "difficulty breathing and swallowing, muscle weakness. Patient struggling to speak, ptosis noted.",
+    history: ["Myasthenia gravis", "Post-thymectomy 2 years ago", "Recent chest infection"],
+    dispatch: "urgent respiratory emergency, myasthenia patient in crisis. Patient severe weakness, bilateral ptosis, nasal speech, difficulty swallowing secretions, weak respiratory effort, needs close monitoring.",
     gpLetters: ["Appointment Summary", "Blood Test Results"] as GPLetterType[]
   },
   {
     condition: "Addison's Disease",
     ageRange: [25, 55],
-    presentation: "Extreme fatigue, dizziness, nausea, abdominal pain",
+    presentation: "Addisonian crisis with severe hypotension, vomiting, abdominal pain, extreme weakness and confusion",
     medications: ["Hydrocortisone", "Fludrocortisone", "Omeprazole"],
-    history: ["Addison's disease", "Type 1 diabetes"],
-    dispatch: "very unwell, Addison's patient. Patient hypotensive, appears dehydrated, weak.",
+    history: ["Addison's disease diagnosed 5 years", "Type 1 diabetes", "Recent gastroenteritis"],
+    dispatch: "critical adrenal crisis, Addison's patient collapsed. Patient hypotensive 85/50, tachycardic 118, dehydrated, hyperpigmented skin, vomiting, GCS 14/15, missed hydrocortisone doses due to vomiting.",
     gpLetters: ["Blood Test Results", "Medication Review"] as GPLetterType[]
   },
   {
     condition: "Transplant Patient",
     ageRange: [35, 70],
-    presentation: "Fever, fatigue, recent kidney transplant",
+    presentation: "Post-renal transplant patient with fever 38.5°C, rigors, reduced urine output, graft site tenderness",
     medications: ["Tacrolimus", "Azathioprine", "Prednisolone", "Co-trimoxazole"],
-    history: ["Kidney transplant", "Hypertension", "Previous kidney failure"],
-    dispatch: "transplant patient feeling unwell. Patient febrile, concerned about rejection.",
+    history: ["Renal transplant 8 months ago", "Hypertension", "End-stage renal failure secondary to diabetes"],
+    dispatch: "transplant rejection query, immunosuppressed patient unwell. Patient pyrexial 38.5°C, tachycardic, graft site tender, reduced urine output, concerned about acute rejection, needs urgent assessment.",
     gpLetters: ["Blood Test Results", "Appointment Confirmation"] as GPLetterType[]
   }
 ];

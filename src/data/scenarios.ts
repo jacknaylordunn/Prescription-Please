@@ -65,8 +65,8 @@ export const scenarios: Scenario[] = [
   {
     patient: {
       ...generatePatient(76, "Male"),
-      presentation: "Shortness of breath, ankle swelling, fatigue for 3 days",
-      medicalHistory: ["Heart failure", "Atrial fibrillation", "Type 2 diabetes"]
+      presentation: "Progressive shortness of breath on exertion, orthopnoea, bilateral ankle swelling, fatigue for 3 days",
+      medicalHistory: ["Heart failure NYHA Class III", "Permanent atrial fibrillation", "Type 2 diabetes"]
     },
     prescriptions: [
       { medication: medications.find(m => m.name === "Furosemide")!, quantity: "28 tablets", instructions: "Take one 40mg tablet once daily in the morning" },
@@ -74,15 +74,15 @@ export const scenarios: Scenario[] = [
       { medication: medications.find(m => m.name === "Ramipril")!, quantity: "28 tablets", instructions: "Take one 5mg tablet once daily" },
       { medication: medications.find(m => m.name === "Metformin")!, quantity: "56 tablets", instructions: "Take one 500mg tablet twice daily with food" }
     ],
-    dispatchInfo: "76 year old male, difficulty breathing, history of heart problems. Patient conscious and alert."
+    dispatchInfo: "76 year old male, difficulty breathing worsening over 3 days, bilateral ankle swelling. Patient sat upright in chair, RR 24, SpO2 92% on air, bibasal crackles noted."
   },
   
   // Scenario 2: Atrial Fibrillation
   {
     patient: {
       ...generatePatient(68, "Female"),
-      presentation: "Palpitations, dizziness, chest discomfort",
-      medicalHistory: ["Atrial fibrillation", "Hypertension", "Previous stroke"]
+      presentation: "Rapid irregular palpitations, pre-syncope, central chest discomfort for 2 hours",
+      medicalHistory: ["Permanent atrial fibrillation", "Hypertension", "Previous CVA 2019 with full recovery"]
     },
     prescriptions: [
       { medication: medications.find(m => m.name === "Digoxin")!, quantity: "28 tablets", instructions: "Take one 125mcg tablet once daily" },
@@ -90,15 +90,15 @@ export const scenarios: Scenario[] = [
       { medication: medications.find(m => m.name === "Amlodipine")!, quantity: "28 tablets", instructions: "Take one 5mg tablet once daily" },
       { medication: medications.find(m => m.name === "Atorvastatin")!, quantity: "28 tablets", instructions: "Take one 20mg tablet once daily at night" }
     ],
-    dispatchInfo: "68 year old female, irregular heartbeat, feeling dizzy. Patient sitting, appears anxious."
+    dispatchInfo: "68 year old female, rapid irregular pulse, feeling lightheaded. Patient sitting, appears anxious, HR 142 irregular, BP 98/62."
   },
 
   // Scenario 3: COPD Exacerbation
   {
     patient: {
       ...generatePatient(72, "Male"),
-      presentation: "Increased breathlessness, productive cough, wheeze",
-      medicalHistory: ["COPD", "Ex-smoker", "Hypertension"]
+      presentation: "Severe dyspnoea, productive cough green sputum, expiratory wheeze for 4 days",
+      medicalHistory: ["COPD Gold Stage 3", "Ex-smoker 45 pack years", "Hypertension"]
     },
     prescriptions: [
       { medication: medications.find(m => m.name === "Salbutamol")!, quantity: "1 inhaler", instructions: "Two puffs four times daily and as required" },
@@ -106,7 +106,7 @@ export const scenarios: Scenario[] = [
       { medication: medications.find(m => m.name === "Amoxicillin")!, quantity: "21 capsules", instructions: "Take one 500mg capsule three times daily" },
       { medication: medications.find(m => m.name === "Ramipril")!, quantity: "28 tablets", instructions: "Take one 10mg tablet once daily" }
     ],
-    dispatchInfo: "72 year old male, severe breathing difficulty, history of lung disease. Patient using accessory muscles."
+    dispatchInfo: "72 year old male, severe breathing difficulty, known severe COPD. Patient using accessory muscles, pursed lip breathing, RR 28, SpO2 86% on air, widespread wheeze."
   },
 
   // Scenario 4: Type 2 Diabetes
@@ -129,15 +129,15 @@ export const scenarios: Scenario[] = [
   {
     patient: {
       ...generatePatient(34, "Male"),
-      presentation: "Recent seizure, post-ictal confusion",
-      medicalHistory: ["Epilepsy", "Depression"]
+      presentation: "Witnessed tonic-clonic seizure 15 minutes ago, now post-ictal with confusion and drowsiness",
+      medicalHistory: ["Generalised epilepsy", "Depression", "Previous status epilepticus"]
     },
     prescriptions: [
       { medication: medications.find(m => m.name === "Levetiracetam")!, quantity: "56 tablets", instructions: "Take one 500mg tablet twice daily" },
       { medication: medications.find(m => m.name === "Sertraline")!, quantity: "28 tablets", instructions: "Take one 50mg tablet once daily" },
       { medication: medications.find(m => m.name === "Folic Acid")!, quantity: "28 tablets", instructions: "Take one 5mg tablet once daily" }
     ],
-    dispatchInfo: "34 year old male, witnessed seizure, now recovering. Patient confused but breathing normally."
+    dispatchInfo: "34 year old male, witnessed 3 minute tonic-clonic seizure. Patient post-ictal, GCS 13/15 (E4 V4 M5), tongue bitten laterally, incontinent of urine, gradually improving."
   },
 
   // Scenario 6: Depression and Chronic Pain
@@ -191,13 +191,13 @@ export const scenarios: Scenario[] = [
   {
     patient: {
       ...generatePatient(28, "Female"),
-      presentation: "Severe wheeze, breathlessness, unable to complete sentences",
-      medicalHistory: ["Asthma", "Eczema"]
+      presentation: "Acute severe asthma attack, unable to complete sentences, severe audible wheeze, triggered by cold air",
+      medicalHistory: ["Asthma with previous ITU admission", "Eczema", "Poor compliance with preventer"]
     },
     prescriptions: [
       { medication: medications.find(m => m.name === "Salbutamol")!, quantity: "2 inhalers", instructions: "Two puffs four times daily and as required for wheeze" }
     ],
-    dispatchInfo: "28 year old female, severe asthma attack, struggling to breathe. Patient using own inhaler with little effect."
+    dispatchInfo: "28 year old female, life-threatening asthma. Patient sat forward tripod position, RR 32, SpO2 90% on air, unable to speak full sentences, widespread wheeze, used salbutamol x12 puffs no improvement."
   },
 
   // Scenario 10: Cellulitis
