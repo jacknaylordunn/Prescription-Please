@@ -5,9 +5,10 @@ interface GPLetterProps {
   address: string;
   condition: string;
   isEnlarged?: boolean;
+  letterType: "Blood Test Results" | "Appointment Summary" | "Appointment Confirmation" | "Medication Review";
 }
 
-export const GPLetter = ({ patientName, age, gender, address, condition, isEnlarged = false }: GPLetterProps) => {
+export const GPLetter = ({ patientName, age, gender, address, condition, isEnlarged = false, letterType }: GPLetterProps) => {
   const today = new Date();
   const formattedDate = today.toLocaleDateString('en-GB');
   
@@ -93,7 +94,7 @@ export const GPLetter = ({ patientName, age, gender, address, condition, isEnlar
     }
   ];
 
-  const selectedLetter = letterTypes[Math.floor(Math.random() * letterTypes.length)];
+  const selectedLetter = letterTypes.find(l => l.type === letterType) || letterTypes[0];
   
   return (
     <div 

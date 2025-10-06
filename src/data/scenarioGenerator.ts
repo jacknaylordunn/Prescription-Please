@@ -1,6 +1,8 @@
 import { medications, type Medication } from "./medications";
 import type { Scenario, Patient } from "./scenarios";
 
+export type GPLetterType = "Blood Test Results" | "Appointment Summary" | "Appointment Confirmation" | "Medication Review";
+
 const firstNames = {
   Male: ["James", "John", "Robert", "Michael", "William", "David", "Richard", "Thomas", "Charles", "Daniel", "Matthew", "Andrew", "Paul", "Mark", "George", "Kenneth", "Steven", "Edward", "Brian", "Ronald", "Kevin", "Timothy", "Jason", "Jeffrey", "Ryan", "Gary", "Nicholas", "Eric", "Stephen", "Jacob"],
   Female: ["Mary", "Patricia", "Jennifer", "Linda", "Elizabeth", "Barbara", "Susan", "Jessica", "Sarah", "Karen", "Nancy", "Margaret", "Lisa", "Betty", "Dorothy", "Sandra", "Ashley", "Kimberly", "Donna", "Emily", "Carol", "Michelle", "Amanda", "Melissa", "Deborah", "Stephanie", "Rebecca", "Laura", "Sharon", "Cynthia"]
@@ -41,7 +43,8 @@ const conditionTemplates = [
     presentation: "Shortness of breath, ankle swelling, fatigue",
     medications: ["Furosemide", "Bisoprolol", "Ramipril", "Atorvastatin"],
     history: ["Heart failure", "Atrial fibrillation", "Hypertension"],
-    dispatch: "elderly patient, difficulty breathing, swollen ankles. Patient conscious, appears breathless at rest."
+    dispatch: "elderly patient, difficulty breathing, swollen ankles. Patient conscious, appears breathless at rest.",
+    gpLetters: ["Blood Test Results", "Appointment Summary"] as GPLetterType[]
   },
   {
     condition: "COPD Exacerbation",
@@ -49,7 +52,8 @@ const conditionTemplates = [
     presentation: "Increased breathlessness, productive cough, wheeze",
     medications: ["Salbutamol", "Ipratropium", "Amoxicillin", "Omeprazole"],
     history: ["COPD", "Ex-smoker", "Hypertension"],
-    dispatch: "breathing difficulty, history of lung disease, productive cough. Patient using accessory muscles to breathe."
+    dispatch: "breathing difficulty, history of lung disease, productive cough. Patient using accessory muscles to breathe.",
+    gpLetters: ["Medication Review"] as GPLetterType[]
   },
   {
     condition: "Type 2 Diabetes",
@@ -57,7 +61,8 @@ const conditionTemplates = [
     presentation: "High blood sugar readings, increased thirst, tiredness",
     medications: ["Metformin", "Gliclazide", "Simvastatin", "Ramipril"],
     history: ["Type 2 diabetes", "Obesity", "High cholesterol"],
-    dispatch: "diabetic patient feeling unwell, blood sugar elevated at home. Patient alert but lethargic."
+    dispatch: "diabetic patient feeling unwell, blood sugar elevated at home. Patient alert but lethargic.",
+    gpLetters: ["Appointment Confirmation", "Blood Test Results"] as GPLetterType[]
   },
   {
     condition: "Atrial Fibrillation",
@@ -65,7 +70,8 @@ const conditionTemplates = [
     presentation: "Palpitations, dizziness, chest discomfort",
     medications: ["Digoxin", "Apixaban", "Bisoprolol", "Atorvastatin"],
     history: ["Atrial fibrillation", "Previous stroke", "Hypertension"],
-    dispatch: "irregular heartbeat, feeling dizzy. Patient sitting, appears anxious, pulse irregular."
+    dispatch: "irregular heartbeat, feeling dizzy. Patient sitting, appears anxious, pulse irregular.",
+    gpLetters: ["Blood Test Results"] as GPLetterType[]
   },
   {
     condition: "Epilepsy",
@@ -238,6 +244,7 @@ export function generateRandomScenario(): Scenario {
   return {
     patient,
     prescriptions,
-    dispatchInfo: `${age} year old ${gender.toLowerCase()}, ${template.dispatch}`
+    dispatchInfo: `${age} year old ${gender.toLowerCase()}, ${template.dispatch}`,
+    gpLetters: template.gpLetters
   };
 }

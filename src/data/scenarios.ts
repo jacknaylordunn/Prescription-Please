@@ -11,6 +11,8 @@ export interface Patient {
   medicalHistory: string[];
 }
 
+export type GPLetterType = "Blood Test Results" | "Appointment Summary" | "Appointment Confirmation" | "Medication Review";
+
 export interface Scenario {
   patient: Patient;
   prescriptions: {
@@ -19,6 +21,7 @@ export interface Scenario {
     instructions: string;
   }[];
   dispatchInfo: string;
+  gpLetters?: GPLetterType[];
   additionalDocuments?: {
     type: "Care Plan" | "DNACPR" | "Discharge Letter" | "GP Letter";
     content: string;

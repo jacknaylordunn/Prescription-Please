@@ -50,11 +50,11 @@ export const GameBoard = () => {
   useEffect(() => {
     setDocumentConfig({
       showDNACPR: currentScenario.patient.age > 70 && Math.random() > 0.5,
-      showGPLetter: Math.random() > 0.6,
+      showGPLetter: !!(currentScenario.gpLetters && currentScenario.gpLetters.length > 0),
       showCarePlan: currentScenario.patient.age > 65 && Math.random() > 0.5,
       showDischarge: Math.random() > 0.6
     });
-  }, [currentScenarioIndex, currentScenario.patient.age]);
+  }, [currentScenarioIndex, currentScenario.patient.age, currentScenario.gpLetters]);
 
   const handleStartGame = () => {
     if (gameState === "idle") {
@@ -154,14 +154,15 @@ export const GameBoard = () => {
             </DraggableItem>
           )}
           
-          {documentConfig.showGPLetter && (
+          {documentConfig.showGPLetter && currentScenario.gpLetters && currentScenario.gpLetters.map((letterType, index) => (
             <DraggableItem 
-              initialX={600} 
-              initialY={420} 
-              zIndexBase={lastClickedItem === "gpletter" ? 75 : 13}
-              isEnlarged={enlargedDoc === 1}
-              onDoubleClick={() => setEnlargedDoc(enlargedDoc === 1 ? null : 1)}
-              onMouseDown={() => setLastClickedItem("gpletter")}
+              key={`gpletter-${index}`}
+              initialX={600 + (index * 50)} 
+              initialY={420 + (index * 40)} 
+              zIndexBase={lastClickedItem === `gpletter-${index}` ? 75 : 13 - index}
+              isEnlarged={enlargedDoc === 1 + index}
+              onDoubleClick={() => setEnlargedDoc(enlargedDoc === 1 + index ? null : 1 + index)}
+              onMouseDown={() => setLastClickedItem(`gpletter-${index}`)}
             >
               <GPLetter 
                 patientName={currentScenario.patient.name}
@@ -169,10 +170,11 @@ export const GameBoard = () => {
                 gender={currentScenario.patient.gender}
                 address={currentScenario.patient.address}
                 condition={currentScenario.patient.medicalHistory[0] || "Multiple conditions"}
-                isEnlarged={enlargedDoc === 1}
+                isEnlarged={enlargedDoc === 1 + index}
+                letterType={letterType}
               />
             </DraggableItem>
-          )}
+          ))}
           
           {documentConfig.showCarePlan && (
             <DraggableItem 
