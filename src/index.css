@@ -38,9 +38,9 @@ All colors MUST be HSL.
     --ring: 145 45% 35%;
 
     /* Paper colors - maximum contrast */
-    --paper: 45 50% 98%;
-    --paper-text: 35 50% 5%;
-    --paper-border: 35 30% 45%;
+    --paper: 0 0% 98%;
+    --paper-text: 0 0% 0%;
+    --paper-border: 35 30% 35%;
     
     /* NHS green prescription - strong contrast */
     --nhs-green: 145 45% 90%;
@@ -56,8 +56,8 @@ All colors MUST be HSL.
     --lamp-glow: 45 100% 85%;
     
     /* Document specific */
-    --doc-label: 35 30% 40%;
-    --doc-heading: 35 50% 8%;
+    --doc-label: 0 0% 15%;
+    --doc-heading: 0 0% 0%;
     
     --radius: 0.125rem;
 

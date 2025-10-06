@@ -26,35 +26,35 @@ export const GPLetter = ({ patientName, age, gender, address, condition, isEnlar
         <div className="font-bold text-primary" style={{ fontSize: `${16 * scale}px` }}>
           NHS General Practice
         </div>
-        <div className="text-paper-text mt-1" style={{ fontSize: `${11 * scale}px` }}>
+        <div className="mt-1" style={{ fontSize: `${11 * scale}px`, color: '#000' }}>
           {address.split(',')[1]}<br/>
           Tel: 0{Math.floor(Math.random() * 900000000) + 100000000}
         </div>
       </div>
 
       {/* Date */}
-      <div className="text-right mb-4 text-paper-text font-bold" style={{ fontSize: `${11 * scale}px` }}>
+      <div className="text-right mb-4 font-bold" style={{ fontSize: `${11 * scale}px`, color: '#000' }}>
         {formattedDate}
       </div>
 
       {/* Recipient */}
-      <div className="mb-4 text-paper-text">
-        <div className="font-bold" style={{ fontSize: `${13 * scale}px` }}>To: Ambulance Service</div>
-        <div style={{ fontSize: `${11 * scale}px` }}>Emergency Care Team</div>
+      <div className="mb-4">
+        <div className="font-bold" style={{ fontSize: `${13 * scale}px`, color: '#000' }}>To: Ambulance Service</div>
+        <div style={{ fontSize: `${11 * scale}px`, color: '#000' }}>Emergency Care Team</div>
       </div>
 
       {/* Subject */}
       <div className="mb-3">
-        <div className="font-bold text-paper-text" style={{ fontSize: `${13 * scale}px` }}>
+        <div className="font-bold" style={{ fontSize: `${13 * scale}px`, color: '#000' }}>
           Re: {patientName}
         </div>
-        <div className="text-paper-text" style={{ fontSize: `${11 * scale}px` }}>
+        <div style={{ fontSize: `${11 * scale}px`, color: '#000' }}>
           DOB: {new Date(new Date().getFullYear() - age, 0, 1).toLocaleDateString('en-GB')}
         </div>
       </div>
 
       {/* Letter Body */}
-      <div className="space-y-3 text-paper-text leading-relaxed" style={{ fontSize: `${11 * scale}px` }}>
+      <div className="space-y-3 leading-relaxed" style={{ fontSize: `${11 * scale}px`, color: '#000' }}>
         <p className="font-bold">Dear Colleague,</p>
         
         <p>
@@ -83,9 +83,9 @@ export const GPLetter = ({ patientName, age, gender, address, condition, isEnlar
 
       {/* Signature */}
       <div className="mt-4 pt-2 border-t-2 border-paper-border">
-        <div className="font-script text-paper-text" style={{ fontSize: `${20 * scale}px` }}>Dr. {["Smith", "Jones", "Williams", "Brown", "Taylor"][Math.floor(Math.random() * 5)]}</div>
-        <div className="text-paper-text font-bold" style={{ fontSize: `${11 * scale}px` }}>General Practitioner</div>
-        <div className="text-paper-text" style={{ fontSize: `${11 * scale}px` }}>GMC: {Math.floor(Math.random() * 9000000) + 1000000}</div>
+        <div className="font-script" style={{ fontSize: `${20 * scale}px`, color: '#000' }}>Dr. {["Smith", "Jones", "Williams", "Brown", "Taylor"][Math.floor(Math.random() * 5)]}</div>
+        <div className="font-bold" style={{ fontSize: `${11 * scale}px`, color: '#000' }}>General Practitioner</div>
+        <div style={{ fontSize: `${11 * scale}px`, color: '#000' }}>GMC: {Math.floor(Math.random() * 9000000) + 1000000}</div>
       </div>
     </div>
   );

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { DraggableItem } from "./DraggableItem";
 import { Prescription } from "./Prescription";
 import { Radio } from "./Radio";
@@ -8,6 +8,8 @@ import { GPLetter } from "./documents/GPLetter";
 import { CarePlan } from "./documents/CarePlan";
 import { DischargeLetter } from "./documents/DischargeLetter";
 import { scenarios } from "@/data/scenarios";
+import { generateRandomScenario } from "@/data/scenarioGenerator";
+import type { Scenario } from "@/data/scenarios";
 import background from "@/assets/background-lamp-off.png";
 import { Lightbulb } from "lucide-react";
 
@@ -20,14 +22,38 @@ export const GameBoard = () => {
   const [enlargedPrescription, setEnlargedPrescription] = useState(false);
   const [enlargedDoc, setEnlargedDoc] = useState<number | null>(null);
   const [showQuiz, setShowQuiz] = useState(false);
+  const [allScenarios, setAllScenarios] = useState<Scenario[]>([]);
+  const [documentConfig, setDocumentConfig] = useState({
+    showDNACPR: false,
+    showGPLetter: false,
+    showCarePlan: false,
+    showDischarge: false
+  });
 
-  const currentScenario = scenarios[currentScenarioIndex];
+  // Generate mixed scenarios on mount
+  useEffect(() => {
+    const mixed: Scenario[] = [];
+    // Add some predefined scenarios
+    mixed.push(...scenarios.slice(0, 10));
+    // Add random scenarios
+    for (let i = 0; i < 20; i++) {
+      mixed.push(generateRandomScenario());
+    }
+    // Shuffle
+    setAllScenarios(mixed.sort(() => Math.random() - 0.5));
+  }, []);
+
+  const currentScenario = allScenarios[currentScenarioIndex] || scenarios[0];
   
-  // Determine which additional documents to show (randomized per scenario)
-  const showDNACPR = currentScenario.patient.age > 70 && Math.random() > 0.5;
-  const showGPLetter = Math.random() > 0.6;
-  const showCarePlan = currentScenario.patient.age > 65 && Math.random() > 0.5;
-  const showDischarge = Math.random() > 0.6;
+  // Regenerate document config when scenario changes
+  useEffect(() => {
+    setDocumentConfig({
+      showDNACPR: currentScenario.patient.age > 70 && Math.random() > 0.5,
+      showGPLetter: Math.random() > 0.6,
+      showCarePlan: currentScenario.patient.age > 65 && Math.random() > 0.5,
+      showDischarge: Math.random() > 0.6
+    });
+  }, [currentScenarioIndex, currentScenario.patient.age]);
 
   const handleStartGame = () => {
     if (gameState === "idle") {
@@ -40,7 +66,7 @@ export const GameBoard = () => {
   };
 
   const handleNewCase = () => {
-    setCurrentScenarioIndex((currentScenarioIndex + 1) % scenarios.length);
+    setCurrentScenarioIndex((currentScenarioIndex + 1) % allScenarios.length);
     setGameState("dispatch");
     setShowQuiz(false);
     setEnlargedPrescription(false);
@@ -100,7 +126,7 @@ export const GameBoard = () => {
       {/* Additional Documents */}
       {(gameState === "dispatch" || gameState === "assessing" || gameState === "quiz" || gameState === "complete") && (
         <>
-          {showDNACPR && (
+          {documentConfig.showDNACPR && (
             <DraggableItem 
               initialX={950} 
               initialY={200} 
@@ -116,7 +142,7 @@ export const GameBoard = () => {
             </DraggableItem>
           )}
           
-          {showGPLetter && (
+          {documentConfig.showGPLetter && (
             <DraggableItem 
               initialX={520} 
               initialY={420} 
@@ -134,7 +160,7 @@ export const GameBoard = () => {
             </DraggableItem>
           )}
           
-          {showCarePlan && (
+          {documentConfig.showCarePlan && (
             <DraggableItem 
               initialX={950} 
               initialY={450} 
@@ -150,7 +176,7 @@ export const GameBoard = () => {
             </DraggableItem>
           )}
           
-          {showDischarge && (
+          {documentConfig.showDischarge && (
             <DraggableItem 
               initialX={100} 
               initialY={450} 
