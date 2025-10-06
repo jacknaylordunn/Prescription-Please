@@ -6,12 +6,14 @@ interface DNACPRProps {
   doctorName?: string;
   gmcNumber?: string;
   formattedDate?: string;
+  patientDOB?: string;
 }
 
-export const DNACPR = ({ patientName, age, nhsNumber, isEnlarged = false, doctorName = "Dr. Sig", gmcNumber, formattedDate }: DNACPRProps) => {
+export const DNACPR = ({ patientName, age, nhsNumber, isEnlarged = false, doctorName = "Dr. Sig", gmcNumber, formattedDate, patientDOB }: DNACPRProps) => {
   const today = new Date();
   const dateToShow = formattedDate || today.toLocaleDateString('en-GB');
   const gmcNum = gmcNumber || Math.floor(1000000 + Math.random() * 9000000).toString();
+  const dob = patientDOB || new Date(new Date().getFullYear() - age, 0, 1).toLocaleDateString('en-GB');
   
   return (
     <div 
@@ -53,7 +55,7 @@ export const DNACPR = ({ patientName, age, nhsNumber, isEnlarged = false, doctor
           <div>
             <div className="font-bold" style={{ fontSize: "6px", color: '#000' }}>DOB:</div>
             <div className="font-bold" style={{ fontSize: "7px", color: '#000' }}>
-              {new Date(new Date().getFullYear() - age, Math.floor(Math.random() * 12), Math.floor(Math.random() * 28) + 1).toLocaleDateString('en-GB')}
+              {dob}
             </div>
           </div>
           <div>

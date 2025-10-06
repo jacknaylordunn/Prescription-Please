@@ -6,12 +6,16 @@ interface ReSPECTProps {
   doctorName?: string;
   gmcNumber?: string;
   formattedDate?: string;
+  patientDOB?: string;
+  respectReviewDate?: string;
 }
 
-export const ReSPECT = ({ patientName, age, nhsNumber, isEnlarged = false, doctorName = "Dr. Patterson", gmcNumber, formattedDate }: ReSPECTProps) => {
+export const ReSPECT = ({ patientName, age, nhsNumber, isEnlarged = false, doctorName = "Dr. Patterson", gmcNumber, formattedDate, patientDOB, respectReviewDate }: ReSPECTProps) => {
   const today = new Date();
   const dateToShow = formattedDate || today.toLocaleDateString('en-GB');
   const gmcNum = gmcNumber || "7834562";
+  const dob = patientDOB || new Date(new Date().getFullYear() - age, 0, 1).toLocaleDateString('en-GB');
+  const reviewDate = respectReviewDate || new Date(today.getTime() + 90 * 24 * 60 * 60 * 1000).toLocaleDateString('en-GB');
   
   return (
     <div 
@@ -56,7 +60,7 @@ export const ReSPECT = ({ patientName, age, nhsNumber, isEnlarged = false, docto
             <div>
               <div className="font-bold" style={{ fontSize: "6px", color: '#000' }}>DOB:</div>
               <div style={{ fontSize: "7px", color: '#000' }}>
-                {new Date(new Date().getFullYear() - age, Math.floor(Math.random() * 12), Math.floor(Math.random() * 28) + 1).toLocaleDateString('en-GB')}
+                {dob}
               </div>
             </div>
             <div>
@@ -135,7 +139,7 @@ export const ReSPECT = ({ patientName, age, nhsNumber, isEnlarged = false, docto
         backgroundColor: 'hsl(var(--respect-purple-dark) / 0.15)'
       }}>
         <div className="font-bold text-center" style={{ fontSize: "5px", color: '#000' }}>
-          REVIEW DATE: {new Date(today.getTime() + 90 * 24 * 60 * 60 * 1000).toLocaleDateString('en-GB')}
+          REVIEW DATE: {reviewDate}
         </div>
       </div>
     </div>

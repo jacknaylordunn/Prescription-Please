@@ -67,6 +67,9 @@ export const GameBoard = () => {
     const doctorNames = ["Smith", "Jones", "Williams", "Brown", "Taylor", "Davies", "Wilson", "Evans", "Anderson", "Mitchell", "Patterson", "Thompson", "Roberts", "Johnson"];
     const appointmentTimes = ["09:30", "10:45", "14:20", "15:30"];
     const medicationChanges = ["Dose increased", "New medication added"];
+    const respectReviewDate = new Date(today);
+    respectReviewDate.setDate(today.getDate() + 90);
+    const dob = new Date(today.getFullYear() - currentScenario.patient.age, Math.floor(Math.random() * 12), Math.floor(Math.random() * 28) + 1);
     
     currentScenario.documentMetadata = {
       prescriptionDoctor: doctorNames[Math.floor(Math.random() * doctorNames.length)],
@@ -87,7 +90,10 @@ export const GameBoard = () => {
       heartRate: Math.floor(Math.random() * 20) + 72,
       appointmentTime: appointmentTimes[Math.floor(Math.random() * appointmentTimes.length)],
       medicationReviewDate: new Date(today.getTime() - 5 * 24 * 60 * 60 * 1000).toLocaleDateString('en-GB'),
-      medicationChange: medicationChanges[Math.floor(Math.random() * medicationChanges.length)]
+      medicationChange: medicationChanges[Math.floor(Math.random() * medicationChanges.length)],
+      patientDOB: dob.toLocaleDateString('en-GB'),
+      respectReviewDate: respectReviewDate.toLocaleDateString('en-GB'),
+      carePlanReviewDate: today.toLocaleDateString('en-GB')
     };
   }
   
@@ -345,6 +351,7 @@ export const GameBoard = () => {
                 doctorName={currentScenario.documentMetadata?.dnacprDoctor}
                 gmcNumber={currentScenario.documentMetadata?.dnacprGMC}
                 formattedDate={currentScenario.documentMetadata?.formattedDate}
+                patientDOB={currentScenario.documentMetadata?.patientDOB}
               />
             </DraggableItem>
           )}
@@ -394,6 +401,7 @@ export const GameBoard = () => {
                 age={currentScenario.patient.age}
                 condition={currentScenario.patient.medicalHistory.join(", ")}
                 isEnlarged={enlargedDoc === 2}
+                carePlanReviewDate={currentScenario.documentMetadata?.carePlanReviewDate}
               />
             </DraggableItem>
           )}
@@ -436,6 +444,8 @@ export const GameBoard = () => {
                 doctorName={currentScenario.documentMetadata?.respectDoctor}
                 gmcNumber={currentScenario.documentMetadata?.respectGMC}
                 formattedDate={currentScenario.documentMetadata?.formattedDate}
+                patientDOB={currentScenario.documentMetadata?.patientDOB}
+                respectReviewDate={currentScenario.documentMetadata?.respectReviewDate}
               />
             </DraggableItem>
           )}

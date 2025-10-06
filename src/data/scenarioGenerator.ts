@@ -5,11 +5,14 @@ export type GPLetterType = "Blood Test Results" | "Appointment Summary" | "Appoi
 
 const doctorNames = ["Smith", "Jones", "Williams", "Brown", "Taylor", "Davies", "Wilson", "Evans", "Anderson", "Mitchell", "Patterson", "Thompson", "Roberts", "Johnson"];
 
-function generateDocumentMetadata(): DocumentMetadata {
+function generateDocumentMetadata(patientAge: number): DocumentMetadata {
   const today = new Date();
   const admissionDate = new Date(Date.now() - Math.floor(Math.random() * 7 + 1) * 24 * 60 * 60 * 1000);
   const appointmentTimes = ["09:30", "10:45", "14:20", "15:30"];
   const medicationChanges = ["Dose increased", "New medication added"];
+  const respectReviewDate = new Date(today);
+  respectReviewDate.setDate(today.getDate() + 90);
+  const dob = new Date(today.getFullYear() - patientAge, Math.floor(Math.random() * 12), Math.floor(Math.random() * 28) + 1);
   
   return {
     prescriptionDoctor: doctorNames[Math.floor(Math.random() * doctorNames.length)],
@@ -30,7 +33,10 @@ function generateDocumentMetadata(): DocumentMetadata {
     heartRate: Math.floor(Math.random() * 20) + 72,
     appointmentTime: appointmentTimes[Math.floor(Math.random() * appointmentTimes.length)],
     medicationReviewDate: new Date(today.getTime() - 5 * 24 * 60 * 60 * 1000).toLocaleDateString('en-GB'),
-    medicationChange: medicationChanges[Math.floor(Math.random() * medicationChanges.length)]
+    medicationChange: medicationChanges[Math.floor(Math.random() * medicationChanges.length)],
+    patientDOB: dob.toLocaleDateString('en-GB'),
+    respectReviewDate: respectReviewDate.toLocaleDateString('en-GB'),
+    carePlanReviewDate: today.toLocaleDateString('en-GB')
   };
 }
 
@@ -394,6 +400,6 @@ export function generateRandomScenario(): Scenario {
     prescriptions,
     dispatchInfo: `${age} year old ${gender.toLowerCase()}, ${template.dispatch}`,
     gpLetters: template.gpLetters,
-    documentMetadata: generateDocumentMetadata()
+    documentMetadata: generateDocumentMetadata(patient.age)
   };
 }

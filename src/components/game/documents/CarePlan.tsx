@@ -3,9 +3,11 @@ interface CarePlanProps {
   age: number;
   condition: string;
   isEnlarged?: boolean;
+  carePlanReviewDate?: string;
 }
 
-export const CarePlan = ({ patientName, age, condition, isEnlarged = false }: CarePlanProps) => {
+export const CarePlan = ({ patientName, age, condition, isEnlarged = false, carePlanReviewDate }: CarePlanProps) => {
+  const reviewDate = carePlanReviewDate || new Date().toLocaleDateString('en-GB');
   
   return (
     <div 
@@ -64,7 +66,7 @@ export const CarePlan = ({ patientName, age, condition, isEnlarged = false }: Ca
 
       {/* Footer */}
       <div className="text-center font-bold pt-1 border-t border-paper-border" style={{ fontSize: "5px", color: '#000' }}>
-        Reviewed: {new Date().toLocaleDateString('en-GB')}
+        Reviewed: {reviewDate}
       </div>
     </div>
   );
