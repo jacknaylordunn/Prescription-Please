@@ -7,7 +7,9 @@ interface PrescriptionProps {
 
 export const Prescription = ({ scenario, isEnlarged = false }: PrescriptionProps) => {
   const today = new Date();
-  const formattedDate = `${String(today.getDate()).padStart(2, '0')}/${String(today.getMonth() + 1).padStart(2, '0')}/${String(today.getFullYear()).slice(-2)}`;
+  const formattedDate = scenario.documentMetadata?.formattedDate || 
+    `${String(today.getDate()).padStart(2, '0')}/${String(today.getMonth() + 1).padStart(2, '0')}/${String(today.getFullYear()).slice(-2)}`;
+  const doctorName = scenario.documentMetadata?.prescriptionDoctor || "Smith";
   
   return (
     <div 
@@ -89,7 +91,7 @@ export const Prescription = ({ scenario, isEnlarged = false }: PrescriptionProps
         </div>
         <div style={{ fontSize: "6px", color: '#000', lineHeight: "1.3" }}>
           <div className="font-bold">NHS Trust</div>
-          <div className="font-bold">Dr {["Smith", "Jones"][Math.floor(Math.random() * 2)]}</div>
+          <div className="font-bold">Dr {doctorName}</div>
           <div>Medical Centre</div>
         </div>
       </div>

@@ -3,11 +3,17 @@ interface DischargeLetterProps {
   age: number;
   condition: string;
   isEnlarged?: boolean;
+  doctorName?: string;
+  admissionDate?: Date;
+  dischargeDate?: Date;
 }
 
-export const DischargeLetter = ({ patientName, age, condition, isEnlarged = false }: DischargeLetterProps) => {
-  const admissionDate = new Date(Date.now() - Math.floor(Math.random() * 7 + 1) * 24 * 60 * 60 * 1000);
-  const dischargeDate = new Date();
+export const DischargeLetter = ({ patientName, age, condition, isEnlarged = false, doctorName = "Anderson", admissionDate, dischargeDate }: DischargeLetterProps) => {
+  const defaultAdmissionDate = new Date(Date.now() - Math.floor(Math.random() * 7 + 1) * 24 * 60 * 60 * 1000);
+  const defaultDischargeDate = new Date();
+  
+  const admitDate = admissionDate || defaultAdmissionDate;
+  const disDate = dischargeDate || defaultDischargeDate;
   
   return (
     <div 
@@ -45,11 +51,11 @@ export const DischargeLetter = ({ patientName, age, condition, isEnlarged = fals
         <div className="space-y-0.5" style={{ fontSize: "6px", color: '#000' }}>
           <div>
             <span className="font-bold">In: </span>
-            <span className="font-bold">{admissionDate.toLocaleDateString('en-GB')}</span>
+            <span className="font-bold">{admitDate.toLocaleDateString('en-GB')}</span>
           </div>
           <div>
             <span className="font-bold">Out: </span>
-            <span className="font-bold">{dischargeDate.toLocaleDateString('en-GB')}</span>
+            <span className="font-bold">{disDate.toLocaleDateString('en-GB')}</span>
           </div>
         </div>
       </div>
@@ -97,7 +103,7 @@ export const DischargeLetter = ({ patientName, age, condition, isEnlarged = fals
       <div className="border-t border-paper-border pt-2">
         <div style={{ fontSize: "6px", color: '#000' }}>
           <span className="font-bold">Dr: </span>
-          <span className="font-bold">Dr. {["Anderson", "Mitchell"][Math.floor(Math.random() * 2)]}</span>
+          <span className="font-bold">Dr. {doctorName}</span>
         </div>
         <div className="font-bold mt-0.5" style={{ fontSize: "5px", color: '#000' }}>
           EM Registrar

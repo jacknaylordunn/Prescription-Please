@@ -60,6 +60,27 @@ export const GameBoard = () => {
 
   const currentScenario = allScenarios[currentScenarioIndex] || scenarios[0];
   
+  // Ensure scenario has document metadata
+  if (!currentScenario.documentMetadata) {
+    const today = new Date();
+    const admissionDate = new Date(Date.now() - Math.floor(Math.random() * 7 + 1) * 24 * 60 * 60 * 1000);
+    const doctorNames = ["Smith", "Jones", "Williams", "Brown", "Taylor", "Davies", "Wilson", "Evans", "Anderson", "Mitchell", "Patterson", "Thompson", "Roberts", "Johnson"];
+    
+    currentScenario.documentMetadata = {
+      prescriptionDoctor: doctorNames[Math.floor(Math.random() * doctorNames.length)],
+      dischargeDoctor: doctorNames[Math.floor(Math.random() * doctorNames.length)],
+      gpDoctor: doctorNames[Math.floor(Math.random() * doctorNames.length)],
+      dnacprDoctor: doctorNames[Math.floor(Math.random() * doctorNames.length)],
+      respectDoctor: doctorNames[Math.floor(Math.random() * doctorNames.length)],
+      carePlanDoctor: doctorNames[Math.floor(Math.random() * doctorNames.length)],
+      dnacprGMC: Math.floor(1000000 + Math.random() * 9000000).toString(),
+      respectGMC: Math.floor(1000000 + Math.random() * 9000000).toString(),
+      admissionDate,
+      dischargeDate: today,
+      formattedDate: today.toLocaleDateString('en-GB')
+    };
+  }
+  
   // Regenerate document config when scenario changes
   useEffect(() => {
     // Map conditions to relevant OTC medications
@@ -311,6 +332,9 @@ export const GameBoard = () => {
                 age={currentScenario.patient.age}
                 nhsNumber={currentScenario.patient.nhsNumber}
                 isEnlarged={enlargedDoc === 0}
+                doctorName={currentScenario.documentMetadata?.dnacprDoctor}
+                gmcNumber={currentScenario.documentMetadata?.dnacprGMC}
+                formattedDate={currentScenario.documentMetadata?.formattedDate}
               />
             </DraggableItem>
           )}
@@ -333,6 +357,8 @@ export const GameBoard = () => {
                 condition={currentScenario.patient.medicalHistory[0] || "Multiple conditions"}
                 isEnlarged={enlargedDoc === 1 + index}
                 letterType={letterType}
+                doctorName={currentScenario.documentMetadata?.gpDoctor}
+                formattedDate={currentScenario.documentMetadata?.formattedDate}
               />
             </DraggableItem>
           ))}
@@ -369,6 +395,9 @@ export const GameBoard = () => {
                 age={currentScenario.patient.age}
                 condition={currentScenario.patient.medicalHistory[0] || "Recent health issue"}
                 isEnlarged={enlargedDoc === 3}
+                doctorName={currentScenario.documentMetadata?.dischargeDoctor}
+                admissionDate={currentScenario.documentMetadata?.admissionDate}
+                dischargeDate={currentScenario.documentMetadata?.dischargeDate}
               />
             </DraggableItem>
           )}
@@ -387,6 +416,9 @@ export const GameBoard = () => {
                 age={currentScenario.patient.age}
                 nhsNumber={currentScenario.patient.nhsNumber}
                 isEnlarged={enlargedDoc === 4}
+                doctorName={currentScenario.documentMetadata?.respectDoctor}
+                gmcNumber={currentScenario.documentMetadata?.respectGMC}
+                formattedDate={currentScenario.documentMetadata?.formattedDate}
               />
             </DraggableItem>
           )}

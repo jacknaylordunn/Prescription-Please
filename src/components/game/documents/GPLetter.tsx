@@ -6,11 +6,13 @@ interface GPLetterProps {
   condition: string;
   isEnlarged?: boolean;
   letterType: "Blood Test Results" | "Appointment Summary" | "Appointment Confirmation" | "Medication Review";
+  doctorName?: string;
+  formattedDate?: string;
 }
 
-export const GPLetter = ({ patientName, age, gender, address, condition, isEnlarged = false, letterType }: GPLetterProps) => {
+export const GPLetter = ({ patientName, age, gender, address, condition, isEnlarged = false, letterType, doctorName = "Smith", formattedDate }: GPLetterProps) => {
   const today = new Date();
-  const formattedDate = today.toLocaleDateString('en-GB');
+  const dateToShow = formattedDate || today.toLocaleDateString('en-GB');
   
   // Generate varied letter content
   const letterTypes = [
@@ -62,7 +64,7 @@ export const GPLetter = ({ patientName, age, gender, address, condition, isEnlar
             <div style={{ fontSize: "6px" }}>
               Date: {new Date(today.getTime() + 14 * 24 * 60 * 60 * 1000).toLocaleDateString('en-GB')}<br/>
               Time: {["09:30", "10:45", "14:20", "15:30"][Math.floor(Math.random() * 4)]}<br/>
-              With: Dr. {["Smith", "Jones", "Williams"][Math.floor(Math.random() * 3)]}<br/>
+              With: Dr. {doctorName}<br/>
               Purpose: Medication review<br/>
               <br/>
               Please bring your current<br/>medications with you.
@@ -116,7 +118,7 @@ export const GPLetter = ({ patientName, age, gender, address, condition, isEnlar
 
       {/* Date */}
       <div className="text-right mb-2 font-bold" style={{ fontSize: "6px", color: '#000' }}>
-        {formattedDate}
+        {dateToShow}
       </div>
 
       {/* Recipient */}
@@ -145,7 +147,7 @@ export const GPLetter = ({ patientName, age, gender, address, condition, isEnlar
 
       {/* Signature */}
       <div className="mt-2 pt-1 border-t border-paper-border">
-        <div className="font-script" style={{ fontSize: "10px", color: '#000' }}>Dr. {["Smith", "Jones", "Williams"][Math.floor(Math.random() * 3)]}</div>
+        <div className="font-script" style={{ fontSize: "10px", color: '#000' }}>Dr. {doctorName}</div>
         <div className="font-bold" style={{ fontSize: "6px", color: '#000' }}>General Practitioner</div>
       </div>
     </div>

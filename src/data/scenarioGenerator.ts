@@ -1,7 +1,28 @@
 import { medications, type Medication } from "./medications";
-import type { Scenario, Patient } from "./scenarios";
+import type { Scenario, Patient, DocumentMetadata } from "./scenarios";
 
 export type GPLetterType = "Blood Test Results" | "Appointment Summary" | "Appointment Confirmation" | "Medication Review";
+
+const doctorNames = ["Smith", "Jones", "Williams", "Brown", "Taylor", "Davies", "Wilson", "Evans", "Anderson", "Mitchell", "Patterson", "Thompson", "Roberts", "Johnson"];
+
+function generateDocumentMetadata(): DocumentMetadata {
+  const today = new Date();
+  const admissionDate = new Date(Date.now() - Math.floor(Math.random() * 7 + 1) * 24 * 60 * 60 * 1000);
+  
+  return {
+    prescriptionDoctor: doctorNames[Math.floor(Math.random() * doctorNames.length)],
+    dischargeDoctor: doctorNames[Math.floor(Math.random() * doctorNames.length)],
+    gpDoctor: doctorNames[Math.floor(Math.random() * doctorNames.length)],
+    dnacprDoctor: doctorNames[Math.floor(Math.random() * doctorNames.length)],
+    respectDoctor: doctorNames[Math.floor(Math.random() * doctorNames.length)],
+    carePlanDoctor: doctorNames[Math.floor(Math.random() * doctorNames.length)],
+    dnacprGMC: Math.floor(1000000 + Math.random() * 9000000).toString(),
+    respectGMC: Math.floor(1000000 + Math.random() * 9000000).toString(),
+    admissionDate,
+    dischargeDate: today,
+    formattedDate: today.toLocaleDateString('en-GB')
+  };
+}
 
 const firstNames = {
   Male: ["James", "John", "Robert", "Michael", "William", "David", "Richard", "Thomas", "Charles", "Daniel", "Matthew", "Andrew", "Paul", "Mark", "George", "Kenneth", "Steven", "Edward", "Brian", "Ronald", "Kevin", "Timothy", "Jason", "Jeffrey", "Ryan", "Gary", "Nicholas", "Eric", "Stephen", "Jacob"],
@@ -362,6 +383,7 @@ export function generateRandomScenario(): Scenario {
     patient,
     prescriptions,
     dispatchInfo: `${age} year old ${gender.toLowerCase()}, ${template.dispatch}`,
-    gpLetters: template.gpLetters
+    gpLetters: template.gpLetters,
+    documentMetadata: generateDocumentMetadata()
   };
 }

@@ -3,11 +3,15 @@ interface ReSPECTProps {
   age: number;
   nhsNumber: string;
   isEnlarged?: boolean;
+  doctorName?: string;
+  gmcNumber?: string;
+  formattedDate?: string;
 }
 
-export const ReSPECT = ({ patientName, age, nhsNumber, isEnlarged = false }: ReSPECTProps) => {
+export const ReSPECT = ({ patientName, age, nhsNumber, isEnlarged = false, doctorName = "Dr. Patterson", gmcNumber, formattedDate }: ReSPECTProps) => {
   const today = new Date();
-  const formattedDate = today.toLocaleDateString('en-GB');
+  const dateToShow = formattedDate || today.toLocaleDateString('en-GB');
+  const gmcNum = gmcNumber || "7834562";
   
   return (
     <div 
@@ -111,16 +115,16 @@ export const ReSPECT = ({ patientName, age, nhsNumber, isEnlarged = false }: ReS
       <div className="border-t border-paper-border pt-2 space-y-1">
         <div>
           <div className="font-bold" style={{ fontSize: "6px", color: '#000' }}>Clinician Name:</div>
-          <div className="font-script" style={{ fontSize: "9px", color: '#000' }}>Dr. Patterson</div>
+          <div className="font-script" style={{ fontSize: "9px", color: '#000' }}>{doctorName}</div>
         </div>
         <div className="grid grid-cols-2 gap-1">
           <div>
             <div className="font-bold" style={{ fontSize: "6px", color: '#000' }}>GMC:</div>
-            <div style={{ fontSize: "7px", color: '#000' }}>7834562</div>
+            <div style={{ fontSize: "7px", color: '#000' }}>{gmcNum}</div>
           </div>
           <div>
             <div className="font-bold" style={{ fontSize: "6px", color: '#000' }}>Date:</div>
-            <div style={{ fontSize: "7px", color: '#000' }}>{formattedDate}</div>
+            <div style={{ fontSize: "7px", color: '#000' }}>{dateToShow}</div>
           </div>
         </div>
       </div>

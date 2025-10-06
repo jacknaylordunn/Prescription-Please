@@ -13,6 +13,20 @@ export interface Patient {
 
 export type GPLetterType = "Blood Test Results" | "Appointment Summary" | "Appointment Confirmation" | "Medication Review";
 
+export interface DocumentMetadata {
+  prescriptionDoctor: string;
+  dischargeDoctor: string;
+  gpDoctor: string;
+  dnacprDoctor: string;
+  respectDoctor: string;
+  carePlanDoctor: string;
+  dnacprGMC: string;
+  respectGMC: string;
+  admissionDate: Date;
+  dischargeDate: Date;
+  formattedDate: string;
+}
+
 export interface Scenario {
   patient: Patient;
   prescriptions: {
@@ -26,6 +40,7 @@ export interface Scenario {
     type: "Care Plan" | "DNACPR" | "Discharge Letter" | "GP Letter";
     content: string;
   }[];
+  documentMetadata?: DocumentMetadata;
 }
 
 const firstNames = {
@@ -38,6 +53,27 @@ const surnames = ["Smith", "Jones", "Williams", "Brown", "Taylor", "Davies", "Wi
 const streets = ["High Street", "Church Road", "Station Road", "Main Street", "Park Avenue", "Victoria Road", "The Green", "Manor Road", "Church Lane", "Mill Lane", "Queens Road", "King Street", "The Avenue", "School Lane", "York Road", "London Road", "New Street", "Elm Grove", "The Close", "Park Lane"];
 
 const towns = ["Manchester", "Birmingham", "Leeds", "Sheffield", "Bristol", "Liverpool", "Leicester", "Newcastle", "Nottingham", "Southampton", "Portsmouth", "Reading", "Bradford", "Brighton", "Derby", "Norwich", "Exeter", "Cambridge", "Gloucester", "Plymouth"];
+
+const doctorNames = ["Smith", "Jones", "Williams", "Brown", "Taylor", "Davies", "Wilson", "Evans", "Anderson", "Mitchell", "Patterson", "Thompson", "Roberts", "Johnson"];
+
+function generateDocumentMetadata(): DocumentMetadata {
+  const today = new Date();
+  const admissionDate = new Date(Date.now() - Math.floor(Math.random() * 7 + 1) * 24 * 60 * 60 * 1000);
+  
+  return {
+    prescriptionDoctor: doctorNames[Math.floor(Math.random() * doctorNames.length)],
+    dischargeDoctor: doctorNames[Math.floor(Math.random() * doctorNames.length)],
+    gpDoctor: doctorNames[Math.floor(Math.random() * doctorNames.length)],
+    dnacprDoctor: doctorNames[Math.floor(Math.random() * doctorNames.length)],
+    respectDoctor: doctorNames[Math.floor(Math.random() * doctorNames.length)],
+    carePlanDoctor: doctorNames[Math.floor(Math.random() * doctorNames.length)],
+    dnacprGMC: Math.floor(1000000 + Math.random() * 9000000).toString(),
+    respectGMC: Math.floor(1000000 + Math.random() * 9000000).toString(),
+    admissionDate,
+    dischargeDate: today,
+    formattedDate: today.toLocaleDateString('en-GB')
+  };
+}
 
 function generatePatient(age: number, gender: "Male" | "Female"): Patient {
   const firstName = firstNames[gender][Math.floor(Math.random() * firstNames[gender].length)];

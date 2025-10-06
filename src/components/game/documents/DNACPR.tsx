@@ -3,11 +3,15 @@ interface DNACPRProps {
   age: number;
   nhsNumber: string;
   isEnlarged?: boolean;
+  doctorName?: string;
+  gmcNumber?: string;
+  formattedDate?: string;
 }
 
-export const DNACPR = ({ patientName, age, nhsNumber, isEnlarged = false }: DNACPRProps) => {
+export const DNACPR = ({ patientName, age, nhsNumber, isEnlarged = false, doctorName = "Dr. Sig", gmcNumber, formattedDate }: DNACPRProps) => {
   const today = new Date();
-  const formattedDate = today.toLocaleDateString('en-GB');
+  const dateToShow = formattedDate || today.toLocaleDateString('en-GB');
+  const gmcNum = gmcNumber || Math.floor(1000000 + Math.random() * 9000000).toString();
   
   return (
     <div 
@@ -87,11 +91,11 @@ export const DNACPR = ({ patientName, age, nhsNumber, isEnlarged = false }: DNAC
         <div className="grid grid-cols-2 gap-1">
           <div>
             <div className="font-bold" style={{ fontSize: "6px", color: '#000' }}>Doctor:</div>
-            <div className="font-script" style={{ fontSize: "9px", color: '#000' }}>Dr. Sig</div>
+            <div className="font-script" style={{ fontSize: "9px", color: '#000' }}>{doctorName}</div>
           </div>
           <div>
             <div className="font-bold" style={{ fontSize: "6px", color: '#000' }}>Date:</div>
-            <div className="font-bold" style={{ fontSize: "7px", color: '#000' }}>{formattedDate}</div>
+            <div className="font-bold" style={{ fontSize: "7px", color: '#000' }}>{dateToShow}</div>
           </div>
         </div>
       </div>
