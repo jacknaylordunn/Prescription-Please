@@ -362,6 +362,150 @@ const conditionTemplates = [
     history: ["Polymyalgia rheumatica", "Recent visual disturbance", "Weight loss"],
     dispatch: "severe headache and vision loss. Patient elderly, tender temples, cannot see from right eye, needs urgent high-dose steroids to save left eye - ophthalmology emergency.",
     gpLetters: ["Blood Test Results"] as GPLetterType[]
+  },
+  {
+    condition: "Myasthenia Gravis Crisis",
+    ageRange: [30, 65],
+    presentation: "Progressive muscle weakness, ptosis bilateral, diplopia, dysphagia, dyspnoea, facial weakness, respiratory distress with reduced vital capacity",
+    medications: ["Pyridostigmine", "Prednisolone", "Azathioprine"],
+    history: ["Myasthenia gravis diagnosed 3 years ago", "Recent chest infection", "Previous myasthenic crisis requiring ICU"],
+    dispatch: "severe muscle weakness, breathing difficulty. Patient unable to lift head, ptosis both eyes, weak voice, struggling to swallow secretions, RR 28, SpO2 89% - respiratory failure imminent, needs ICU.",
+    gpLetters: ["Blood Test Results", "Appointment Summary"] as GPLetterType[]
+  },
+  {
+    condition: "Addisonian Crisis",
+    ageRange: [35, 70],
+    presentation: "Severe vomiting, diarrhoea, abdominal pain, confusion, profound weakness, hyperpigmentation noted, recent gastroenteritis, missed steroid doses",
+    medications: ["Hydrocortisone", "Fludrocortisone"],
+    history: ["Primary adrenal insufficiency Addison's disease", "Autoimmune thyroiditis", "Type 1 diabetes"],
+    dispatch: "collapsed at home, severe vomiting. Patient confused GCS 13/15, hypotensive 78/42, tachycardic 128, hypoglycaemic BM 2.8, hyponatraemic - life-threatening adrenal crisis.",
+    gpLetters: ["Blood Test Results", "Medication Review"] as GPLetterType[]
+  },
+  {
+    condition: "Necrotising Fasciitis",
+    ageRange: [40, 75],
+    presentation: "Rapidly spreading cellulitis lower leg with severe pain disproportionate to appearance, crepitus palpable, skin necrosis, systemic toxicity, fever 39.8°C",
+    medications: ["Tazocin", "Clindamycin", "Meropenem"],
+    history: ["Recent minor leg trauma", "Type 2 diabetes poorly controlled", "Peripheral vascular disease"],
+    dispatch: "severe leg infection spreading rapidly. Patient systemically unwell, leg purple discolouration, crepitus felt, severe pain, tachycardic 132, hypotensive 88/56 - surgical emergency.",
+    gpLetters: [] as GPLetterType[]
+  },
+  {
+    condition: "Acute Liver Failure",
+    ageRange: [25, 60],
+    presentation: "Jaundice, confusion hepatic encephalopathy grade 3, coagulopathy with spontaneous bruising, ascites, asterixis, paracetamol overdose 72 hours ago",
+    medications: ["N-acetylcysteine", "Lactulose", "Vitamin K"],
+    history: ["Paracetamol overdose 72 hours", "Previous suicide attempt", "Depression"],
+    dispatch: "unresponsive patient, jaundiced. Patient GCS 9/15 (E3 V2 M4), deeply jaundiced, flapping tremor, liver failure - needs urgent hepatology/transplant assessment.",
+    gpLetters: [] as GPLetterType[]
+  },
+  {
+    condition: "Eclampsia",
+    ageRange: [20, 42],
+    presentation: "Tonic-clonic seizure in pregnancy 36 weeks, severe headache, visual disturbance, epigastric pain, BP 178/118, proteinuria 3+",
+    medications: ["Magnesium Sulphate", "Labetalol"],
+    history: ["Primigravida 36 weeks", "Pre-eclampsia diagnosed last week", "No previous seizures"],
+    dispatch: "pregnant woman having seizures. Patient post-ictal, 36 weeks pregnant, BP 178/118, severe headache, needs immediate magnesium and delivery - obstetric emergency.",
+    gpLetters: [] as GPLetterType[]
+  },
+  {
+    condition: "Tension Pneumothorax",
+    ageRange: [25, 60],
+    presentation: "Sudden severe breathlessness and chest pain, tracheal deviation to left, hyperresonant right chest, absent breath sounds right, distended neck veins, hypotensive",
+    medications: [],
+    history: ["Recent rib fracture right side", "COPD", "Previous pneumothorax"],
+    dispatch: "critical - severe breathing difficulty, possible pneumothorax. Patient cyanosed, trachea deviated, hyperresonant right chest, no air entry right, BP 82/54, needs immediate needle decompression.",
+    gpLetters: [] as GPLetterType[]
+  },
+  {
+    condition: "Malignant Hyperthermia",
+    ageRange: [20, 50],
+    presentation: "Post-operative hyperthermia 42°C, muscle rigidity, tachycardia 156, rising CO2, acidosis, rhabdomyolysis with dark urine, general anaesthetic 2 hours ago",
+    medications: ["Dantrolene"],
+    history: ["Recent appendicectomy", "Family history of anaesthetic problems", "Previously well"],
+    dispatch: "post-operative emergency, very high temperature. Patient rigid, pyrexial 42°C, tachycardic 156, dark urine, life-threatening reaction to anaesthetic - needs dantrolene immediately.",
+    gpLetters: [] as GPLetterType[]
+  },
+  {
+    condition: "Bacterial Meningitis",
+    ageRange: [18, 65],
+    presentation: "Severe headache, photophobia, neck stiffness, non-blanching purpuric rash spreading rapidly, fever 39.6°C, drowsy GCS 13/15, Kernig's sign positive",
+    medications: ["Ceftriaxone", "Dexamethasone"],
+    history: ["Previously well", "Recent upper respiratory infection", "University student"],
+    dispatch: "severe headache, rash spreading, drowsy. Patient GCS 13/15, pyrexial 39.6°C, neck stiffness, non-blanching rash thighs and trunk - meningococcal septicaemia, needs immediate antibiotics.",
+    gpLetters: [] as GPLetterType[]
+  },
+  {
+    condition: "Aortic Dissection",
+    ageRange: [50, 75],
+    presentation: "Sudden tearing chest pain radiating to back between shoulder blades, blood pressure difference 40mmHg between arms, aortic regurgitation murmur, syncope",
+    medications: ["Labetalol", "Morphine"],
+    history: ["Hypertension poorly controlled", "Marfan syndrome", "Smoker"],
+    dispatch: "severe chest and back pain, tearing sensation. Patient pale, clammy, BP 188/92 right arm 148/86 left arm, severe pain - aortic dissection suspected, needs urgent CT.",
+    gpLetters: [] as GPLetterType[]
+  },
+  {
+    condition: "Serotonin Syndrome",
+    ageRange: [25, 60],
+    presentation: "Confusion, agitation, tremor, hyperreflexia, clonus, dilated pupils, hyperthermia 39.8°C, diaphoresis, started new antidepressant 3 days ago",
+    medications: ["Sertraline", "Tramadol"],
+    history: ["Depression", "Chronic pain", "Recently increased SSRI dose and started tramadol"],
+    dispatch: "confused and agitated, on antidepressants. Patient hyperreflexic, clonus noted, dilated pupils, pyrexial 39.8°C, tachycardic 128 - serotonin syndrome, needs urgent treatment.",
+    gpLetters: ["Medication Review"] as GPLetterType[]
+  },
+  {
+    condition: "Neuroleptic Malignant Syndrome",
+    ageRange: [30, 65],
+    presentation: "Severe muscle rigidity lead-pipe, hyperthermia 40.2°C, confusion, autonomic instability, fluctuating consciousness, started antipsychotic 5 days ago",
+    medications: ["Haloperidol", "Dantrolene"],
+    history: ["Schizophrenia", "Recently started new antipsychotic", "Previous dystonic reaction"],
+    dispatch: "critically unwell, new psychiatric medication. Patient rigid, pyrexial 40.2°C, confused, tachycardic 142, elevated CK - NMS suspected, needs ICU.",
+    gpLetters: ["Medication Review"] as GPLetterType[]
+  },
+  {
+    condition: "Hyperosmolar Hyperglycaemic State",
+    ageRange: [55, 85],
+    presentation: "Severe dehydration, drowsy GCS 11/15, blood glucose 45mmol/L, profound osmotic diuresis, no ketones, hypotension, tachycardia, dry mucous membranes",
+    medications: ["Insulin", "Metformin"],
+    history: ["Type 2 diabetes", "Stopped drinking fluids 4 days ago", "Recent UTI"],
+    dispatch: "diabetic emergency, very high sugar, dehydrated. Patient drowsy GCS 11/15, BM >30 (meter reads HI), severely dehydrated, hypotensive 86/52 - HHS, needs slow careful rehydration.",
+    gpLetters: ["Blood Test Results"] as GPLetterType[]
+  },
+  {
+    condition: "Status Epilepticus",
+    ageRange: [20, 60],
+    presentation: "Continuous seizure activity 25 minutes, not regaining consciousness between seizures, tonic-clonic movements, cyanosed, hypoxic",
+    medications: ["Lorazepam", "Levetiracetam", "Phenytoin"],
+    history: ["Epilepsy", "Non-compliant with medication", "Recent alcohol binge"],
+    dispatch: "continuous fitting 25 minutes. Patient still seizing, cyanosed, SpO2 82%, given buccal midazolam x2 no effect - status epilepticus, needs immediate IV benzodiazepine.",
+    gpLetters: [] as GPLetterType[]
+  },
+  {
+    condition: "Hypertensive Emergency",
+    ageRange: [45, 75],
+    presentation: "Severe headache, visual disturbance, chest pain, nausea, BP 228/134, papilloedema on fundoscopy, acute kidney injury, microangiopathic haemolysis",
+    medications: ["Labetalol", "Ramipril", "Amlodipine"],
+    history: ["Hypertension", "Stopped taking medication 2 weeks ago", "Previous TIA"],
+    dispatch: "severe headache, very high blood pressure. Patient headache 10/10, visual disturbance, BP 228/134, needs controlled BP reduction - hypertensive emergency with end-organ damage.",
+    gpLetters: ["Blood Test Results", "Medication Review"] as GPLetterType[]
+  },
+  {
+    condition: "Anaphylaxis",
+    ageRange: [5, 70],
+    presentation: "Sudden onset widespread urticarial rash, angioedema lips and tongue, stridor, wheeze, hypotension 76/42, ate peanuts 15 minutes ago",
+    medications: ["Adrenaline", "Chlorphenamine", "Hydrocortisone"],
+    history: ["Known peanut allergy", "Previous anaphylaxis requiring ICU", "Carries EpiPen but left at home"],
+    dispatch: "severe allergic reaction, breathing difficulty. Patient widespread rash, swollen lips/tongue, stridor audible, wheeze, hypotensive 76/42 - anaphylaxis, needs immediate IM adrenaline.",
+    gpLetters: [] as GPLetterType[]
+  },
+  {
+    condition: "Subarachnoid Haemorrhage",
+    ageRange: [40, 70],
+    presentation: "Sudden onset thunderclap headache worst ever, vomiting, photophobia, neck stiffness, drowsy GCS 13/15, onset during straining at toilet",
+    medications: ["Nimodipine"],
+    history: ["Hypertension", "Smoker 30 pack years", "Family history of brain aneurysm"],
+    dispatch: "sudden severe headache, worst ever. Patient drowsy GCS 13/15, severe headache, vomiting, neck stiff, photophobic - SAH suspected, needs urgent CT head.",
+    gpLetters: [] as GPLetterType[]
   }
 ];
 

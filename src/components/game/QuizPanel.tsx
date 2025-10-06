@@ -497,21 +497,21 @@ export const QuizPanel = ({ scenario, onComplete }: QuizPanelProps) => {
   }
 
   return (
-    <div className="border-4 border-accent p-4 pixel-text document-shadow" style={{ width: "380px", backgroundColor: "hsl(35, 25%, 75%)" }}>
+    <div className="border-4 border-muted p-4 pixel-text retro-shadow" style={{ width: "380px", backgroundColor: "hsl(240, 10%, 25%)" }}>
       {/* Header */}
-      <div className="border-b-2 border-accent pb-2 mb-3 bg-accent/20">
-        <h2 className="font-bold" style={{ fontSize: "11px", color: "#000" }}>
+      <div className="border-b-2 border-primary pb-2 mb-3 bg-primary/20">
+        <h2 className="font-bold text-radio-text" style={{ fontSize: "11px" }}>
           PATIENT ASSESSMENT
         </h2>
-        <div className="font-bold mt-1" style={{ fontSize: "9px", color: "#000" }}>
+        <div className="font-bold mt-1 text-radio-text opacity-80" style={{ fontSize: "9px" }}>
           Q{currentQuestion + 1}/{questions.length} | Score: {score}/{questions.length}
         </div>
       </div>
 
       {/* Question */}
       <div className="mb-4">
-        <div className="bg-card border-2 border-paper-border p-3 mb-3">
-          <p className="font-bold" style={{ fontSize: "10px", lineHeight: "1.5", color: "#000" }}>
+        <div className="bg-primary/20 border-2 border-primary p-3 mb-3">
+          <p className="font-bold text-radio-text" style={{ fontSize: "10px", lineHeight: "1.5" }}>
             {questions[currentQuestion].question}
           </p>
         </div>
@@ -531,13 +531,13 @@ export const QuizPanel = ({ scenario, onComplete }: QuizPanelProps) => {
                       : "border-destructive bg-destructive/30 retro-shadow"
                     : idx === questions[currentQuestion].correctAnswer
                     ? "border-accent bg-accent/20"
-                    : "border-paper-border bg-card opacity-60"
-                  : "border-paper-border hover:border-accent hover:bg-accent/10 hover:scale-102 bg-card"
+                    : "border-muted bg-background/50 opacity-60"
+                  : "border-muted hover:border-accent hover:bg-accent/10 hover:scale-102 bg-background/50"
               }`}
-              style={{ fontSize: "9px", lineHeight: "1.4", color: "#000" }}
+              style={{ fontSize: "9px", lineHeight: "1.4" }}
             >
-              <span className="font-bold mr-2 text-accent">{String.fromCharCode(65 + idx)}.</span>
-              {option}
+              <span className="font-bold mr-2 text-radio-accent">{String.fromCharCode(65 + idx)}.</span>
+              <span className="text-radio-text">{option}</span>
             </button>
           ))}
         </div>
