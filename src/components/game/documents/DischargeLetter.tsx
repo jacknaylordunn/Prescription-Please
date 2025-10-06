@@ -6,106 +6,101 @@ interface DischargeLetterProps {
 }
 
 export const DischargeLetter = ({ patientName, age, condition, isEnlarged = false }: DischargeLetterProps) => {
-  const scale = isEnlarged ? 1.5 : 1;
   const admissionDate = new Date(Date.now() - Math.floor(Math.random() * 7 + 1) * 24 * 60 * 60 * 1000);
   const dischargeDate = new Date();
   
   return (
     <div 
-      className="paper-texture border-2 border-primary pixel-text document-shadow"
+      className="paper-texture border-4 border-nhs-blue pixel-text document-shadow select-none"
       style={{ 
-        width: `${440 * scale}px`,
-        fontSize: `${11 * scale}px`,
-        padding: `${18 * scale}px`,
+        width: "280px",
+        padding: "12px",
       }}
     >
       {/* Hospital Header */}
-      <div className="border-b-4 border-primary pb-3 mb-4 bg-primary/10">
-        <div className="font-bold text-primary" style={{ fontSize: `${18 * scale}px` }}>
-          NHS HOSPITAL TRUST
+      <div className="border-b-2 border-nhs-blue pb-2 mb-2 bg-nhs-blue/10">
+        <div className="font-bold" style={{ fontSize: "10px", color: '#000' }}>
+          NHS HOSPITAL
         </div>
-        <div className="mt-1 font-bold" style={{ fontSize: `${12 * scale}px`, color: '#000' }}>
-          Accident & Emergency Department<br/>
-          Discharge Summary
+        <div className="mt-0.5 font-bold" style={{ fontSize: "7px", color: '#000' }}>
+          A&E Discharge Summary
         </div>
       </div>
 
       {/* Patient Details */}
-      <div className="grid grid-cols-2 gap-3 mb-4">
-        <div className="border-4 border-paper-border p-3 bg-card">
-          <div className="font-bold" style={{ fontSize: `${11 * scale}px`, color: '#000' }}>Patient Name:</div>
-          <div className="font-bold" style={{ fontSize: `${13 * scale}px`, color: '#000' }}>{patientName}</div>
+      <div className="grid grid-cols-2 gap-1 mb-2">
+        <div className="border-2 border-paper-border p-2 bg-card">
+          <div className="font-bold" style={{ fontSize: "6px", color: '#000' }}>PATIENT:</div>
+          <div className="font-bold" style={{ fontSize: "8px", color: '#000', lineHeight: "1.2" }}>{patientName}</div>
         </div>
-        <div className="border-4 border-paper-border p-3 bg-card">
-          <div className="font-bold" style={{ fontSize: `${11 * scale}px`, color: '#000' }}>Age:</div>
-          <div className="font-bold" style={{ fontSize: `${13 * scale}px`, color: '#000' }}>{age} years</div>
+        <div className="border-2 border-paper-border p-2 bg-card">
+          <div className="font-bold" style={{ fontSize: "6px", color: '#000' }}>AGE:</div>
+          <div className="font-bold" style={{ fontSize: "8px", color: '#000' }}>{age} years</div>
         </div>
       </div>
 
       {/* Admission Details */}
-      <div className="border-4 border-paper-border p-3 mb-3 bg-card">
-        <div className="font-bold mb-2" style={{ fontSize: `${13 * scale}px`, color: '#000' }}>Admission Details:</div>
-        <div className="space-y-1" style={{ fontSize: `${11 * scale}px`, color: '#000' }}>
+      <div className="border-2 border-paper-border p-2 mb-2 bg-card">
+        <div className="font-bold mb-1" style={{ fontSize: "7px", color: '#000' }}>Admission:</div>
+        <div className="space-y-0.5" style={{ fontSize: "6px", color: '#000' }}>
           <div>
-            <span className="font-bold">Admitted: </span>
+            <span className="font-bold">In: </span>
             <span className="font-bold">{admissionDate.toLocaleDateString('en-GB')}</span>
           </div>
           <div>
-            <span className="font-bold">Discharged: </span>
+            <span className="font-bold">Out: </span>
             <span className="font-bold">{dischargeDate.toLocaleDateString('en-GB')}</span>
           </div>
         </div>
       </div>
 
       {/* Diagnosis */}
-      <div className="border-4 border-primary p-3 mb-3 bg-primary/10">
-        <div className="font-bold mb-2" style={{ fontSize: `${13 * scale}px`, color: '#000' }}>Primary Diagnosis:</div>
-        <div className="font-bold" style={{ fontSize: `${13 * scale}px`, color: '#000' }}>
-          {condition}
+      <div className="border-2 border-nhs-blue p-2 mb-2 bg-nhs-blue/10">
+        <div className="font-bold mb-1" style={{ fontSize: "7px", color: '#000' }}>Diagnosis:</div>
+        <div className="font-bold" style={{ fontSize: "7px", color: '#000', lineHeight: "1.3" }}>
+          {condition.substring(0, 50)}
         </div>
       </div>
 
       {/* Treatment Summary */}
-      <div className="border-4 border-paper-border p-3 mb-3 bg-card">
-        <div className="font-bold mb-2" style={{ fontSize: `${13 * scale}px`, color: '#000' }}>Treatment Given:</div>
-        <div className="leading-relaxed" style={{ fontSize: `${11 * scale}px`, color: '#000' }}>
-          • Clinical assessment completed<br/>
-          • Investigations performed as indicated<br/>
-          • Treatment initiated in hospital<br/>
-          • Condition stable for discharge<br/>
-          • Follow-up arrangements made
+      <div className="border-2 border-paper-border p-2 mb-2 bg-card">
+        <div className="font-bold mb-1" style={{ fontSize: "7px", color: '#000' }}>Treatment:</div>
+        <div style={{ fontSize: "6px", color: '#000', lineHeight: "1.3" }}>
+          • Assessment done<br/>
+          • Investigations done<br/>
+          • Treatment started<br/>
+          • Stable for discharge
         </div>
       </div>
 
       {/* Discharge Medications */}
-      <div className="border-4 border-accent p-3 mb-3 bg-accent/10">
-        <div className="font-bold mb-2" style={{ fontSize: `${13 * scale}px`, color: '#000' }}>Discharge Medications:</div>
-        <div style={{ fontSize: `${11 * scale}px`, color: '#000' }}>
-          See attached prescription (FP10).<br/>
-          Changes made to existing medications.<br/>
-          Patient counselled on new drugs.
+      <div className="border-2 border-accent p-2 mb-2 bg-accent/10">
+        <div className="font-bold mb-1" style={{ fontSize: "7px", color: '#000' }}>Medications:</div>
+        <div style={{ fontSize: "6px", color: '#000', lineHeight: "1.3" }}>
+          See FP10 prescription.<br/>
+          Changes to existing meds.<br/>
+          Patient counselled.
         </div>
       </div>
 
       {/* Follow-up */}
-      <div className="border-4 border-paper-border p-3 mb-3 bg-card">
-        <div className="font-bold mb-2" style={{ fontSize: `${13 * scale}px`, color: '#000' }}>Follow-up:</div>
-        <div className="leading-relaxed" style={{ fontSize: `${11 * scale}px`, color: '#000' }}>
-          • GP follow-up in 1 week<br/>
-          • Outpatient review if symptoms worsen<br/>
-          • Return to ED if deterioration<br/>
-          • District nurse referral made
+      <div className="border-2 border-paper-border p-2 mb-2 bg-card">
+        <div className="font-bold mb-1" style={{ fontSize: "7px", color: '#000' }}>Follow-up:</div>
+        <div style={{ fontSize: "6px", color: '#000', lineHeight: "1.3" }}>
+          • GP in 1 week<br/>
+          • Return if worse<br/>
+          • District nurse ref
         </div>
       </div>
 
       {/* Doctor Details */}
-      <div className="border-t-4 border-paper-border pt-3">
-        <div style={{ fontSize: `${11 * scale}px`, color: '#000' }}>
-          <span className="font-bold">Discharging Doctor: </span>
-          <span className="font-bold">Dr. {["Anderson", "Mitchell", "Thompson", "Roberts"][Math.floor(Math.random() * 4)]}</span>
+      <div className="border-t border-paper-border pt-2">
+        <div style={{ fontSize: "6px", color: '#000' }}>
+          <span className="font-bold">Dr: </span>
+          <span className="font-bold">Dr. {["Anderson", "Mitchell"][Math.floor(Math.random() * 2)]}</span>
         </div>
-        <div className="font-bold mt-1" style={{ fontSize: `${11 * scale}px`, color: '#000' }}>
-          Emergency Medicine Registrar
+        <div className="font-bold mt-0.5" style={{ fontSize: "5px", color: '#000' }}>
+          EM Registrar
         </div>
       </div>
     </div>

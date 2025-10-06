@@ -156,9 +156,15 @@ export const QuizPanel = ({ scenario, onComplete }: QuizPanelProps) => {
 
     if (isCorrect) {
       setScore(score + 1);
-      toast.success("Correct! " + questions[currentQuestion].explanation);
+      toast.success("✓ Correct! " + questions[currentQuestion].explanation, {
+        duration: 4000,
+        style: { background: "hsl(142, 76%, 36%)", color: "white" }
+      });
     } else {
-      toast.error("Incorrect. " + questions[currentQuestion].explanation);
+      toast.error("✗ Incorrect. " + questions[currentQuestion].explanation, {
+        duration: 4000,
+        style: { background: "hsl(0, 84%, 60%)", color: "white" }
+      });
     }
   };
 
@@ -187,33 +193,33 @@ export const QuizPanel = ({ scenario, onComplete }: QuizPanelProps) => {
   }
 
   return (
-    <div className="paper-texture border-4 border-accent p-6 pixel-text document-shadow" style={{ width: "520px" }}>
+    <div className="paper-texture border-4 border-accent p-4 pixel-text document-shadow" style={{ width: "380px" }}>
       {/* Header */}
-      <div className="border-b-4 border-accent pb-3 mb-4 bg-accent/10">
-        <h2 className="font-bold text-paper-text" style={{ fontSize: "16px" }}>
-          PATIENT ASSESSMENT FORM
+      <div className="border-b-2 border-accent pb-2 mb-3 bg-accent/10">
+        <h2 className="font-bold" style={{ fontSize: "11px", color: "#000" }}>
+          PATIENT ASSESSMENT
         </h2>
-        <div className="text-sm text-paper-text font-bold mt-2">
-          Question {currentQuestion + 1} of {questions.length} | Score: {score}/{questions.length}
+        <div className="font-bold mt-1" style={{ fontSize: "9px", color: "#000" }}>
+          Q{currentQuestion + 1}/{questions.length} | Score: {score}/{questions.length}
         </div>
       </div>
 
       {/* Question */}
-      <div className="mb-6">
-        <div className="bg-card border-4 border-paper-border p-4 mb-4">
-          <p className="font-bold mb-2 text-paper-text" style={{ fontSize: "13px", lineHeight: "1.6" }}>
+      <div className="mb-4">
+        <div className="bg-card border-2 border-paper-border p-3 mb-3">
+          <p className="font-bold" style={{ fontSize: "10px", lineHeight: "1.5", color: "#000" }}>
             {questions[currentQuestion].question}
           </p>
         </div>
 
         {/* Options */}
-        <div className="space-y-3">
+        <div className="space-y-2">
           {questions[currentQuestion].options.map((option, idx) => (
             <button
               key={idx}
               onClick={() => handleAnswer(idx)}
               disabled={answered}
-              className={`w-full p-4 text-left border-4 transition-all font-bold text-paper-text ${
+              className={`w-full p-2 text-left border-2 transition-all font-bold ${
                 answered
                   ? selectedAnswer === idx
                     ? option === questions[currentQuestion].options[questions[currentQuestion].correctAnswer]
@@ -224,9 +230,9 @@ export const QuizPanel = ({ scenario, onComplete }: QuizPanelProps) => {
                     : "border-paper-border bg-card opacity-60"
                   : "border-paper-border hover:border-accent hover:bg-accent/10 hover:scale-102 bg-card"
               }`}
-              style={{ fontSize: "12px", lineHeight: "1.5" }}
+              style={{ fontSize: "9px", lineHeight: "1.4", color: "#000" }}
             >
-              <span className="font-bold mr-3 text-accent">{String.fromCharCode(65 + idx)}.</span>
+              <span className="font-bold mr-2 text-accent">{String.fromCharCode(65 + idx)}.</span>
               {option}
             </button>
           ))}
@@ -237,10 +243,10 @@ export const QuizPanel = ({ scenario, onComplete }: QuizPanelProps) => {
       {answered && (
         <Button 
           onClick={handleNext}
-          className="w-full bg-accent hover:bg-accent/90 text-accent-foreground font-bold border-4 border-accent-foreground/30 retro-shadow hover:scale-105 transition-transform"
-          style={{ fontSize: "12px", padding: "16px" }}
+          className="w-full bg-accent hover:bg-accent/90 text-accent-foreground font-bold border-2 border-accent-foreground/30 retro-shadow hover:scale-105 transition-transform"
+          style={{ fontSize: "9px", padding: "10px" }}
         >
-          {currentQuestion < questions.length - 1 ? "► NEXT QUESTION" : "► COMPLETE ASSESSMENT"}
+          {currentQuestion < questions.length - 1 ? "► NEXT" : "► COMPLETE"}
         </Button>
       )}
     </div>

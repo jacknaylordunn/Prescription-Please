@@ -114,9 +114,10 @@ export const GameBoard = () => {
       {/* Draggable Prescription */}
       {(gameState === "dispatch" || gameState === "assessing" || gameState === "quiz" || gameState === "complete") && (
         <DraggableItem 
-          initialX={480} 
-          initialY={120} 
+          initialX={350} 
+          initialY={180} 
           zIndexBase={15}
+          isEnlarged={enlargedPrescription}
           onDoubleClick={() => setEnlargedPrescription(!enlargedPrescription)}
         >
           <Prescription scenario={currentScenario} isEnlarged={enlargedPrescription} />
@@ -128,9 +129,10 @@ export const GameBoard = () => {
         <>
           {documentConfig.showDNACPR && (
             <DraggableItem 
-              initialX={950} 
-              initialY={200} 
+              initialX={750} 
+              initialY={250} 
               zIndexBase={14}
+              isEnlarged={enlargedDoc === 0}
               onDoubleClick={() => setEnlargedDoc(enlargedDoc === 0 ? null : 0)}
             >
               <DNACPR 
@@ -144,9 +146,10 @@ export const GameBoard = () => {
           
           {documentConfig.showGPLetter && (
             <DraggableItem 
-              initialX={520} 
+              initialX={600} 
               initialY={420} 
               zIndexBase={13}
+              isEnlarged={enlargedDoc === 1}
               onDoubleClick={() => setEnlargedDoc(enlargedDoc === 1 ? null : 1)}
             >
               <GPLetter 
@@ -162,9 +165,10 @@ export const GameBoard = () => {
           
           {documentConfig.showCarePlan && (
             <DraggableItem 
-              initialX={950} 
-              initialY={450} 
+              initialX={200} 
+              initialY={380} 
               zIndexBase={12}
+              isEnlarged={enlargedDoc === 2}
               onDoubleClick={() => setEnlargedDoc(enlargedDoc === 2 ? null : 2)}
             >
               <CarePlan 
@@ -178,9 +182,10 @@ export const GameBoard = () => {
           
           {documentConfig.showDischarge && (
             <DraggableItem 
-              initialX={100} 
+              initialX={950} 
               initialY={450} 
               zIndexBase={11}
+              isEnlarged={enlargedDoc === 3}
               onDoubleClick={() => setEnlargedDoc(enlargedDoc === 3 ? null : 3)}
             >
               <DischargeLetter 
@@ -203,12 +208,12 @@ export const GameBoard = () => {
 
       {/* Instructions */}
       {gameState === "idle" && (
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 bg-card/95 px-8 py-5 border-4 border-primary pixel-text retro-shadow animate-fade-in">
-          <p className="text-center text-paper-text" style={{ fontSize: "11px", lineHeight: "1.8" }}>
-            <span className="font-bold text-primary" style={{ fontSize: "14px" }}>WELCOME TO PRESCRIPTION, PLEASE!</span><br/>
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 bg-card px-6 py-4 border-4 border-primary pixel-text retro-shadow animate-fade-in">
+          <p className="text-center" style={{ fontSize: "9px", lineHeight: "1.8", color: "#000" }}>
+            <span className="font-bold text-primary" style={{ fontSize: "12px" }}>PRESCRIPTION, PLEASE!</span><br/>
             <br/>
-            Click START GAME on radio • Double-click papers to enlarge<br/>
-            Drag items around desk • Click lamp to illuminate workspace
+            Click START on radio • Double-click to enlarge<br/>
+            Drag papers • Toggle lamp for light
           </p>
         </div>
       )}

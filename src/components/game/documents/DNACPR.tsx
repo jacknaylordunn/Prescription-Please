@@ -6,86 +6,83 @@ interface DNACPRProps {
 }
 
 export const DNACPR = ({ patientName, age, nhsNumber, isEnlarged = false }: DNACPRProps) => {
-  const scale = isEnlarged ? 1.5 : 1;
   const today = new Date();
   const formattedDate = today.toLocaleDateString('en-GB');
   
   return (
     <div 
-      className="paper-texture border-4 border-destructive pixel-text document-shadow"
+      className="paper-texture border-4 border-destructive pixel-text document-shadow select-none"
       style={{ 
-        width: `${400 * scale}px`,
-        fontSize: `${11 * scale}px`,
-        padding: `${16 * scale}px`,
+        width: "260px",
+        padding: "10px",
       }}
     >
       {/* Header */}
-      <div className="bg-destructive text-destructive-foreground p-3 mb-4 text-center border-2 border-destructive">
-        <div className="font-bold" style={{ fontSize: `${16 * scale}px` }}>
-          DO NOT ATTEMPT CARDIOPULMONARY<br/>RESUSCITATION (DNACPR)
+      <div className="bg-destructive/20 border-b-2 border-destructive p-2 mb-2">
+        <div className="font-bold text-center" style={{ fontSize: "9px", color: '#000' }}>
+          DO NOT ATTEMPT CPR
         </div>
+        <div className="font-bold text-center" style={{ fontSize: "6px", color: '#000' }}>DNACPR</div>
       </div>
 
       {/* Patient Details */}
-      <div className="border-4 border-paper-border p-3 mb-3 bg-card">
-        <div className="grid grid-cols-2 gap-2">
+      <div className="border-2 border-paper-border p-2 mb-2 bg-card">
+        <div className="space-y-1">
           <div>
-            <div className="text-xs font-bold" style={{ color: '#000' }}>Patient Name:</div>
-            <div className="font-bold" style={{ fontSize: `${13 * scale}px`, color: '#000' }}>{patientName}</div>
+            <div className="font-bold" style={{ fontSize: "6px", color: '#000' }}>PATIENT:</div>
+            <div className="font-bold" style={{ fontSize: "8px", color: '#000' }}>{patientName}</div>
           </div>
           <div>
-            <div className="text-xs font-bold" style={{ color: '#000' }}>Date of Birth:</div>
-            <div className="font-bold" style={{ fontSize: `${13 * scale}px`, color: '#000' }}>
+            <div className="font-bold" style={{ fontSize: "6px", color: '#000' }}>DOB:</div>
+            <div className="font-bold" style={{ fontSize: "7px", color: '#000' }}>
               {new Date(new Date().getFullYear() - age, Math.floor(Math.random() * 12), Math.floor(Math.random() * 28) + 1).toLocaleDateString('en-GB')}
             </div>
           </div>
-          <div className="col-span-2">
-            <div className="text-xs font-bold" style={{ color: '#000' }}>NHS Number:</div>
-            <div className="font-bold" style={{ fontSize: `${13 * scale}px`, color: '#000' }}>{nhsNumber}</div>
+          <div>
+            <div className="font-bold" style={{ fontSize: "6px", color: '#000' }}>NHS: {nhsNumber}</div>
           </div>
         </div>
       </div>
 
       {/* Decision */}
-      <div className="border-4 border-destructive p-4 mb-3 bg-destructive/10">
-        <div className="font-bold text-destructive mb-3" style={{ fontSize: `${14 * scale}px` }}>Decision:</div>
-        <div className="font-bold leading-relaxed" style={{ fontSize: `${12 * scale}px`, color: '#000' }}>
-          ☒ CPR should NOT be attempted<br/>
+      <div className="border-2 border-destructive p-2 mb-2 bg-destructive/10">
+        <div className="font-bold mb-1" style={{ fontSize: "8px", color: '#000' }}>Decision:</div>
+        <div className="font-bold" style={{ fontSize: "7px", color: '#000', lineHeight: "1.4" }}>
+          ☒ CPR NOT to be attempted<br/>
           <br/>
-          In the event of cardiac or respiratory<br/>
-          arrest, do not attempt cardiopulmonary<br/>
-          resuscitation.
+          In event of cardiac/respiratory<br/>
+          arrest, do NOT attempt CPR.
         </div>
       </div>
 
       {/* Clinical Details */}
-      <div className="border-4 border-paper-border p-3 mb-3 bg-card">
-        <div className="font-bold mb-2" style={{ fontSize: `${13 * scale}px`, color: '#000' }}>Clinical Details:</div>
-        <div className="leading-relaxed" style={{ fontSize: `${11 * scale}px`, color: '#000' }}>
-          Advanced life limiting condition with<br/>
-          deteriorating health status. Patient has<br/>
-          capacity and agrees with this decision.
+      <div className="border-2 border-paper-border p-2 mb-2 bg-card">
+        <div className="font-bold mb-1" style={{ fontSize: "7px", color: '#000' }}>Clinical:</div>
+        <div style={{ fontSize: "6px", color: '#000', lineHeight: "1.4" }}>
+          Advanced condition with<br/>
+          deteriorating status. Patient<br/>
+          has capacity and agrees.
         </div>
       </div>
 
       {/* Signatures */}
-      <div className="border-t-2 border-paper-border pt-3 space-y-2">
-        <div className="grid grid-cols-2 gap-2">
+      <div className="border-t border-paper-border pt-2 space-y-1">
+        <div className="grid grid-cols-2 gap-1">
           <div>
-            <div className="text-xs font-bold" style={{ color: '#000' }}>Senior Doctor:</div>
-            <div className="font-script" style={{ fontSize: `${18 * scale}px`, color: '#000' }}>Dr. Signature</div>
+            <div className="font-bold" style={{ fontSize: "6px", color: '#000' }}>Doctor:</div>
+            <div className="font-script" style={{ fontSize: "9px", color: '#000' }}>Dr. Sig</div>
           </div>
           <div>
-            <div className="text-xs font-bold" style={{ color: '#000' }}>Date:</div>
-            <div className="font-bold" style={{ fontSize: `${13 * scale}px`, color: '#000' }}>{formattedDate}</div>
+            <div className="font-bold" style={{ fontSize: "6px", color: '#000' }}>Date:</div>
+            <div className="font-bold" style={{ fontSize: "7px", color: '#000' }}>{formattedDate}</div>
           </div>
         </div>
       </div>
 
       {/* Footer */}
-      <div className="mt-3 pt-3 border-t-4 border-destructive bg-destructive/10">
-        <div className="font-bold text-destructive text-center" style={{ fontSize: `${11 * scale}px` }}>
-          THIS FORM IS VALID ACROSS ALL CARE SETTINGS
+      <div className="mt-2 pt-2 border-t-2 border-destructive bg-destructive/10">
+        <div className="font-bold text-center" style={{ fontSize: "5px", color: '#000' }}>
+          VALID ACROSS ALL CARE SETTINGS
         </div>
       </div>
     </div>

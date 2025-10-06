@@ -5,6 +5,7 @@ interface DraggableItemProps {
   initialX?: number;
   initialY?: number;
   zIndexBase?: number;
+  isEnlarged?: boolean;
   onDoubleClick?: () => void;
 }
 
@@ -13,6 +14,7 @@ export const DraggableItem = ({
   initialX = 100, 
   initialY = 100, 
   zIndexBase = 10,
+  isEnlarged = false,
   onDoubleClick 
 }: DraggableItemProps) => {
   const [position, setPosition] = useState({ x: initialX, y: initialY });
@@ -61,11 +63,13 @@ export const DraggableItem = ({
   return (
     <div
       ref={dragRef}
-      className="absolute draggable"
+      className="absolute draggable transition-transform duration-300"
       style={{
         left: `${position.x}px`,
         top: `${position.y}px`,
-        zIndex: isDragging ? 100 : zIndex,
+        zIndex: isDragging ? 100 : isEnlarged ? 90 : zIndex,
+        transform: isEnlarged ? 'scale(1.5)' : 'scale(1)',
+        transformOrigin: 'center center',
       }}
       onMouseDown={handleMouseDown}
       onDoubleClick={onDoubleClick}
