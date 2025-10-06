@@ -35,18 +35,37 @@ export const DraggableItem = ({
       }
     };
 
+    const handleTouchMove = (e: TouchEvent) => {
+      if (isDragging && e.touches.length > 0) {
+        e.preventDefault();
+        const touch = e.touches[0];
+        setPosition({
+          x: touch.clientX - offsetRef.current.x,
+          y: touch.clientY - offsetRef.current.y,
+        });
+      }
+    };
+
     const handleMouseUp = () => {
+      setIsDragging(false);
+    };
+
+    const handleTouchEnd = () => {
       setIsDragging(false);
     };
 
     if (isDragging) {
       document.addEventListener("mousemove", handleMouseMove);
       document.addEventListener("mouseup", handleMouseUp);
+      document.addEventListener("touchmove", handleTouchMove, { passive: false });
+      document.addEventListener("touchend", handleTouchEnd);
     }
 
     return () => {
       document.removeEventListener("mousemove", handleMouseMove);
       document.removeEventListener("mouseup", handleMouseUp);
+      document.removeEventListener("touchmove", handleTouchMove);
+      document.removeEventListener("touchend", handleTouchEnd);
     };
   }, [isDragging]);
 
@@ -58,7 +77,20 @@ export const DraggableItem = ({
         y: e.clientY - rect.top,
       };
       setIsDragging(true);
-      onMouseDownProp?.(); // Notify parent first
+      onMouseDownProp?.();
+    }
+  };
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    if (dragRef.current && e.touches.length > 0) {
+      const touch = e.touches[0];
+      const rect = dragRef.current.getBoundingClientRect();
+      offsetRef.current = {
+        x: touch.clientX - rect.left,
+        y: touch.clientY - rect.top,
+      };
+      setIsDragging(true);
+      onMouseDownProp?.();
     }
   };
 
@@ -72,8 +104,10 @@ export const DraggableItem = ({
         zIndex: isDragging ? 100 : zIndexBase,
         transform: isEnlarged ? 'scale(1.5)' : 'scale(1)',
         transformOrigin: 'center center',
+        touchAction: 'none',
       }}
       onMouseDown={handleMouseDown}
+      onTouchStart={handleTouchStart}
       onDoubleClick={onDoubleClick}
     >
       {children}
