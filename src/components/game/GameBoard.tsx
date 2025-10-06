@@ -4,9 +4,12 @@ import { Prescription } from "./Prescription";
 import { Radio } from "./Radio";
 import { QuizPanel } from "./QuizPanel";
 import { DNACPR } from "./documents/DNACPR";
+import { ReSPECT } from "./documents/ReSPECT";
 import { GPLetter } from "./documents/GPLetter";
 import { CarePlan } from "./documents/CarePlan";
 import { DischargeLetter } from "./documents/DischargeLetter";
+import { MedicationBox } from "./MedicationBox";
+import { PillBottle } from "./PillBottle";
 import { scenarios } from "@/data/scenarios";
 import { generateRandomScenario } from "@/data/scenarioGenerator";
 import type { Scenario } from "@/data/scenarios";
@@ -28,9 +31,14 @@ export const GameBoard = () => {
   const [lastClickedItem, setLastClickedItem] = useState<string | null>(null);
   const [documentConfig, setDocumentConfig] = useState({
     showDNACPR: false,
+    showReSPECT: false,
     showGPLetter: false,
     showCarePlan: false,
-    showDischarge: false
+    showDischarge: false,
+    showOTCBox: false,
+    showPillBottle: false,
+    otcMedication: { name: "Paracetamol", dosage: "500mg", count: "16" },
+    bottleMedication: { name: "Ibuprofen", dosage: "200mg", quantity: "30 tablets" }
   });
 
   // Generate mixed scenarios on mount - ensure no repeats until all scenarios seen
@@ -54,11 +62,35 @@ export const GameBoard = () => {
   
   // Regenerate document config when scenario changes
   useEffect(() => {
+    const otcMeds = [
+      { name: "Paracetamol", dosage: "500mg", count: "16" },
+      { name: "Aspirin", dosage: "75mg", count: "28" },
+      { name: "Ibuprofen", dosage: "200mg", count: "24" },
+      { name: "Codeine", dosage: "30mg", count: "32" },
+      { name: "Omeprazole", dosage: "20mg", count: "14" },
+    ];
+    
+    const bottleMeds = [
+      { name: "Amoxicillin", dosage: "250mg", quantity: "21 capsules" },
+      { name: "Cetirizine", dosage: "10mg", quantity: "30 tablets" },
+      { name: "Loratadine", dosage: "10mg", quantity: "30 tablets" },
+      { name: "Lansoprazole", dosage: "30mg", quantity: "28 capsules" },
+      { name: "Metformin", dosage: "500mg", quantity: "56 tablets" },
+    ];
+    
+    const randomOTC = otcMeds[Math.floor(Math.random() * otcMeds.length)];
+    const randomBottle = bottleMeds[Math.floor(Math.random() * bottleMeds.length)];
+    
     setDocumentConfig({
       showDNACPR: currentScenario.patient.age > 70 && Math.random() > 0.5,
+      showReSPECT: currentScenario.patient.age > 65 && Math.random() > 0.6,
       showGPLetter: !!(currentScenario.gpLetters && currentScenario.gpLetters.length > 0),
       showCarePlan: currentScenario.patient.age > 65 && Math.random() > 0.5,
-      showDischarge: Math.random() > 0.6
+      showDischarge: Math.random() > 0.6,
+      showOTCBox: Math.random() > 0.5,
+      showPillBottle: Math.random() > 0.5,
+      otcMedication: randomOTC,
+      bottleMedication: randomBottle
     });
   }, [currentScenarioIndex, currentScenario.patient.age, currentScenario.gpLetters]);
 
@@ -247,6 +279,60 @@ export const GameBoard = () => {
                 age={currentScenario.patient.age}
                 condition={currentScenario.patient.medicalHistory[0] || "Recent health issue"}
                 isEnlarged={enlargedDoc === 3}
+              />
+            </DraggableItem>
+          )}
+          
+          {documentConfig.showReSPECT && (
+            <DraggableItem 
+              initialX={480} 
+              initialY={320} 
+              zIndexBase={lastClickedItem === "respect" ? 75 : 10}
+              isEnlarged={enlargedDoc === 4}
+              onDoubleClick={() => setEnlargedDoc(enlargedDoc === 4 ? null : 4)}
+              onMouseDown={() => setLastClickedItem("respect")}
+            >
+              <ReSPECT 
+                patientName={currentScenario.patient.name}
+                age={currentScenario.patient.age}
+                nhsNumber={currentScenario.patient.nhsNumber}
+                isEnlarged={enlargedDoc === 4}
+              />
+            </DraggableItem>
+          )}
+          
+          {documentConfig.showOTCBox && (
+            <DraggableItem 
+              initialX={150} 
+              initialY={520} 
+              zIndexBase={lastClickedItem === "otcbox" ? 75 : 9}
+              isEnlarged={enlargedDoc === 5}
+              onDoubleClick={() => setEnlargedDoc(enlargedDoc === 5 ? null : 5)}
+              onMouseDown={() => setLastClickedItem("otcbox")}
+            >
+              <MedicationBox 
+                medicationName={documentConfig.otcMedication.name}
+                dosage={documentConfig.otcMedication.dosage}
+                count={documentConfig.otcMedication.count}
+                isEnlarged={enlargedDoc === 5}
+              />
+            </DraggableItem>
+          )}
+          
+          {documentConfig.showPillBottle && (
+            <DraggableItem 
+              initialX={850} 
+              initialY={180} 
+              zIndexBase={lastClickedItem === "bottle" ? 75 : 8}
+              isEnlarged={enlargedDoc === 6}
+              onDoubleClick={() => setEnlargedDoc(enlargedDoc === 6 ? null : 6)}
+              onMouseDown={() => setLastClickedItem("bottle")}
+            >
+              <PillBottle 
+                medicationName={documentConfig.bottleMedication.name}
+                dosage={documentConfig.bottleMedication.dosage}
+                quantity={documentConfig.bottleMedication.quantity}
+                isEnlarged={enlargedDoc === 6}
               />
             </DraggableItem>
           )}
