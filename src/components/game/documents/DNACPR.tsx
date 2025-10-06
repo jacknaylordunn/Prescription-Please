@@ -11,18 +11,32 @@ export const DNACPR = ({ patientName, age, nhsNumber, isEnlarged = false }: DNAC
   
   return (
     <div 
-      className="paper-texture border-4 border-destructive pixel-text document-shadow select-none"
+      className="border-4 pixel-text document-shadow select-none animate-fade-in hover:scale-[1.02] transition-transform duration-200"
       style={{ 
         width: "260px",
         padding: "10px",
+        background: `
+          repeating-linear-gradient(
+            0deg,
+            hsl(var(--dnacpr-pink)) 0px,
+            hsl(var(--dnacpr-pink)) 1px,
+            hsl(340 70% 94%) 1px,
+            hsl(340 70% 94%) 2px
+          ),
+          linear-gradient(135deg, hsl(var(--dnacpr-pink)) 0%, hsl(340 65% 90%) 100%)
+        `,
+        borderColor: 'hsl(var(--dnacpr-pink-border))',
       }}
     >
       {/* Header */}
-      <div className="bg-destructive/20 border-b-2 border-destructive p-2 mb-2">
-        <div className="font-bold text-center" style={{ fontSize: "9px", color: '#000' }}>
+      <div className="border-b-2 p-2 mb-2" style={{ 
+        backgroundColor: 'hsl(var(--dnacpr-pink-dark))',
+        borderColor: 'hsl(var(--dnacpr-pink-border))'
+      }}>
+        <div className="font-bold text-center" style={{ fontSize: "9px", color: '#fff' }}>
           DO NOT ATTEMPT CPR
         </div>
-        <div className="font-bold text-center" style={{ fontSize: "6px", color: '#000' }}>DNACPR</div>
+        <div className="font-bold text-center" style={{ fontSize: "6px", color: '#fff' }}>DNACPR</div>
       </div>
 
       {/* Patient Details */}
@@ -45,7 +59,10 @@ export const DNACPR = ({ patientName, age, nhsNumber, isEnlarged = false }: DNAC
       </div>
 
       {/* Decision */}
-      <div className="border-2 border-destructive p-2 mb-2 bg-destructive/10">
+      <div className="border-2 p-2 mb-2" style={{ 
+        borderColor: 'hsl(var(--dnacpr-pink-border))',
+        backgroundColor: 'hsl(var(--dnacpr-pink-dark) / 0.15)'
+      }}>
         <div className="font-bold mb-1" style={{ fontSize: "8px", color: '#000' }}>Decision:</div>
         <div className="font-bold" style={{ fontSize: "7px", color: '#000', lineHeight: "1.4" }}>
           ☒ CPR NOT to be attempted<br/>
@@ -80,7 +97,10 @@ export const DNACPR = ({ patientName, age, nhsNumber, isEnlarged = false }: DNAC
       </div>
 
       {/* Footer */}
-      <div className="mt-2 pt-2 border-t-2 border-destructive bg-destructive/10">
+      <div className="mt-2 pt-2 border-t-2" style={{ 
+        borderColor: 'hsl(var(--dnacpr-pink-border))',
+        backgroundColor: 'hsl(var(--dnacpr-pink-dark) / 0.15)'
+      }}>
         <div className="font-bold text-center" style={{ fontSize: "5px", color: '#000' }}>
           VALID ACROSS ALL CARE SETTINGS
         </div>

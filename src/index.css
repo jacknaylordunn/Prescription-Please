@@ -47,6 +47,17 @@ All colors MUST be HSL.
     --nhs-green-text: 145 80% 12%;
     --nhs-green-border: 145 60% 30%;
     
+    /* ReSPECT purple form - authentic purple */
+    --respect-purple: 270 60% 88%;
+    --respect-purple-dark: 270 70% 35%;
+    --respect-purple-border: 270 60% 40%;
+    --respect-purple-text: 270 70% 15%;
+    
+    /* DNACPR pink form */
+    --dnacpr-pink: 340 70% 92%;
+    --dnacpr-pink-dark: 340 60% 45%;
+    --dnacpr-pink-border: 340 55% 50%;
+    
     /* Radio/UI colors */
     --radio-body: 0 0% 12%;
     --radio-text: 0 0% 95%;

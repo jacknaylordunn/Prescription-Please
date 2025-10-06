@@ -11,18 +11,32 @@ export const ReSPECT = ({ patientName, age, nhsNumber, isEnlarged = false }: ReS
   
   return (
     <div 
-      className="paper-texture border-4 border-primary pixel-text document-shadow select-none"
+      className="border-4 pixel-text document-shadow select-none animate-fade-in hover:scale-[1.02] transition-transform duration-200"
       style={{ 
         width: "280px",
         padding: "12px",
+        background: `
+          repeating-linear-gradient(
+            0deg,
+            hsl(var(--respect-purple)) 0px,
+            hsl(var(--respect-purple)) 1px,
+            hsl(270 60% 90%) 1px,
+            hsl(270 60% 90%) 2px
+          ),
+          linear-gradient(135deg, hsl(var(--respect-purple)) 0%, hsl(270 50% 86%) 100%)
+        `,
+        borderColor: 'hsl(var(--respect-purple-border))',
       }}
     >
       {/* Header */}
-      <div className="bg-primary/20 border-b-2 border-primary p-2 mb-2">
-        <div className="font-bold text-center" style={{ fontSize: "10px", color: '#000' }}>
+      <div className="border-b-2 p-2 mb-2" style={{ 
+        backgroundColor: 'hsl(var(--respect-purple-dark))',
+        borderColor: 'hsl(var(--respect-purple-border))'
+      }}>
+        <div className="font-bold text-center" style={{ fontSize: "10px", color: '#fff' }}>
           ReSPECT
         </div>
-        <div className="text-center" style={{ fontSize: "6px", color: '#000' }}>
+        <div className="text-center" style={{ fontSize: "6px", color: '#fff' }}>
           Recommended Summary Plan for<br/>Emergency Care and Treatment
         </div>
       </div>
@@ -63,7 +77,10 @@ export const ReSPECT = ({ patientName, age, nhsNumber, isEnlarged = false }: ReS
       </div>
 
       {/* Section 2: Clinical Recommendations */}
-      <div className="border-2 border-primary p-2 mb-2 bg-primary/10">
+      <div className="border-2 p-2 mb-2" style={{ 
+        borderColor: 'hsl(var(--respect-purple-border))',
+        backgroundColor: 'hsl(var(--respect-purple-dark) / 0.15)'
+      }}>
         <div className="font-bold mb-1" style={{ fontSize: "7px", color: '#000' }}>
           2. CLINICAL RECOMMENDATIONS
         </div>
@@ -109,7 +126,10 @@ export const ReSPECT = ({ patientName, age, nhsNumber, isEnlarged = false }: ReS
       </div>
 
       {/* Footer */}
-      <div className="mt-2 pt-2 border-t-2 border-primary bg-primary/10">
+      <div className="mt-2 pt-2 border-t-2" style={{ 
+        borderColor: 'hsl(var(--respect-purple-border))',
+        backgroundColor: 'hsl(var(--respect-purple-dark) / 0.15)'
+      }}>
         <div className="font-bold text-center" style={{ fontSize: "5px", color: '#000' }}>
           REVIEW DATE: {new Date(today.getTime() + 90 * 24 * 60 * 60 * 1000).toLocaleDateString('en-GB')}
         </div>

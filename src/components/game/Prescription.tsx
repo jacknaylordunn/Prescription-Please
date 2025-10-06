@@ -11,18 +11,32 @@ export const Prescription = ({ scenario, isEnlarged = false }: PrescriptionProps
   
   return (
     <div 
-      className="paper-texture border-4 border-nhs-green-border pixel-text document-shadow select-none"
+      className="border-4 pixel-text document-shadow select-none animate-fade-in hover:scale-[1.02] transition-transform duration-200"
       style={{ 
         width: "280px",
         padding: "12px",
+        background: `
+          repeating-linear-gradient(
+            0deg,
+            hsl(var(--nhs-green)) 0px,
+            hsl(var(--nhs-green)) 1px,
+            hsl(145 45% 92%) 1px,
+            hsl(145 45% 92%) 2px
+          ),
+          linear-gradient(135deg, hsl(var(--nhs-green)) 0%, hsl(145 40% 88%) 100%)
+        `,
+        borderColor: 'hsl(var(--nhs-green-border))',
       }}
     >
       {/* NHS Header */}
-      <div className="bg-nhs-green border-2 border-nhs-green-text p-2 mb-2 retro-shadow">
+      <div className="border-2 p-2 mb-2 retro-shadow" style={{ 
+        backgroundColor: 'hsl(145 60% 40%)',
+        borderColor: 'hsl(var(--nhs-green-text))'
+      }}>
         <div className="flex justify-between items-center">
-          <div className="font-bold" style={{ fontSize: "12px", color: '#000' }}>NHS</div>
+          <div className="font-bold" style={{ fontSize: "12px", color: '#fff' }}>NHS</div>
           <div className="text-right">
-            <div className="font-bold" style={{ fontSize: "7px", color: '#000' }}>Pharmacy</div>
+            <div className="font-bold" style={{ fontSize: "7px", color: '#fff' }}>Pharmacy</div>
           </div>
         </div>
       </div>

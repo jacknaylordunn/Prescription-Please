@@ -11,7 +11,7 @@ export const DischargeLetter = ({ patientName, age, condition, isEnlarged = fals
   
   return (
     <div 
-      className="paper-texture border-4 border-nhs-blue pixel-text document-shadow select-none"
+      className="paper-texture border-4 border-paper-border pixel-text document-shadow select-none animate-fade-in hover:scale-[1.02] transition-transform duration-200"
       style={{ 
         width: "280px",
         padding: "12px",

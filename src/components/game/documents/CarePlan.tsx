@@ -9,7 +9,7 @@ export const CarePlan = ({ patientName, age, condition, isEnlarged = false }: Ca
   
   return (
     <div 
-      className="paper-texture border-4 border-accent pixel-text document-shadow select-none"
+      className="paper-texture border-4 border-accent pixel-text document-shadow select-none animate-fade-in hover:scale-[1.02] transition-transform duration-200"
       style={{ 
         width: "280px",
         padding: "12px",
