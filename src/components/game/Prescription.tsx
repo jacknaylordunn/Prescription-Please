@@ -13,7 +13,7 @@ export const Prescription = ({ scenario, isEnlarged = false }: PrescriptionProps
   
   return (
     <div 
-      className="paper-texture border-2 border-paper-border pixel-text transition-transform duration-200"
+      className="paper-texture border-4 border-nhs-green-border pixel-text transition-transform duration-200 document-shadow"
       style={{ 
         width: `${420 * scale}px`,
         fontSize: `${12 * scale}px`,
@@ -21,46 +21,51 @@ export const Prescription = ({ scenario, isEnlarged = false }: PrescriptionProps
       }}
     >
       {/* NHS Header */}
-      <div className="bg-nhs-green border-2 border-nhs-green-text p-2 mb-3">
+      <div className="bg-nhs-green border-4 border-nhs-green-text p-3 mb-3 retro-shadow">
         <div className="flex justify-between items-center">
-          <div className="text-nhs-green-text font-bold" style={{ fontSize: `${14 * scale}px` }}>NHS</div>
+          <div className="text-nhs-green-text font-bold" style={{ fontSize: `${18 * scale}px` }}>NHS</div>
           <div className="text-nhs-green-text text-right">
-            <div className="font-bold">Pharmacy Stamp</div>
+            <div className="font-bold" style={{ fontSize: `${12 * scale}px` }}>Pharmacy Stamp</div>
+            <div className="text-xs mt-1">Please stamp here</div>
           </div>
         </div>
       </div>
 
       {/* Patient Details */}
-      <div className="grid grid-cols-2 gap-2 mb-3 border-2 border-paper-border p-2">
+      <div className="grid grid-cols-2 gap-2 mb-3 border-4 border-paper-border p-3 bg-card">
         <div>
-          <div className="text-xs opacity-70">Age</div>
-          <div className="font-bold">{scenario.patient.age}</div>
-          <div className="text-xs opacity-70 mt-1">D.o.B</div>
-          <div>{new Date(new Date().getFullYear() - scenario.patient.age, 0, 1).toLocaleDateString('en-GB')}</div>
+          <div className="text-xs text-muted-foreground uppercase">Age</div>
+          <div className="font-bold text-paper-text" style={{ fontSize: `${16 * scale}px` }}>{scenario.patient.age}</div>
+          <div className="text-xs text-muted-foreground uppercase mt-2">D.o.B</div>
+          <div className="font-bold text-paper-text">{new Date(new Date().getFullYear() - scenario.patient.age, 0, 1).toLocaleDateString('en-GB')}</div>
         </div>
         <div>
-          <div className="text-xs opacity-70">Title, Forename, Surname & Address</div>
-          <div className="font-bold">{scenario.patient.name}</div>
-          <div className="text-sm">{scenario.patient.address}</div>
-          <div className="text-sm font-bold">{scenario.patient.postcode}</div>
-          <div className="text-xs mt-1">
-            <span className="opacity-70">NHS Number: </span>
-            <span className="font-bold">{scenario.patient.nhsNumber}</span>
+          <div className="text-xs text-muted-foreground uppercase">Title, Forename, Surname & Address</div>
+          <div className="font-bold text-paper-text" style={{ fontSize: `${13 * scale}px` }}>{scenario.patient.name}</div>
+          <div className="text-sm text-paper-text mt-1">{scenario.patient.address}</div>
+          <div className="text-sm font-bold text-paper-text">{scenario.patient.postcode}</div>
+          <div className="text-xs mt-2">
+            <span className="text-muted-foreground">NHS Number: </span>
+            <span className="font-bold text-paper-text">{scenario.patient.nhsNumber}</span>
           </div>
         </div>
       </div>
 
       {/* Prescriptions */}
-      <div className="border-2 border-paper-border p-2 mb-3" style={{ minHeight: `${200 * scale}px` }}>
-        <div className="text-xs opacity-70 mb-2">Endorsements</div>
+      <div className="border-4 border-paper-border p-3 mb-3 bg-card" style={{ minHeight: `${200 * scale}px` }}>
+        <div className="text-xs text-muted-foreground uppercase mb-3 pb-2 border-b-2 border-paper-border">Endorsements</div>
         {scenario.prescriptions.map((prescription, idx) => (
-          <div key={idx} className="mb-3 pb-2 border-b border-paper-border last:border-b-0">
-            <div className="font-bold">{prescription.medication.name} {prescription.medication.dose} {prescription.medication.category === "Analgesic" ? "tablets" : prescription.medication.category === "Antibiotic" ? "capsules" : "tablets"}</div>
-            <div className="text-sm">{prescription.instructions}</div>
-            <div className="text-sm">{prescription.quantity}</div>
+          <div key={idx} className="mb-4 pb-3 border-b-2 border-paper-border/50 last:border-b-0">
+            <div className="font-bold text-paper-text" style={{ fontSize: `${13 * scale}px` }}>
+              {prescription.medication.name} {prescription.medication.dose} {prescription.medication.category === "Analgesic" ? "tablets" : prescription.medication.category === "Antibiotic" ? "capsules" : "tablets"}
+            </div>
+            <div className="text-sm text-paper-text mt-1 leading-relaxed">{prescription.instructions}</div>
+            <div className="text-sm text-muted-foreground mt-1 font-bold">{prescription.quantity}</div>
           </div>
         ))}
-        <div className="mt-2 text-xs italic">[No more items on this prescription]</div>
+        <div className="mt-3 text-xs text-muted-foreground italic border-t-2 border-paper-border pt-2">
+          [No more items on this prescription]
+        </div>
       </div>
 
       {/* Signature */}

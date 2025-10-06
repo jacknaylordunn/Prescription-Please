@@ -10,45 +10,50 @@ All colors MUST be HSL.
   :root {
     /* Retro/Papers Please aesthetic colors */
     --background: 35 25% 15%;
-    --foreground: 45 5% 95%;
+    --foreground: 45 15% 95%;
 
-    --card: 30 15% 92%;
-    --card-foreground: 35 25% 10%;
+    --card: 45 35% 94%;
+    --card-foreground: 35 30% 12%;
 
-    --popover: 35 20% 90%;
-    --popover-foreground: 35 25% 10%;
+    --popover: 40 30% 92%;
+    --popover-foreground: 35 30% 10%;
 
-    --primary: 120 45% 35%;
-    --primary-foreground: 120 10% 95%;
+    --primary: 145 45% 35%;
+    --primary-foreground: 145 10% 98%;
 
-    --secondary: 35 30% 80%;
-    --secondary-foreground: 35 25% 10%;
+    --secondary: 40 25% 85%;
+    --secondary-foreground: 35 30% 12%;
 
-    --muted: 35 15% 70%;
-    --muted-foreground: 35 10% 40%;
+    --muted: 40 15% 75%;
+    --muted-foreground: 35 15% 35%;
 
-    --accent: 142 50% 45%;
-    --accent-foreground: 142 10% 98%;
+    --accent: 145 55% 45%;
+    --accent-foreground: 145 10% 98%;
 
-    --destructive: 0 70% 45%;
-    --destructive-foreground: 0 10% 98%;
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 98%;
 
-    --border: 35 20% 60%;
-    --input: 35 20% 85%;
-    --ring: 120 45% 35%;
+    --border: 40 20% 65%;
+    --input: 40 25% 88%;
+    --ring: 145 45% 35%;
 
-    /* Paper colors */
-    --paper: 45 40% 92%;
-    --paper-text: 35 30% 15%;
-    --paper-border: 35 20% 70%;
+    /* Paper colors - high contrast */
+    --paper: 45 45% 96%;
+    --paper-text: 35 40% 8%;
+    --paper-border: 35 25% 50%;
     
-    /* NHS green prescription */
-    --nhs-green: 142 50% 80%;
-    --nhs-green-text: 142 60% 20%;
+    /* NHS green prescription - better contrast */
+    --nhs-green: 145 40% 88%;
+    --nhs-green-text: 145 70% 18%;
+    --nhs-green-border: 145 50% 35%;
     
     /* Radio/UI colors */
-    --radio-body: 0 0% 15%;
-    --radio-accent: 120 60% 40%;
+    --radio-body: 0 0% 12%;
+    --radio-text: 0 0% 95%;
+    --radio-accent: 145 65% 50%;
+    
+    /* Lamp glow effect */
+    --lamp-glow: 45 100% 85%;
     
     --radius: 0.125rem;
 
@@ -92,23 +97,75 @@ All colors MUST be HSL.
   .draggable {
     cursor: grab;
     user-select: none;
+    transition: transform 0.1s ease;
   }
   
   .draggable:active {
     cursor: grabbing;
+    transform: scale(0.98);
+  }
+  
+  .draggable:hover {
+    filter: brightness(1.05);
   }
   
   .pixel-text {
-    font-family: 'Courier New', 'Courier', monospace;
+    font-family: 'Press Start 2P', 'Courier New', 'Courier', monospace;
     letter-spacing: 0.05em;
   }
   
   .retro-shadow {
-    box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.3);
+    box-shadow: 6px 6px 0px rgba(0, 0, 0, 0.4);
   }
   
   .paper-texture {
-    background: linear-gradient(180deg, hsl(var(--paper)) 0%, hsl(var(--paper)) 100%);
-    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
+    background: 
+      repeating-linear-gradient(
+        0deg,
+        hsl(var(--paper)) 0px,
+        hsl(var(--paper)) 1px,
+        hsl(var(--paper) / 0.98) 1px,
+        hsl(var(--paper) / 0.98) 2px
+      ),
+      linear-gradient(135deg, hsl(var(--paper)) 0%, hsl(var(--paper) / 0.95) 100%);
+    box-shadow: 
+      3px 3px 12px rgba(0, 0, 0, 0.3),
+      inset 0 0 20px rgba(0, 0, 0, 0.02);
+  }
+  
+  .lamp-glow {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 600px;
+    height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(
+      circle at 80% 20%,
+      hsla(var(--lamp-glow), 0.4) 0%,
+      hsla(var(--lamp-glow), 0.2) 30%,
+      transparent 70%
+    );
+    pointer-events: none;
+    transition: opacity 0.6s ease;
+    animation: pulse-glow 3s ease-in-out infinite;
+  }
+  
+  @keyframes pulse-glow {
+    0%, 100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0.8;
+      transform: scale(1.05);
+    }
+  }
+  
+  .document-shadow {
+    box-shadow: 
+      0 4px 6px rgba(0, 0, 0, 0.1),
+      0 8px 16px rgba(0, 0, 0, 0.15),
+      inset 0 1px 2px rgba(255, 255, 255, 0.3);
   }
 }

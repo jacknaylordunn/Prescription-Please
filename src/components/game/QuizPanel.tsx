@@ -187,41 +187,46 @@ export const QuizPanel = ({ scenario, onComplete }: QuizPanelProps) => {
   }
 
   return (
-    <div className="paper-texture border-4 border-paper-border p-6 pixel-text" style={{ width: "500px" }}>
+    <div className="paper-texture border-4 border-accent p-6 pixel-text document-shadow" style={{ width: "520px" }}>
       {/* Header */}
-      <div className="border-b-2 border-paper-border pb-3 mb-4">
-        <h2 className="text-xl font-bold text-paper-text">PATIENT ASSESSMENT</h2>
-        <div className="text-sm text-muted-foreground">
+      <div className="border-b-4 border-accent pb-3 mb-4 bg-accent/10">
+        <h2 className="font-bold text-paper-text" style={{ fontSize: "16px" }}>
+          PATIENT ASSESSMENT FORM
+        </h2>
+        <div className="text-sm text-paper-text font-bold mt-2">
           Question {currentQuestion + 1} of {questions.length} | Score: {score}/{questions.length}
         </div>
       </div>
 
       {/* Question */}
       <div className="mb-6">
-        <p className="text-lg font-bold mb-4 text-paper-text">
-          {questions[currentQuestion].question}
-        </p>
+        <div className="bg-card border-4 border-paper-border p-4 mb-4">
+          <p className="font-bold mb-2 text-paper-text" style={{ fontSize: "13px", lineHeight: "1.6" }}>
+            {questions[currentQuestion].question}
+          </p>
+        </div>
 
         {/* Options */}
-        <div className="space-y-2">
+        <div className="space-y-3">
           {questions[currentQuestion].options.map((option, idx) => (
             <button
               key={idx}
               onClick={() => handleAnswer(idx)}
               disabled={answered}
-              className={`w-full p-3 text-left border-2 transition-all ${
+              className={`w-full p-4 text-left border-4 transition-all font-bold text-paper-text ${
                 answered
                   ? selectedAnswer === idx
                     ? option === questions[currentQuestion].options[questions[currentQuestion].correctAnswer]
-                      ? "border-accent bg-accent/20"
-                      : "border-destructive bg-destructive/20"
+                      ? "border-accent bg-accent/30 retro-shadow"
+                      : "border-destructive bg-destructive/30 retro-shadow"
                     : option === questions[currentQuestion].options[questions[currentQuestion].correctAnswer]
-                    ? "border-accent bg-accent/10"
-                    : "border-paper-border"
-                  : "border-paper-border hover:border-accent hover:bg-accent/5"
+                    ? "border-accent bg-accent/20"
+                    : "border-paper-border bg-card opacity-60"
+                  : "border-paper-border hover:border-accent hover:bg-accent/10 hover:scale-102 bg-card"
               }`}
+              style={{ fontSize: "12px", lineHeight: "1.5" }}
             >
-              <span className="font-bold mr-2">{String.fromCharCode(65 + idx)}.</span>
+              <span className="font-bold mr-3 text-accent">{String.fromCharCode(65 + idx)}.</span>
               {option}
             </button>
           ))}
@@ -232,9 +237,10 @@ export const QuizPanel = ({ scenario, onComplete }: QuizPanelProps) => {
       {answered && (
         <Button 
           onClick={handleNext}
-          className="w-full bg-accent hover:bg-accent/80 text-accent-foreground font-bold"
+          className="w-full bg-accent hover:bg-accent/90 text-accent-foreground font-bold border-4 border-accent-foreground/30 retro-shadow hover:scale-105 transition-transform"
+          style={{ fontSize: "12px", padding: "16px" }}
         >
-          {currentQuestion < questions.length - 1 ? "NEXT QUESTION" : "COMPLETE ASSESSMENT"}
+          {currentQuestion < questions.length - 1 ? "► NEXT QUESTION" : "► COMPLETE ASSESSMENT"}
         </Button>
       )}
     </div>
