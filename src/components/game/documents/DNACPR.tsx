@@ -27,39 +27,41 @@ export const DNACPR = ({ patientName, age, nhsNumber, isEnlarged = false }: DNAC
       </div>
 
       {/* Patient Details */}
-      <div className="border-2 border-paper-border p-3 mb-3 bg-card">
+      <div className="border-4 border-paper-border p-3 mb-3 bg-card">
         <div className="grid grid-cols-2 gap-2">
           <div>
-            <div className="text-xs opacity-70">Patient Name:</div>
-            <div className="font-bold text-paper-text">{patientName}</div>
+            <div className="text-xs font-bold" style={{ color: 'hsl(var(--doc-label))' }}>Patient Name:</div>
+            <div className="font-bold text-paper-text" style={{ fontSize: `${13 * scale}px` }}>{patientName}</div>
           </div>
           <div>
-            <div className="text-xs opacity-70">Date of Birth:</div>
-            <div className="font-bold text-paper-text">
+            <div className="text-xs font-bold" style={{ color: 'hsl(var(--doc-label))' }}>Date of Birth:</div>
+            <div className="font-bold text-paper-text" style={{ fontSize: `${13 * scale}px` }}>
               {new Date(new Date().getFullYear() - age, Math.floor(Math.random() * 12), Math.floor(Math.random() * 28) + 1).toLocaleDateString('en-GB')}
             </div>
           </div>
           <div className="col-span-2">
-            <div className="text-xs opacity-70">NHS Number:</div>
-            <div className="font-bold text-paper-text">{nhsNumber}</div>
+            <div className="text-xs font-bold" style={{ color: 'hsl(var(--doc-label))' }}>NHS Number:</div>
+            <div className="font-bold text-paper-text" style={{ fontSize: `${13 * scale}px` }}>{nhsNumber}</div>
           </div>
         </div>
       </div>
 
       {/* Decision */}
-      <div className="border-2 border-destructive p-3 mb-3 bg-destructive/5">
-        <div className="font-bold text-destructive mb-2">Decision:</div>
-        <div className="text-paper-text text-sm leading-relaxed">
+      <div className="border-4 border-destructive p-4 mb-3 bg-destructive/10">
+        <div className="font-bold text-destructive mb-3" style={{ fontSize: `${14 * scale}px` }}>Decision:</div>
+        <div className="text-paper-text font-bold leading-relaxed" style={{ fontSize: `${12 * scale}px` }}>
           ☒ CPR should NOT be attempted<br/>
           <br/>
-          In the event of cardiac or respiratory arrest, do not attempt cardiopulmonary resuscitation.
+          In the event of cardiac or respiratory<br/>
+          arrest, do not attempt cardiopulmonary<br/>
+          resuscitation.
         </div>
       </div>
 
       {/* Clinical Details */}
-      <div className="border-2 border-paper-border p-3 mb-3 bg-card">
-        <div className="font-bold text-paper-text mb-2">Clinical Details:</div>
-        <div className="text-xs text-paper-text leading-relaxed">
+      <div className="border-4 border-paper-border p-3 mb-3 bg-card">
+        <div className="font-bold text-paper-text mb-2" style={{ fontSize: `${13 * scale}px` }}>Clinical Details:</div>
+        <div className="text-paper-text leading-relaxed" style={{ fontSize: `${11 * scale}px` }}>
           Advanced life limiting condition with<br/>
           deteriorating health status. Patient has<br/>
           capacity and agrees with this decision.
@@ -68,21 +70,21 @@ export const DNACPR = ({ patientName, age, nhsNumber, isEnlarged = false }: DNAC
 
       {/* Signatures */}
       <div className="border-t-2 border-paper-border pt-3 space-y-2">
-        <div className="grid grid-cols-2 gap-2 text-xs">
+        <div className="grid grid-cols-2 gap-2">
           <div>
-            <div className="opacity-70">Senior Doctor:</div>
-            <div className="font-script text-lg text-paper-text">Dr. Signature</div>
+            <div className="text-xs font-bold" style={{ color: 'hsl(var(--doc-label))' }}>Senior Doctor:</div>
+            <div className="font-script text-paper-text" style={{ fontSize: `${18 * scale}px` }}>Dr. Signature</div>
           </div>
           <div>
-            <div className="opacity-70">Date:</div>
-            <div className="font-bold text-paper-text">{formattedDate}</div>
+            <div className="text-xs font-bold" style={{ color: 'hsl(var(--doc-label))' }}>Date:</div>
+            <div className="font-bold text-paper-text" style={{ fontSize: `${13 * scale}px` }}>{formattedDate}</div>
           </div>
         </div>
       </div>
 
       {/* Footer */}
-      <div className="mt-3 pt-3 border-t-2 border-destructive">
-        <div className="text-xs text-destructive font-bold text-center">
+      <div className="mt-3 pt-3 border-t-4 border-destructive bg-destructive/10">
+        <div className="font-bold text-destructive text-center" style={{ fontSize: `${11 * scale}px` }}>
           THIS FORM IS VALID ACROSS ALL CARE SETTINGS
         </div>
       </div>

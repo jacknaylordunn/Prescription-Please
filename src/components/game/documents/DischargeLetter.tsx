@@ -20,11 +20,11 @@ export const DischargeLetter = ({ patientName, age, condition, isEnlarged = fals
       }}
     >
       {/* Hospital Header */}
-      <div className="border-b-4 border-primary pb-3 mb-4 bg-primary/5">
-        <div className="font-bold text-primary" style={{ fontSize: `${16 * scale}px` }}>
+      <div className="border-b-4 border-primary pb-3 mb-4 bg-primary/10">
+        <div className="font-bold text-primary" style={{ fontSize: `${18 * scale}px` }}>
           NHS HOSPITAL TRUST
         </div>
-        <div className="text-xs text-paper-text mt-1">
+        <div className="text-paper-text mt-1 font-bold" style={{ fontSize: `${12 * scale}px` }}>
           Accident & Emergency Department<br/>
           Discharge Summary
         </div>
@@ -32,43 +32,43 @@ export const DischargeLetter = ({ patientName, age, condition, isEnlarged = fals
 
       {/* Patient Details */}
       <div className="grid grid-cols-2 gap-3 mb-4 text-paper-text">
-        <div className="border-2 border-paper-border p-2 bg-card">
-          <div className="text-xs opacity-70">Patient Name:</div>
-          <div className="font-bold">{patientName}</div>
+        <div className="border-4 border-paper-border p-3 bg-card">
+          <div className="font-bold" style={{ color: 'hsl(var(--doc-label))', fontSize: `${11 * scale}px` }}>Patient Name:</div>
+          <div className="font-bold text-paper-text" style={{ fontSize: `${13 * scale}px` }}>{patientName}</div>
         </div>
-        <div className="border-2 border-paper-border p-2 bg-card">
-          <div className="text-xs opacity-70">Age:</div>
-          <div className="font-bold">{age} years</div>
+        <div className="border-4 border-paper-border p-3 bg-card">
+          <div className="font-bold" style={{ color: 'hsl(var(--doc-label))', fontSize: `${11 * scale}px` }}>Age:</div>
+          <div className="font-bold text-paper-text" style={{ fontSize: `${13 * scale}px` }}>{age} years</div>
         </div>
       </div>
 
       {/* Admission Details */}
-      <div className="border-2 border-paper-border p-3 mb-3 bg-card">
-        <div className="font-bold text-paper-text mb-2">Admission Details:</div>
-        <div className="text-sm text-paper-text space-y-1">
+      <div className="border-4 border-paper-border p-3 mb-3 bg-card">
+        <div className="font-bold text-paper-text mb-2" style={{ fontSize: `${13 * scale}px` }}>Admission Details:</div>
+        <div className="text-paper-text space-y-1" style={{ fontSize: `${11 * scale}px` }}>
           <div>
-            <span className="opacity-70">Admitted: </span>
+            <span className="font-bold" style={{ color: 'hsl(var(--doc-label))' }}>Admitted: </span>
             <span className="font-bold">{admissionDate.toLocaleDateString('en-GB')}</span>
           </div>
           <div>
-            <span className="opacity-70">Discharged: </span>
+            <span className="font-bold" style={{ color: 'hsl(var(--doc-label))' }}>Discharged: </span>
             <span className="font-bold">{dischargeDate.toLocaleDateString('en-GB')}</span>
           </div>
         </div>
       </div>
 
       {/* Diagnosis */}
-      <div className="border-2 border-primary p-3 mb-3 bg-primary/5">
-        <div className="font-bold text-paper-text mb-2">Primary Diagnosis:</div>
-        <div className="text-sm text-paper-text font-bold">
+      <div className="border-4 border-primary p-3 mb-3 bg-primary/10">
+        <div className="font-bold text-paper-text mb-2" style={{ fontSize: `${13 * scale}px` }}>Primary Diagnosis:</div>
+        <div className="text-paper-text font-bold" style={{ fontSize: `${13 * scale}px` }}>
           {condition}
         </div>
       </div>
 
       {/* Treatment Summary */}
-      <div className="border-2 border-paper-border p-3 mb-3 bg-card">
-        <div className="font-bold text-paper-text mb-2">Treatment Given:</div>
-        <div className="text-sm text-paper-text leading-relaxed">
+      <div className="border-4 border-paper-border p-3 mb-3 bg-card">
+        <div className="font-bold text-paper-text mb-2" style={{ fontSize: `${13 * scale}px` }}>Treatment Given:</div>
+        <div className="text-paper-text leading-relaxed" style={{ fontSize: `${11 * scale}px` }}>
           • Clinical assessment completed<br/>
           • Investigations performed as indicated<br/>
           • Treatment initiated in hospital<br/>
@@ -78,9 +78,9 @@ export const DischargeLetter = ({ patientName, age, condition, isEnlarged = fals
       </div>
 
       {/* Discharge Medications */}
-      <div className="border-2 border-accent p-3 mb-3 bg-accent/5">
-        <div className="font-bold text-paper-text mb-2">Discharge Medications:</div>
-        <div className="text-sm text-paper-text">
+      <div className="border-4 border-accent p-3 mb-3 bg-accent/10">
+        <div className="font-bold text-paper-text mb-2" style={{ fontSize: `${13 * scale}px` }}>Discharge Medications:</div>
+        <div className="text-paper-text" style={{ fontSize: `${11 * scale}px` }}>
           See attached prescription (FP10).<br/>
           Changes made to existing medications.<br/>
           Patient counselled on new drugs.
@@ -88,9 +88,9 @@ export const DischargeLetter = ({ patientName, age, condition, isEnlarged = fals
       </div>
 
       {/* Follow-up */}
-      <div className="border-2 border-paper-border p-3 mb-3 bg-card">
-        <div className="font-bold text-paper-text mb-2">Follow-up:</div>
-        <div className="text-sm text-paper-text leading-relaxed">
+      <div className="border-4 border-paper-border p-3 mb-3 bg-card">
+        <div className="font-bold text-paper-text mb-2" style={{ fontSize: `${13 * scale}px` }}>Follow-up:</div>
+        <div className="text-paper-text leading-relaxed" style={{ fontSize: `${11 * scale}px` }}>
           • GP follow-up in 1 week<br/>
           • Outpatient review if symptoms worsen<br/>
           • Return to ED if deterioration<br/>
@@ -99,12 +99,12 @@ export const DischargeLetter = ({ patientName, age, condition, isEnlarged = fals
       </div>
 
       {/* Doctor Details */}
-      <div className="border-t-2 border-paper-border pt-3">
-        <div className="text-xs text-paper-text">
-          <span className="opacity-70">Discharging Doctor: </span>
+      <div className="border-t-4 border-paper-border pt-3">
+        <div className="text-paper-text" style={{ fontSize: `${11 * scale}px` }}>
+          <span className="font-bold" style={{ color: 'hsl(var(--doc-label))' }}>Discharging Doctor: </span>
           <span className="font-bold">Dr. {["Anderson", "Mitchell", "Thompson", "Roberts"][Math.floor(Math.random() * 4)]}</span>
         </div>
-        <div className="text-xs text-muted-foreground mt-1">
+        <div className="text-paper-text font-bold mt-1" style={{ fontSize: `${11 * scale}px` }}>
           Emergency Medicine Registrar
         </div>
       </div>
