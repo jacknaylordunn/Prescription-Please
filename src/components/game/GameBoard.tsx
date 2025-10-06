@@ -62,24 +62,114 @@ export const GameBoard = () => {
   
   // Regenerate document config when scenario changes
   useEffect(() => {
-    const otcMeds = [
-      { name: "Paracetamol", dosage: "500mg", count: "16" },
-      { name: "Aspirin", dosage: "75mg", count: "28" },
-      { name: "Ibuprofen", dosage: "200mg", count: "24" },
-      { name: "Codeine", dosage: "30mg", count: "32" },
-      { name: "Omeprazole", dosage: "20mg", count: "14" },
-    ];
+    // Map conditions to relevant OTC medications
+    const getOTCForCondition = (history: string[]) => {
+      const historyStr = history.join(" ").toLowerCase();
+      
+      // Pain conditions
+      if (historyStr.includes("pain") || historyStr.includes("arthritis") || historyStr.includes("gout")) {
+        return [
+          { name: "Paracetamol", dosage: "500mg", count: "16" },
+          { name: "Ibuprofen", dosage: "400mg", count: "24" },
+          { name: "Ibuprofen Gel", dosage: "5%", count: "100g tube" },
+        ];
+      }
+      
+      // Respiratory/Allergy conditions
+      if (historyStr.includes("asthma") || historyStr.includes("copd") || historyStr.includes("hayfever") || historyStr.includes("eczema")) {
+        return [
+          { name: "Cetirizine", dosage: "10mg", count: "30" },
+          { name: "Loratadine", dosage: "10mg", count: "30" },
+          { name: "Chlorphenamine", dosage: "4mg", count: "28" },
+        ];
+      }
+      
+      // Digestive/GORD conditions
+      if (historyStr.includes("reflux") || historyStr.includes("gord") || historyStr.includes("indigestion")) {
+        return [
+          { name: "Gaviscon", dosage: "Liquid", count: "300ml" },
+          { name: "Rennie", dosage: "Tablets", count: "24" },
+          { name: "Peptac", dosage: "Liquid", count: "500ml" },
+        ];
+      }
+      
+      // Constipation/Bowel issues
+      if (historyStr.includes("constipation") || historyStr.includes("parkinson")) {
+        return [
+          { name: "Senna", dosage: "7.5mg", count: "20" },
+          { name: "Bisacodyl", dosage: "5mg", count: "20" },
+          { name: "Lactulose", dosage: "Solution", count: "300ml" },
+        ];
+      }
+      
+      // Cold/Flu symptoms
+      if (historyStr.includes("uti") || historyStr.includes("infection") || historyStr.includes("pneumonia")) {
+        return [
+          { name: "Paracetamol", dosage: "500mg", count: "32" },
+          { name: "Day & Night", dosage: "Capsules", count: "16" },
+          { name: "Throat Lozenges", dosage: "Original", count: "24" },
+        ];
+      }
+      
+      // Default for general conditions
+      return [
+        { name: "Paracetamol", dosage: "500mg", count: "16" },
+        { name: "Aspirin", dosage: "300mg", count: "16" },
+        { name: "Vitamin D", dosage: "1000 IU", count: "90" },
+      ];
+    };
     
-    const bottleMeds = [
-      { name: "Amoxicillin", dosage: "250mg", quantity: "21 capsules" },
-      { name: "Cetirizine", dosage: "10mg", quantity: "30 tablets" },
-      { name: "Loratadine", dosage: "10mg", quantity: "30 tablets" },
-      { name: "Lansoprazole", dosage: "30mg", quantity: "28 capsules" },
-      { name: "Metformin", dosage: "500mg", quantity: "56 tablets" },
-    ];
+    const getBottleForCondition = (history: string[]) => {
+      const historyStr = history.join(" ").toLowerCase();
+      
+      // Allergy/Respiratory
+      if (historyStr.includes("hayfever") || historyStr.includes("allergy") || historyStr.includes("eczema")) {
+        return [
+          { name: "Cetirizine", dosage: "10mg", quantity: "30 tablets" },
+          { name: "Loratadine", dosage: "10mg", quantity: "30 tablets" },
+          { name: "Piriton", dosage: "4mg", quantity: "60 tablets" },
+        ];
+      }
+      
+      // Pain/Inflammation
+      if (historyStr.includes("pain") || historyStr.includes("arthritis")) {
+        return [
+          { name: "Ibuprofen", dosage: "200mg", quantity: "48 tablets" },
+          { name: "Aspirin", dosage: "300mg", quantity: "32 tablets" },
+          { name: "Paracetamol", dosage: "500mg", quantity: "100 tablets" },
+        ];
+      }
+      
+      // Vitamins for elderly/chronic conditions
+      if (historyStr.includes("osteoporosis") || historyStr.includes("deficiency") || historyStr.includes("kidney")) {
+        return [
+          { name: "Vitamin D3", dosage: "1000 IU", quantity: "90 capsules" },
+          { name: "Calcium", dosage: "600mg", quantity: "60 tablets" },
+          { name: "Multivitamins", dosage: "Daily", quantity: "30 tablets" },
+        ];
+      }
+      
+      // Eye conditions
+      if (historyStr.includes("eye") || historyStr.includes("vision")) {
+        return [
+          { name: "Eye Drops", dosage: "Preservative Free", quantity: "10ml" },
+          { name: "Vitamin A", dosage: "5000 IU", quantity: "60 capsules" },
+        ];
+      }
+      
+      // Default
+      return [
+        { name: "Vitamin C", dosage: "1000mg", quantity: "60 tablets" },
+        { name: "Omega-3", dosage: "1000mg", quantity: "90 capsules" },
+        { name: "Multivitamin", dosage: "Complete", quantity: "30 tablets" },
+      ];
+    };
     
-    const randomOTC = otcMeds[Math.floor(Math.random() * otcMeds.length)];
-    const randomBottle = bottleMeds[Math.floor(Math.random() * bottleMeds.length)];
+    const relevantOTCs = getOTCForCondition(currentScenario.patient.medicalHistory);
+    const relevantBottles = getBottleForCondition(currentScenario.patient.medicalHistory);
+    
+    const randomOTC = relevantOTCs[Math.floor(Math.random() * relevantOTCs.length)];
+    const randomBottle = relevantBottles[Math.floor(Math.random() * relevantBottles.length)];
     
     setDocumentConfig({
       showDNACPR: currentScenario.patient.age > 70 && Math.random() > 0.5,
@@ -87,12 +177,12 @@ export const GameBoard = () => {
       showGPLetter: !!(currentScenario.gpLetters && currentScenario.gpLetters.length > 0),
       showCarePlan: currentScenario.patient.age > 65 && Math.random() > 0.5,
       showDischarge: Math.random() > 0.6,
-      showOTCBox: Math.random() > 0.5,
-      showPillBottle: Math.random() > 0.5,
+      showOTCBox: Math.random() > 0.4, // Increased probability
+      showPillBottle: Math.random() > 0.4, // Increased probability
       otcMedication: randomOTC,
       bottleMedication: randomBottle
     });
-  }, [currentScenarioIndex, currentScenario.patient.age, currentScenario.gpLetters]);
+  }, [currentScenarioIndex, currentScenario.patient.age, currentScenario.gpLetters, currentScenario.patient.medicalHistory]);
 
   const handleStartGame = () => {
     if (gameState === "idle") {

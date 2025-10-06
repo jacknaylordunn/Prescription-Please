@@ -28,7 +28,7 @@ export const MedicationBox = ({
 
   return (
     <div 
-      className="pixel-text select-none document-shadow transition-transform hover:scale-105 relative"
+      className="pixel-text select-none document-shadow transition-all duration-300 hover:scale-110 hover:-translate-y-1 hover:shadow-2xl relative animate-fade-in cursor-pointer"
       style={{ 
         width: "140px",
         height: "90px",
@@ -37,7 +37,8 @@ export const MedicationBox = ({
         padding: "8px",
         display: "flex",
         flexDirection: "column",
-        justifyContent: "space-between"
+        justifyContent: "space-between",
+        boxShadow: `0 4px 8px rgba(0,0,0,0.15), inset 0 2px 4px rgba(255,255,255,0.3)`,
       }}
     >
       {/* Brand Strip */}
@@ -88,14 +89,30 @@ export const MedicationBox = ({
           fontWeight: "bold"
         }}
       >
-        {count} TABLETS
+        {count.includes('ml') || count.includes('tube') ? count.toUpperCase() : `${count} TABLETS`}
       </div>
 
-      {/* Decorative corner marks */}
-      <div className="absolute top-1 left-1" style={{ fontSize: "8px", color: boxColor.border }}>┌</div>
-      <div className="absolute top-1 right-1" style={{ fontSize: "8px", color: boxColor.border }}>┐</div>
-      <div className="absolute bottom-1 left-1" style={{ fontSize: "8px", color: boxColor.border }}>└</div>
-      <div className="absolute bottom-1 right-1" style={{ fontSize: "8px", color: boxColor.border }}>┘</div>
+      {/* Decorative corner marks with animation */}
+      <div className="absolute top-1 left-1 animate-pulse" style={{ fontSize: "8px", color: boxColor.border, fontWeight: "bold" }}>┌</div>
+      <div className="absolute top-1 right-1 animate-pulse" style={{ fontSize: "8px", color: boxColor.border, fontWeight: "bold" }}>┐</div>
+      <div className="absolute bottom-1 left-1 animate-pulse" style={{ fontSize: "8px", color: boxColor.border, fontWeight: "bold" }}>└</div>
+      <div className="absolute bottom-1 right-1 animate-pulse" style={{ fontSize: "8px", color: boxColor.border, fontWeight: "bold" }}>┘</div>
+      
+      {/* Blister pack pattern overlay */}
+      <div className="absolute inset-0 pointer-events-none" style={{ opacity: 0.1 }}>
+        <div className="grid grid-cols-4 gap-1 p-2 h-full">
+          {Array.from({ length: 12 }).map((_, i) => (
+            <div 
+              key={i}
+              className="rounded-full border"
+              style={{ 
+                borderColor: boxColor.border,
+                backgroundColor: 'rgba(255,255,255,0.3)'
+              }}
+            />
+          ))}
+        </div>
+      </div>
     </div>
   );
 };

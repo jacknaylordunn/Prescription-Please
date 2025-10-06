@@ -16,23 +16,25 @@ export const PillBottle = ({
 
   return (
     <div 
-      className="pixel-text select-none document-shadow transition-transform hover:scale-105"
+      className="pixel-text select-none document-shadow transition-all duration-300 hover:scale-110 hover:-translate-y-2 hover:rotate-2 animate-fade-in cursor-pointer"
       style={{ 
         width: "120px",
         height: "160px",
-        position: "relative"
+        position: "relative",
+        filter: "drop-shadow(0 6px 10px rgba(0,0,0,0.25))"
       }}
     >
-      {/* Bottle Cap */}
+      {/* Bottle Cap with shine */}
       <div 
-        className="absolute top-0 left-1/2 -translate-x-1/2"
+        className="absolute top-0 left-1/2 -translate-x-1/2 transition-transform hover:scale-105"
         style={{
           width: "45px",
           height: "18px",
           backgroundColor: "#fff",
           border: "3px solid #333",
           borderBottom: "none",
-          borderRadius: "6px 6px 0 0"
+          borderRadius: "6px 6px 0 0",
+          boxShadow: "inset 0 2px 4px rgba(255,255,255,0.8), 0 2px 4px rgba(0,0,0,0.2)"
         }}
       >
         <div 
@@ -41,12 +43,19 @@ export const PillBottle = ({
             width: "30px",
             height: "6px",
             backgroundColor: "#666",
-            borderRadius: "2px"
+            borderRadius: "2px",
+            boxShadow: "inset 0 1px 2px rgba(0,0,0,0.5)"
           }}
         />
+        {/* Cap ridges for grip */}
+        <div className="absolute top-0 left-0 right-0 flex justify-around px-1">
+          {Array.from({ length: 5 }).map((_, i) => (
+            <div key={i} style={{ width: "2px", height: "18px", backgroundColor: "rgba(0,0,0,0.1)" }} />
+          ))}
+        </div>
       </div>
 
-      {/* Bottle Body */}
+      {/* Bottle Body with glass effect */}
       <div 
         className="absolute top-4"
         style={{
@@ -58,9 +67,18 @@ export const PillBottle = ({
           padding: "8px",
           display: "flex",
           flexDirection: "column",
-          gap: "6px"
+          gap: "6px",
+          boxShadow: "inset -4px 0 8px rgba(255,255,255,0.4), inset 4px 0 8px rgba(0,0,0,0.1), 0 4px 8px rgba(0,0,0,0.2)"
         }}
       >
+        {/* Glass highlight */}
+        <div 
+          className="absolute top-4 left-2 w-6 h-32 rounded-full pointer-events-none"
+          style={{
+            background: "linear-gradient(to right, rgba(255,255,255,0.4), rgba(255,255,255,0))",
+            filter: "blur(4px)"
+          }}
+        />
         {/* Label Background */}
         <div 
           className="flex-grow"
@@ -128,18 +146,21 @@ export const PillBottle = ({
           </div>
         </div>
 
-        {/* Pills visible through bottle */}
-        <div className="absolute bottom-2 left-2 right-2 flex flex-wrap gap-1 opacity-60">
-          {Array.from({ length: 8 }).map((_, i) => (
+        {/* Pills visible through bottle - animated */}
+        <div className="absolute bottom-2 left-2 right-2 flex flex-wrap gap-1 opacity-70">
+          {Array.from({ length: 12 }).map((_, i) => (
             <div 
               key={i}
+              className="animate-pulse"
               style={{
-                width: "8px",
-                height: "8px",
+                width: i % 3 === 0 ? "10px" : "8px",
+                height: i % 3 === 0 ? "5px" : "8px",
                 backgroundColor: "#fff",
                 border: "1px solid #ccc",
-                borderRadius: "50%",
-                boxShadow: "inset 0 1px 2px rgba(0,0,0,0.2)"
+                borderRadius: i % 3 === 0 ? "30%" : "50%",
+                boxShadow: "inset 0 1px 2px rgba(0,0,0,0.3), 0 1px 2px rgba(0,0,0,0.2)",
+                animationDelay: `${i * 0.1}s`,
+                animationDuration: "3s"
               }}
             />
           ))}
