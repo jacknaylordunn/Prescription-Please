@@ -67,23 +67,44 @@ export const QuizPanel = ({ scenario, onComplete }: QuizPanelProps) => {
       });
     }
 
-    // Question 2: Side effects
+    // Question 2: Side effects (only for medications with specific side effects)
     if (meds.length > 0) {
-      const med = meds[Math.floor(Math.random() * meds.length)];
-      const correctSideEffect = med.sideEffects[0];
-      const alternatives = [
-        "Hair loss", "Increased appetite", "Blurred vision", "Headache",
-        "Drowsiness", "Nausea", "Weight gain", "Dry mouth", "Insomnia",
-        "Dizziness", "Rash", "Palpitations"
-      ];
-      const uniqueOptions = createUniqueOptions(correctSideEffect, alternatives);
-      const shuffledOptions = [...uniqueOptions].sort(() => Math.random() - 0.5);
-      questions.push({
-        question: `Which is a common side effect of ${med.name}?`,
-        options: shuffledOptions,
-        correctAnswer: shuffledOptions.indexOf(correctSideEffect),
-        explanation: `${med.name} commonly causes ${correctSideEffect.toLowerCase()}.`
-      });
+      const medsWithSpecificSideEffects = meds.filter(m => 
+        !m.sideEffects[0].toLowerCase().includes("minimal") && 
+        !m.sideEffects[0].toLowerCase().includes("rare")
+      );
+      if (medsWithSpecificSideEffects.length > 0) {
+        const med = medsWithSpecificSideEffects[Math.floor(Math.random() * medsWithSpecificSideEffects.length)];
+        const correctSideEffect = med.sideEffects[0];
+        
+        // Create clinically appropriate alternatives based on drug class
+        let alternatives: string[] = [];
+        if (med.class.includes("Beta-blocker")) {
+          alternatives = ["Tachycardia", "Hypertension", "Increased energy", "Diarrhoea"];
+        } else if (med.class.includes("ACE inhibitor")) {
+          alternatives = ["Constipation", "Euphoria", "Increased appetite", "Tachycardia"];
+        } else if (med.class.includes("Opioid")) {
+          alternatives = ["Diarrhoea", "Increased alertness", "Hypertension", "Tachycardia"];
+        } else if (med.class.includes("NSAID")) {
+          alternatives = ["Drowsiness", "Bradycardia", "Increased appetite", "Euphoria"];
+        } else if (med.class.includes("Diuretic")) {
+          alternatives = ["Fluid retention", "Weight gain", "Increased thirst only", "Bradycardia"];
+        } else {
+          alternatives = [
+            "Euphoria", "Increased appetite", "Excessive energy", "Improved vision",
+            "Enhanced memory", "Increased strength", "Better sleep quality", "Heightened alertness"
+          ];
+        }
+        
+        const uniqueOptions = createUniqueOptions(correctSideEffect, alternatives);
+        const shuffledOptions = [...uniqueOptions].sort(() => Math.random() - 0.5);
+        questions.push({
+          question: `Which is a common side effect of ${med.name}?`,
+          options: shuffledOptions,
+          correctAnswer: shuffledOptions.indexOf(correctSideEffect),
+          explanation: `${med.name} commonly causes ${correctSideEffect.toLowerCase()}.`
+        });
+      }
     }
     
     // Question 2b: Multiple medication side effects
@@ -226,10 +247,24 @@ export const QuizPanel = ({ scenario, onComplete }: QuizPanelProps) => {
     if (meds.length > 0) {
       const med = meds[Math.floor(Math.random() * meds.length)];
       const correctAnswer = med.indication;
-      const alternatives = [
-        "Headache", "Insomnia", "Fever", "Anxiety", "Depression",
-        "High blood pressure", "Pain relief", "Infection", "Inflammation"
-      ];
+      
+      // Create clinically plausible alternatives based on drug category
+      let alternatives: string[] = [];
+      if (med.category === "Analgesic") {
+        alternatives = ["High blood pressure", "Bacterial infection", "Diabetes", "Thyroid disorder"];
+      } else if (med.category === "Cardiovascular") {
+        alternatives = ["Pain relief", "Bacterial infection", "Constipation", "Anxiety"];
+      } else if (med.category === "Antibiotic") {
+        alternatives = ["High blood pressure", "Pain relief", "Heart failure", "Diabetes"];
+      } else if (med.category === "Antidiabetic") {
+        alternatives = ["High blood pressure", "Pain relief", "Bacterial infection", "Thyroid disorder"];
+      } else {
+        alternatives = [
+          "High blood pressure", "Pain relief", "Bacterial infection", "Diabetes",
+          "Heart failure", "Thyroid disorder", "Depression", "Anxiety"
+        ];
+      }
+      
       const uniqueOptions = createUniqueOptions(correctAnswer, alternatives);
       const shuffledOptions = [...uniqueOptions].sort(() => Math.random() - 0.5);
       questions.push({
@@ -326,17 +361,21 @@ export const QuizPanel = ({ scenario, onComplete }: QuizPanelProps) => {
     if (scenario.patient.medicalHistory.length > 0) {
       const condition = scenario.patient.medicalHistory[0];
       const correctAnswer = condition;
+      
+      // Create clinically plausible condition alternatives
       const alternatives = [
-        "Migraine", "Asthma", "Gout", "Bronchitis", "Arthritis",
-        "Pneumonia", "Gastritis", "Cellulitis"
+        "Acute coronary syndrome", "Chronic kidney disease", "Liver cirrhosis", 
+        "Pneumonia", "Stroke", "Deep vein thrombosis",
+        "Gastric ulcer", "Urinary tract infection", "Cellulitis", "Sepsis"
       ];
+      
       const uniqueOptions = createUniqueOptions(correctAnswer, alternatives);
       const shuffledOptions = [...uniqueOptions].sort(() => Math.random() - 0.5);
       questions.push({
-        question: `Based on the prescription, what condition does the patient likely have?`,
+        question: `Based on the patient's medical history and medications, which condition do they have?`,
         options: shuffledOptions,
         correctAnswer: shuffledOptions.indexOf(correctAnswer),
-        explanation: `The combination of medications suggests ${condition.toLowerCase()}.`
+        explanation: `The patient's medical history includes ${condition.toLowerCase()}. The prescribed medications are consistent with managing this condition.`
       });
     }
     

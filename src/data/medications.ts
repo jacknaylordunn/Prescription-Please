@@ -11,7 +11,7 @@ export interface Medication {
 
 export const medications: Medication[] = [
   // Analgesics
-  { name: "Paracetamol", category: "Analgesic", dose: "500mg-1g", frequency: "Four times daily", indication: "Pain relief", sideEffects: ["Rare at therapeutic doses", "Liver damage in overdose"], timeCritical: false, class: "Non-opioid analgesic" },
+  { name: "Paracetamol", category: "Analgesic", dose: "500mg-1g", frequency: "Four times daily", indication: "Pain relief", sideEffects: ["Minimal side effects at therapeutic doses", "Liver toxicity in overdose"], timeCritical: false, class: "Non-opioid analgesic" },
   { name: "Ibuprofen", category: "Analgesic", dose: "200-400mg", frequency: "Three times daily", indication: "Pain and inflammation", sideEffects: ["Gastric irritation", "Bleeding risk"], timeCritical: false, class: "NSAID" },
   { name: "Co-codamol", category: "Analgesic", dose: "8/500mg-30/500mg", frequency: "Four times daily", indication: "Moderate pain", sideEffects: ["Constipation", "Drowsiness"], timeCritical: false, class: "Opioid combination" },
   { name: "Morphine", category: "Analgesic", dose: "10-20mg", frequency: "Four hourly PRN", indication: "Severe pain", sideEffects: ["Respiratory depression", "Constipation", "Nausea"], timeCritical: false, class: "Opioid" },
@@ -105,8 +105,8 @@ export const medications: Medication[] = [
   { name: "Levothyroxine", category: "Thyroid", dose: "25-150mcg", frequency: "Once daily", indication: "Hypothyroidism", sideEffects: ["Palpitations if overdosed", "Weight loss", "Anxiety"], timeCritical: false, class: "Thyroid hormone" },
   { name: "Ferrous Sulphate", category: "Supplement", dose: "200mg", frequency: "Twice daily", indication: "Iron deficiency anaemia", sideEffects: ["Constipation", "Black stools"], timeCritical: false, class: "Iron supplement" },
   { name: "Adcal D3", category: "Supplement", dose: "One tablet", frequency: "Twice daily", indication: "Calcium and Vitamin D deficiency", sideEffects: ["Constipation"], timeCritical: false, class: "Calcium/Vitamin D supplement" },
-  { name: "Folic Acid", category: "Supplement", dose: "5mg", frequency: "Once daily", indication: "Folate deficiency", sideEffects: ["Rare"], timeCritical: false, class: "Vitamin" },
-  { name: "Vitamin D", category: "Supplement", dose: "20,000 IU", frequency: "Once weekly", indication: "Vitamin D deficiency", sideEffects: ["Rare at therapeutic doses"], timeCritical: false, class: "Vitamin" },
+  { name: "Folic Acid", category: "Supplement", dose: "5mg", frequency: "Once daily", indication: "Folate deficiency", sideEffects: ["Nausea", "Abdominal discomfort"], timeCritical: false, class: "Vitamin" },
+  { name: "Vitamin D", category: "Supplement", dose: "20,000 IU", frequency: "Once weekly", indication: "Vitamin D deficiency", sideEffects: ["Hypercalcaemia if overdosed", "Nausea"], timeCritical: false, class: "Vitamin" },
   { name: "Alfacalcidol", category: "Supplement", dose: "0.25-1mcg", frequency: "Once daily", indication: "Renal bone disease", sideEffects: ["Hypercalcaemia"], timeCritical: false, class: "Vitamin D analogue" },
   
   // Antipsychotics
@@ -132,7 +132,7 @@ export const medications: Medication[] = [
   { name: "Doxazosin", category: "Cardiovascular", dose: "1-8mg", frequency: "Once daily", indication: "Hypertension, benign prostatic hyperplasia", sideEffects: ["Postural hypotension", "Dizziness"], timeCritical: false, class: "Alpha-blocker" },
   
   // Others
-  { name: "Gaviscon", category: "Antacid", dose: "10-20ml", frequency: "After meals and at bedtime", indication: "Heartburn, reflux", sideEffects: ["Rare"], timeCritical: false, class: "Alginate/Antacid" },
+  { name: "Gaviscon", category: "Antacid", dose: "10-20ml", frequency: "After meals and at bedtime", indication: "Heartburn, reflux", sideEffects: ["Minimal side effects", "Possible constipation"], timeCritical: false, class: "Alginate/Antacid" },
   { name: "Memantine", category: "Anti-dementia", dose: "10-20mg", frequency: "Once daily", indication: "Moderate to severe dementia", sideEffects: ["Dizziness", "Headache"], timeCritical: false, class: "NMDA receptor antagonist" },
   { name: "Mesalazine", category: "Anti-inflammatory", dose: "800mg-2.4g", frequency: "Three times daily", indication: "Ulcerative colitis, Crohn's disease", sideEffects: ["Nausea", "Headache", "Rash"], timeCritical: false, class: "5-aminosalicylic acid" },
   { name: "Naproxen", category: "NSAID", dose: "250-500mg", frequency: "Twice daily", indication: "Pain, inflammation", sideEffects: ["Gastric irritation", "Bleeding risk"], timeCritical: false, class: "NSAID" },
