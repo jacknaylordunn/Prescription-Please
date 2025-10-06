@@ -58,8 +58,7 @@ export const DraggableItem = ({
         y: e.clientY - rect.top,
       };
       setIsDragging(true);
-      setZIndex(100); // Bring to front
-      onMouseDownProp?.(); // Notify parent
+      onMouseDownProp?.(); // Notify parent first
     }
   };
 
@@ -70,7 +69,7 @@ export const DraggableItem = ({
       style={{
         left: `${position.x}px`,
         top: `${position.y}px`,
-        zIndex: isDragging ? 100 : isEnlarged ? 90 : zIndex,
+        zIndex: isDragging ? 100 : zIndexBase,
         transform: isEnlarged ? 'scale(1.5)' : 'scale(1)',
         transformOrigin: 'center center',
       }}

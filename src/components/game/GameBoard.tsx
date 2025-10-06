@@ -215,9 +215,9 @@ export const GameBoard = () => {
       {/* Draggable Quiz Panel */}
       {showQuiz && (
         <DraggableItem 
-          initialX={window.innerWidth / 2 - 250} 
+          initialX={window.innerWidth / 2 - 190} 
           initialY={100} 
-          zIndexBase={90}
+          zIndexBase={95}
           onMouseDown={() => setLastClickedItem("quiz")}
         >
           <QuizPanel scenario={currentScenario} onComplete={handleQuizComplete} />

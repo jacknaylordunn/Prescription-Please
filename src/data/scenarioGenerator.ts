@@ -130,6 +130,78 @@ const conditionTemplates = [
     medications: ["Amlodipine", "Ramipril", "Bendroflumethiazide", "Atorvastatin"],
     history: ["Hypertension", "High cholesterol", "Family history of stroke"],
     dispatch: "headache, BP very high at home. Patient anxious, no chest pain noted."
+  },
+  {
+    condition: "Parkinson's Disease",
+    ageRange: [60, 80],
+    presentation: "Tremor, rigidity, difficulty walking",
+    medications: ["Co-careldopa", "Ropinirole", "Selegiline", "Bisacodyl"],
+    history: ["Parkinson's disease", "Depression", "Constipation"],
+    dispatch: "fallen at home, Parkinson's patient. Patient on floor, no obvious injury, tremor noted."
+  },
+  {
+    condition: "Chronic Kidney Disease",
+    ageRange: [55, 80],
+    presentation: "Fatigue, nausea, swelling",
+    medications: ["Furosemide", "Ramipril", "Ferrous sulfate", "Alfacalcidol"],
+    history: ["CKD stage 4", "Anaemia", "Hypertension"],
+    dispatch: "unwell, kidney disease patient. Patient lethargic, appears pale, ankles swollen."
+  },
+  {
+    condition: "Rheumatoid Arthritis",
+    ageRange: [40, 70],
+    presentation: "Joint pain and swelling, morning stiffness",
+    medications: ["Methotrexate", "Folic Acid", "Naproxen", "Omeprazole"],
+    history: ["Rheumatoid arthritis", "Hypertension"],
+    dispatch: "severe joint pain, arthritis patient. Patient struggling to move, hands swollen."
+  },
+  {
+    condition: "Hypothyroidism",
+    ageRange: [30, 65],
+    presentation: "Fatigue, weight gain, cold intolerance",
+    medications: ["Levothyroxine", "Sertraline", "Vitamin D"],
+    history: ["Hypothyroidism", "Depression", "Vitamin D deficiency"],
+    dispatch: "very tired, feeling unwell. Patient sitting, appears exhausted but stable."
+  },
+  {
+    condition: "Gastro-oesophageal Reflux",
+    ageRange: [40, 70],
+    presentation: "Severe heartburn, chest discomfort, regurgitation",
+    medications: ["Lansoprazole", "Gaviscon", "Ranitidine"],
+    history: ["GORD", "Hiatus hernia"],
+    dispatch: "chest pain query cardiac, reflux history. Patient anxious, chest discomfort but obs stable."
+  },
+  {
+    condition: "Bipolar Disorder",
+    ageRange: [25, 55],
+    presentation: "Mood swings, manic episode, risk assessment needed",
+    medications: ["Lithium", "Olanzapine", "Sodium valproate", "Sertraline"],
+    history: ["Bipolar disorder", "Previous suicide attempt"],
+    dispatch: "mental health concern, manic behaviour. Patient agitated but cooperative, family present."
+  },
+  {
+    condition: "Dementia with Agitation",
+    ageRange: [75, 95],
+    presentation: "Confusion, agitation, wandering",
+    medications: ["Memantine", "Risperidone", "Zopiclone", "Adcal D3"],
+    history: ["Vascular dementia", "Hypertension", "Previous falls"],
+    dispatch: "confused elderly patient, care home. Patient wandering, trying to leave, distressed."
+  },
+  {
+    condition: "Inflammatory Bowel Disease",
+    ageRange: [25, 50],
+    presentation: "Abdominal pain, bloody diarrhea, weight loss",
+    medications: ["Mesalazine", "Azathioprine", "Prednisolone", "Folic Acid"],
+    history: ["Crohn's disease", "Anaemia"],
+    dispatch: "severe abdominal pain, Crohn's patient. Patient doubled over, multiple toilet visits."
+  },
+  {
+    condition: "Schizophrenia",
+    ageRange: [30, 60],
+    presentation: "Hallucinations, paranoia, non-compliance with medication",
+    medications: ["Clozapine", "Aripiprazole", "Procyclidine", "Diazepam"],
+    history: ["Schizophrenia", "Previous sectioning"],
+    dispatch: "mental health crisis, paranoid behavior. Patient hearing voices, family concerned."
   }
 ];
 

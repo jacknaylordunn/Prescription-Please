@@ -10,8 +10,8 @@ interface RadioProps {
 export const Radio = ({ dispatchInfo, onStartAssessment, onNewCase, gameState }: RadioProps) => {
   return (
     <div 
-      className="border-4 border-muted p-6 rounded-sm retro-shadow pixel-text animate-scale-in"
-      style={{ width: "400px", backgroundColor: "hsl(240, 10%, 25%)" }}
+      className="border-4 border-muted p-4 rounded-sm retro-shadow pixel-text animate-scale-in"
+      style={{ width: "320px", backgroundColor: "hsl(240, 10%, 25%)" }}
     >
       {/* Radio Header */}
       <div className="flex items-center justify-between mb-4 pb-3 border-b-2 border-muted">
@@ -23,7 +23,7 @@ export const Radio = ({ dispatchInfo, onStartAssessment, onNewCase, gameState }:
       </div>
 
       {/* Display Screen */}
-      <div className="bg-accent/20 border-4 border-accent p-4 mb-4 min-h-[180px] font-mono leading-relaxed retro-shadow" style={{ fontSize: "10px" }}>
+      <div className="bg-accent/20 border-4 border-accent p-3 mb-3 min-h-[140px] font-mono leading-relaxed retro-shadow" style={{ fontSize: "9px" }}>
         {gameState === "idle" && (
           <div className="text-accent-foreground font-bold">
             &gt; STANDBY FOR JOB...<br/>
@@ -73,7 +73,7 @@ export const Radio = ({ dispatchInfo, onStartAssessment, onNewCase, gameState }:
           <Button 
             onClick={onStartAssessment}
             className="w-full bg-accent hover:bg-accent/90 text-accent-foreground font-bold pixel-text border-4 border-accent-foreground/30 retro-shadow hover:scale-105 transition-transform"
-            style={{ fontSize: "11px", padding: "12px" }}
+            style={{ fontSize: "10px", padding: "10px" }}
           >
             ► START GAME
           </Button>
@@ -83,7 +83,7 @@ export const Radio = ({ dispatchInfo, onStartAssessment, onNewCase, gameState }:
           <Button 
             onClick={onStartAssessment}
             className="w-full bg-accent hover:bg-accent/90 text-accent-foreground font-bold pixel-text border-4 border-accent-foreground/30 retro-shadow hover:scale-105 transition-transform animate-pulse"
-            style={{ fontSize: "11px", padding: "12px" }}
+            style={{ fontSize: "10px", padding: "10px" }}
           >
             ► BEGIN ASSESSMENT
           </Button>
@@ -93,7 +93,7 @@ export const Radio = ({ dispatchInfo, onStartAssessment, onNewCase, gameState }:
           <Button 
             onClick={onNewCase}
             className="w-full bg-accent hover:bg-accent/90 text-accent-foreground font-bold pixel-text border-4 border-accent-foreground/30 retro-shadow hover:scale-105 transition-transform"
-            style={{ fontSize: "11px", padding: "12px" }}
+            style={{ fontSize: "10px", padding: "10px" }}
           >
             ► NEW CASE
           </Button>
