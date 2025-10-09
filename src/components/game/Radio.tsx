@@ -17,15 +17,6 @@ export const Radio = ({ dispatchInfo, onStartAssessment, onNewCase, gameState }:
         boxShadow: "8px 8px 0px rgba(0,0,0,0.3), inset 0 0 0 2px rgba(255,255,255,0.1)"
       }}
     >
-      {/* Antenna */}
-      <div 
-        className="absolute -top-16 left-1/2 -translate-x-1/2 w-2 border-2 border-foreground/60 rounded-full"
-        style={{ 
-          height: "60px",
-          backgroundColor: "hsl(240, 8%, 18%)",
-          boxShadow: "2px 0 0 rgba(0,0,0,0.3)"
-        }}
-      />
 
       {/* Header Bar */}
       <div 
@@ -103,30 +94,33 @@ export const Radio = ({ dispatchInfo, onStartAssessment, onNewCase, gameState }:
         {gameState === "idle" && (
           <Button 
             onClick={onStartAssessment}
-            className="w-full bg-accent hover:bg-accent/90 text-accent-foreground font-bold pixel-text border-2 border-accent-foreground/40 retro-shadow hover:scale-105 transition-transform"
+            className="w-full bg-accent hover:bg-accent/90 text-accent-foreground font-bold pixel-text border-2 border-accent-foreground/40 retro-shadow hover:scale-105 transition-transform flex items-center justify-center gap-1"
             style={{ fontSize: "9px", padding: "8px" }}
           >
-            ▶ START
+            <span>▶</span>
+            <span>START</span>
           </Button>
         )}
         
         {gameState === "dispatch" && (
           <Button 
             onClick={onStartAssessment}
-            className="w-full bg-accent hover:bg-accent/90 text-accent-foreground font-bold pixel-text border-2 border-accent-foreground/40 retro-shadow hover:scale-105 transition-transform animate-pulse"
+            className="w-full bg-accent hover:bg-accent/90 text-accent-foreground font-bold pixel-text border-2 border-accent-foreground/40 retro-shadow hover:scale-105 transition-transform animate-pulse flex items-center justify-center gap-1"
             style={{ fontSize: "9px", padding: "8px" }}
           >
-            ▶ BEGIN
+            <span>▶</span>
+            <span>BEGIN</span>
           </Button>
         )}
         
         {gameState === "complete" && (
           <Button 
             onClick={onNewCase}
-            className="w-full bg-accent hover:bg-accent/90 text-accent-foreground font-bold pixel-text border-2 border-accent-foreground/40 retro-shadow hover:scale-105 transition-transform"
+            className="w-full bg-accent hover:bg-accent/90 text-accent-foreground font-bold pixel-text border-2 border-accent-foreground/40 retro-shadow hover:scale-105 transition-transform flex items-center justify-center gap-1"
             style={{ fontSize: "9px", padding: "8px" }}
           >
-            ▶ NEW CASE
+            <span>▶</span>
+            <span>NEW CASE</span>
           </Button>
         )}
       </div>
