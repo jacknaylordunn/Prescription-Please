@@ -98,14 +98,15 @@ export const PillBottle = ({
             className="text-center pb-1 mb-1.5 rounded-md"
             style={{ 
               fontSize: "6px", 
-              color: '#fff',
+              color: '#1e293b',
               fontWeight: "bold",
-              background: "linear-gradient(135deg, #3b82f6 0%, #2563eb 100%)",
+              background: "linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%)",
               padding: "2px 4px",
-              letterSpacing: "1px"
+              letterSpacing: "1px",
+              border: "1px solid #cbd5e1"
             }}
           >
-            ⚕ PRESCRIPTION
+            OVER THE COUNTER
           </div>
 
           {/* Medication Name */}
@@ -126,10 +127,10 @@ export const PillBottle = ({
             className="text-center py-1 mb-1.5 rounded-md mx-auto"
             style={{ 
               fontSize: "7px",
-              color: '#1e40af',
+              color: '#475569',
               fontWeight: "700",
-              backgroundColor: '#eff6ff',
-              border: "1.5px solid #3b82f6",
+              backgroundColor: '#f8fafc',
+              border: "1.5px solid #cbd5e1",
               maxWidth: "fit-content",
               padding: "2px 8px"
             }}
@@ -139,30 +140,28 @@ export const PillBottle = ({
 
           {/* Quantity and Date - Modern grid */}
           <div 
-            className="grid grid-cols-2 gap-1 mb-1.5" 
-            style={{ fontSize: "5.5px", color: '#475569' }}
+            className="text-center mb-1.5" 
+            style={{ fontSize: "6px", color: '#475569' }}
           >
-            <div className="bg-slate-50 rounded px-1.5 py-0.5 border border-slate-200">
-              <span className="font-bold text-slate-700">Qty:</span> {quantity}
-            </div>
-            <div className="bg-slate-50 rounded px-1.5 py-0.5 border border-slate-200">
-              <span className="font-bold text-slate-700">Date:</span> {formattedDate}
+            <div className="bg-slate-50 rounded px-1.5 py-0.5 border border-slate-200 inline-block">
+              <span className="font-bold text-slate-700">Contains:</span> {quantity}
             </div>
           </div>
 
-          {/* Warning - Modern alert */}
+          {/* Usage instructions - OTC style */}
           <div 
             className="text-center rounded-md"
             style={{ 
               fontSize: "5px", 
-              color: '#854d0e',
+              color: '#1e40af',
               fontWeight: "bold",
               padding: "3px 4px",
-              background: "linear-gradient(135deg, #fef3c7 0%, #fde68a 100%)",
-              border: "1.5px solid #f59e0b"
+              background: "linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%)",
+              border: "1.5px solid #3b82f6",
+              lineHeight: "1.2"
             }}
           >
-            ⚠ READ PATIENT INFORMATION LEAFLET
+            ℹ READ INSTRUCTIONS BEFORE USE
           </div>
         </div>
       </div>
