@@ -46,8 +46,8 @@ export const Prescription = ({ scenario, isEnlarged = false }: PrescriptionProps
       {/* Patient Details */}
       <div className="grid grid-cols-2 gap-1 mb-2 border-2 border-paper-border p-2 bg-card">
         <div>
-          <div className="font-bold" style={{ fontSize: "6px", color: '#000' }}>AGE</div>
-          <div className="font-bold" style={{ fontSize: "9px", color: '#000' }}>{scenario.patient.age}</div>
+          <div className="font-bold" style={{ fontSize: "6px", color: '#000' }}>DOB</div>
+          <div className="font-bold" style={{ fontSize: "8px", color: '#000' }}>{scenario.documentMetadata?.patientDOB || '01/01/1980'}</div>
         </div>
         <div>
           <div className="font-bold" style={{ fontSize: "6px", color: '#000' }}>PATIENT</div>
