@@ -53,17 +53,13 @@ export const MedicationBox = ({
 
   return (
     <div 
-      className="pixel-text select-none transition-all duration-300 hover:scale-105 hover:-translate-y-2 relative animate-fade-in cursor-pointer group"
+      className="pixel-text select-none transition-all duration-300 hover:scale-105 hover:-translate-y-2 relative animate-fade-in cursor-pointer group overflow-hidden"
       style={{ 
         width: "160px",
         height: "100px",
         background: boxColor.bg,
         border: `3px solid ${boxColor.accent}`,
         borderRadius: "8px",
-        padding: "10px",
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "space-between",
         boxShadow: `0 8px 16px rgba(0,0,0,0.15), 0 4px 6px rgba(0,0,0,0.1)`,
         transformStyle: "preserve-3d"
       }}
@@ -79,7 +75,7 @@ export const MedicationBox = ({
 
       {/* Brand Strip - Modern design */}
       <div 
-        className="absolute top-0 left-0 right-0 font-bold text-center -mx-[3px] -mt-[3px] py-1.5 rounded-t-md"
+        className="absolute top-0 left-0 right-0 font-bold text-center py-1.5 rounded-t-md"
         style={{ 
           fontSize: "7px", 
           background: boxColor.accent,
@@ -91,37 +87,40 @@ export const MedicationBox = ({
         OTC MEDICATION
       </div>
 
-      {/* Medication Name */}
-      <div 
-        className="font-bold text-center mt-6 transition-transform group-hover:scale-105"
-        style={{ 
-          fontSize: medicationName.length > 14 ? "11px" : "13px",
-          color: boxColor.text,
-          lineHeight: "1.3",
-          fontWeight: "800"
-        }}
-      >
-        {medicationName}
-      </div>
+      {/* Content container */}
+      <div className="absolute inset-0 pt-7 pb-6 px-2.5 flex flex-col justify-between">
+        {/* Medication Name */}
+        <div 
+          className="font-bold text-center transition-transform group-hover:scale-105"
+          style={{ 
+            fontSize: medicationName.length > 14 ? "11px" : "13px",
+            color: boxColor.text,
+            lineHeight: "1.3",
+            fontWeight: "800"
+          }}
+        >
+          {medicationName}
+        </div>
 
-      {/* Dosage Info with modern badge */}
-      <div 
-        className="text-center px-2 py-1 rounded-md mx-auto"
-        style={{ 
-          fontSize: "9px",
-          color: boxColor.text,
-          fontWeight: "700",
-          backgroundColor: boxColor.label,
-          border: `1.5px solid ${boxColor.accent}`,
-          maxWidth: "fit-content"
-        }}
-      >
-        {dosage}
+        {/* Dosage Info with modern badge */}
+        <div 
+          className="text-center px-2 py-0.5 rounded-md mx-auto"
+          style={{ 
+            fontSize: "8px",
+            color: boxColor.text,
+            fontWeight: "700",
+            backgroundColor: boxColor.label,
+            border: `1.5px solid ${boxColor.accent}`,
+            maxWidth: "fit-content"
+          }}
+        >
+          {dosage}
+        </div>
       </div>
 
       {/* Count - Modern footer */}
       <div 
-        className="text-center py-1 rounded-b-md overflow-hidden"
+        className="absolute bottom-0 left-0 right-0 text-center py-1 overflow-hidden"
         style={{ 
           fontSize: "6.5px",
           background: `linear-gradient(to bottom, ${boxColor.label}, rgba(255,255,255,0.95))`,
@@ -129,10 +128,6 @@ export const MedicationBox = ({
           color: boxColor.text,
           fontWeight: "bold",
           letterSpacing: "0.2px",
-          position: "absolute",
-          bottom: "0",
-          left: "0",
-          right: "0",
           borderBottomLeftRadius: "5px",
           borderBottomRightRadius: "5px"
         }}
@@ -150,11 +145,11 @@ export const MedicationBox = ({
         style={{ borderColor: boxColor.accent }}
       />
       <div 
-        className="absolute bottom-10 left-2 w-3 h-3 border-l-2 border-b-2 opacity-30"
+        className="absolute bottom-7 left-2 w-3 h-3 border-l-2 border-b-2 opacity-30"
         style={{ borderColor: boxColor.accent }}
       />
       <div 
-        className="absolute bottom-10 right-2 w-3 h-3 border-r-2 border-b-2 opacity-30"
+        className="absolute bottom-7 right-2 w-3 h-3 border-r-2 border-b-2 opacity-30"
         style={{ borderColor: boxColor.accent }}
       />
     </div>
