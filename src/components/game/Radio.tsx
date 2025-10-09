@@ -97,8 +97,7 @@ export const Radio = ({ dispatchInfo, onStartAssessment, onNewCase, gameState }:
             className="w-full bg-accent hover:bg-accent/90 text-accent-foreground font-bold pixel-text border-2 border-accent-foreground/40 retro-shadow hover:scale-105 transition-transform flex items-center justify-center gap-1"
             style={{ fontSize: "9px", padding: "8px" }}
           >
-            <span>▶</span>
-            <span>START</span>
+            START
           </Button>
         )}
         
@@ -108,8 +107,7 @@ export const Radio = ({ dispatchInfo, onStartAssessment, onNewCase, gameState }:
             className="w-full bg-accent hover:bg-accent/90 text-accent-foreground font-bold pixel-text border-2 border-accent-foreground/40 retro-shadow hover:scale-105 transition-transform animate-pulse flex items-center justify-center gap-1"
             style={{ fontSize: "9px", padding: "8px" }}
           >
-            <span>▶</span>
-            <span>BEGIN</span>
+            BEGIN
           </Button>
         )}
         
@@ -119,8 +117,7 @@ export const Radio = ({ dispatchInfo, onStartAssessment, onNewCase, gameState }:
             className="w-full bg-accent hover:bg-accent/90 text-accent-foreground font-bold pixel-text border-2 border-accent-foreground/40 retro-shadow hover:scale-105 transition-transform flex items-center justify-center gap-1"
             style={{ fontSize: "9px", padding: "8px" }}
           >
-            <span>▶</span>
-            <span>NEW CASE</span>
+            NEW CASE
           </Button>
         )}
       </div>
