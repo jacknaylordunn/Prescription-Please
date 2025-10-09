@@ -491,20 +491,22 @@ export const GameBoard = () => {
       {/* Draggable Quiz Panel */}
       {showQuiz && (
         <DraggableItem 
-          initialX={window.innerWidth / 2 - 190} 
-          initialY={100} 
+          initialX={Math.min(window.innerWidth / 2 - 190, window.innerWidth - 400)} 
+          initialY={window.innerHeight < 700 ? 50 : 100} 
           zIndexBase={95}
           onMouseDown={() => setLastClickedItem("quiz")}
         >
-          <QuizPanel scenario={currentScenario} onComplete={handleQuizComplete} />
+          <div className="scale-75 md:scale-90 lg:scale-100 origin-top-left">
+            <QuizPanel scenario={currentScenario} onComplete={handleQuizComplete} />
+          </div>
         </DraggableItem>
       )}
 
       {/* Instructions */}
       {gameState === "idle" && (
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 bg-card px-6 py-4 border-4 border-primary pixel-text retro-shadow animate-fade-in">
-          <p className="text-center" style={{ fontSize: "9px", lineHeight: "1.8", color: "#000" }}>
-            <span className="font-bold text-primary" style={{ fontSize: "12px" }}>PRESCRIPTION, PLEASE!</span><br/>
+        <div className="absolute bottom-4 md:bottom-8 left-1/2 -translate-x-1/2 bg-card px-4 md:px-6 py-3 md:py-4 border-2 md:border-4 border-primary pixel-text retro-shadow animate-fade-in max-w-[90vw]">
+          <p className="text-center text-[7px] md:text-[9px] leading-relaxed md:leading-loose">
+            <span className="font-bold text-primary text-[10px] md:text-[12px]">PRESCRIPTION, PLEASE!</span><br/>
             <br/>
             Click START on radio • Double-click to enlarge<br/>
             Drag papers • Toggle lamp for light

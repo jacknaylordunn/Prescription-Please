@@ -497,33 +497,33 @@ export const QuizPanel = ({ scenario, onComplete }: QuizPanelProps) => {
   }
 
   return (
-    <div className="border-4 border-muted p-4 pixel-text retro-shadow" style={{ width: "380px", backgroundColor: "hsl(240, 10%, 25%)" }}>
+    <div className="border-4 border-muted p-3 md:p-4 pixel-text retro-shadow max-w-[95vw] md:max-w-none overflow-y-auto max-h-[80vh] md:max-h-none" style={{ width: "min(380px, 95vw)", backgroundColor: "hsl(240, 10%, 25%)" }}>
       {/* Header */}
-      <div className="border-b-2 border-primary pb-2 mb-3 bg-primary/20">
-        <h2 className="font-bold text-radio-text" style={{ fontSize: "11px" }}>
+      <div className="border-b-2 border-primary pb-2 mb-2 md:mb-3 bg-primary/20">
+        <h2 className="font-bold text-radio-text text-[9px] md:text-[11px]">
           PATIENT ASSESSMENT
         </h2>
-        <div className="font-bold mt-1 text-radio-text opacity-80" style={{ fontSize: "9px" }}>
+        <div className="font-bold mt-1 text-radio-text opacity-80 text-[7px] md:text-[9px]">
           Q{currentQuestion + 1}/{questions.length} | Score: {score}/{questions.length}
         </div>
       </div>
 
       {/* Question */}
-      <div className="mb-4">
-        <div className="bg-primary/20 border-2 border-primary p-3 mb-3">
-          <p className="font-bold text-radio-text" style={{ fontSize: "10px", lineHeight: "1.5" }}>
+      <div className="mb-3 md:mb-4">
+        <div className="bg-primary/20 border-2 border-primary p-2 md:p-3 mb-2 md:mb-3">
+          <p className="font-bold text-radio-text text-[8px] md:text-[10px] leading-relaxed">
             {questions[currentQuestion].question}
           </p>
         </div>
 
         {/* Options */}
-        <div className="space-y-2">
+        <div className="space-y-1.5 md:space-y-2">
           {questions[currentQuestion].options.map((option, idx) => (
             <button
               key={idx}
               onClick={() => handleAnswer(idx)}
               disabled={answered}
-              className={`w-full p-2 text-left border-2 transition-all font-bold ${
+              className={`w-full p-1.5 md:p-2 text-left border-2 transition-all font-bold ${
                 answered
                   ? selectedAnswer === idx
                     ? idx === questions[currentQuestion].correctAnswer
@@ -534,10 +534,10 @@ export const QuizPanel = ({ scenario, onComplete }: QuizPanelProps) => {
                     : "border-muted bg-background/50 opacity-60"
                   : "border-muted hover:border-accent hover:bg-accent/10 hover:scale-102 bg-background/50"
               }`}
-              style={{ fontSize: "9px", lineHeight: "1.4" }}
+              style={{ fontSize: "8px", lineHeight: "1.3" }}
             >
-              <span className="font-bold mr-2 text-radio-accent">{String.fromCharCode(65 + idx)}.</span>
-              <span className="text-radio-text">{option}</span>
+              <span className="font-bold mr-1.5 md:mr-2 text-radio-accent text-[7px] md:text-[9px]">{String.fromCharCode(65 + idx)}.</span>
+              <span className="text-radio-text text-[7px] md:text-[9px]">{option}</span>
             </button>
           ))}
         </div>
@@ -547,8 +547,7 @@ export const QuizPanel = ({ scenario, onComplete }: QuizPanelProps) => {
       {answered && (
         <Button 
           onClick={handleNext}
-          className="w-full bg-accent hover:bg-accent/90 text-accent-foreground font-bold border-2 border-accent-foreground/30 retro-shadow hover:scale-105 transition-transform"
-          style={{ fontSize: "9px", padding: "10px" }}
+          className="w-full bg-accent hover:bg-accent/90 text-accent-foreground font-bold border-2 border-accent-foreground/30 retro-shadow hover:scale-105 transition-transform text-[8px] md:text-[9px] py-2 md:py-2.5"
         >
           {currentQuestion < questions.length - 1 ? "► NEXT" : "► COMPLETE"}
         </Button>
