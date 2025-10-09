@@ -114,6 +114,7 @@ export const medications: Medication[] = [
   { name: "Olanzapine", category: "Antipsychotic", dose: "5-20mg", frequency: "Once daily", indication: "Schizophrenia, bipolar disorder", sideEffects: ["Weight gain", "Sedation", "Metabolic syndrome"], timeCritical: false, class: "Atypical antipsychotic" },
   { name: "Aripiprazole", category: "Antipsychotic", dose: "10-30mg", frequency: "Once daily", indication: "Schizophrenia, bipolar disorder", sideEffects: ["Akathisia", "Insomnia", "Nausea"], timeCritical: false, class: "Atypical antipsychotic" },
   { name: "Risperidone", category: "Antipsychotic", dose: "2-6mg", frequency: "Once or twice daily", indication: "Schizophrenia, bipolar disorder", sideEffects: ["Weight gain", "Extrapyramidal effects", "Hyperprolactinaemia"], timeCritical: false, class: "Atypical antipsychotic" },
+  { name: "Haloperidol", category: "Antipsychotic", dose: "1.5-10mg", frequency: "Once to three times daily", indication: "Schizophrenia, acute psychosis", sideEffects: ["Extrapyramidal effects", "Tardive dyskinesia", "Neuroleptic malignant syndrome", "QT prolongation"], timeCritical: false, class: "Typical antipsychotic" },
   
   // Mood Stabilizers
   { name: "Lithium", category: "Mood stabilizer", dose: "400-1200mg", frequency: "Once or twice daily", indication: "Bipolar disorder", sideEffects: ["Tremor", "Polyuria", "Weight gain", "Thyroid dysfunction"], timeCritical: true, class: "Mood stabilizer" },
@@ -234,4 +235,23 @@ export const medications: Medication[] = [
   
   // Additional Antibiotics
   { name: "Co-trimoxazole", category: "Antibiotic", dose: "960mg", frequency: "Twice daily", indication: "Pneumocystis prophylaxis, UTI", sideEffects: ["Rash", "Nausea", "Blood disorders"], timeCritical: false, class: "Sulfonamide combination" },
+  { name: "Tazocin", category: "Antibiotic", dose: "4.5g", frequency: "Three times daily (IV)", indication: "Severe hospital-acquired infections", sideEffects: ["Diarrhoea", "Nausea", "Hypersensitivity"], timeCritical: false, class: "Penicillin/Beta-lactamase inhibitor" },
+  { name: "Clindamycin", category: "Antibiotic", dose: "150-450mg", frequency: "Four times daily", indication: "Skin infections, anaerobic infections", sideEffects: ["Diarrhoea", "C. difficile", "Nausea"], timeCritical: false, class: "Lincosamide" },
+  { name: "Meropenem", category: "Antibiotic", dose: "500mg-2g", frequency: "Three times daily (IV)", indication: "Severe infections, meningitis", sideEffects: ["Nausea", "Diarrhoea", "Seizures (high doses)"], timeCritical: false, class: "Carbapenem" },
+  { name: "Ceftriaxone", category: "Antibiotic", dose: "1-2g", frequency: "Once or twice daily (IV/IM)", indication: "Meningitis, severe infections", sideEffects: ["Diarrhoea", "Hypersensitivity"], timeCritical: false, class: "Cephalosporin" },
+  
+  // Emergency/ICU medications
+  { name: "Thiamine", category: "Supplement", dose: "100mg", frequency: "Three times daily", indication: "Wernicke's encephalopathy prevention, alcohol withdrawal", sideEffects: ["Minimal side effects", "Rare anaphylaxis"], timeCritical: true, class: "Vitamin B1" },
+  { name: "Pabrinex", category: "Supplement", dose: "One pair of vials", frequency: "Once or twice daily (IV)", indication: "Wernicke's encephalopathy, alcohol withdrawal", sideEffects: ["Anaphylaxis risk", "Injection site reactions"], timeCritical: true, class: "High-potency B vitamins and C" },
+  { name: "N-acetylcysteine", category: "Antidote", dose: "Variable", frequency: "IV infusion protocol", indication: "Paracetamol overdose", sideEffects: ["Nausea", "Anaphylactoid reactions", "Rash"], timeCritical: true, class: "Antidote" },
+  { name: "Vitamin K", category: "Supplement", dose: "5-10mg", frequency: "Once daily", indication: "Warfarin reversal, coagulopathy", sideEffects: ["Injection site reactions", "Flushing"], timeCritical: true, class: "Vitamin K" },
+  { name: "Magnesium Sulphate", category: "Emergency", dose: "4-6g", frequency: "IV bolus then infusion", indication: "Eclampsia, severe asthma", sideEffects: ["Flushing", "Hypotension", "Respiratory depression"], timeCritical: true, class: "Magnesium salt" },
+  { name: "Labetalol", category: "Cardiovascular", dose: "100-400mg", frequency: "Twice daily or IV infusion", indication: "Hypertensive emergencies, pre-eclampsia", sideEffects: ["Postural hypotension", "Bradycardia", "Fatigue"], timeCritical: true, class: "Alpha and beta-blocker" },
+  { name: "Dantrolene", category: "Emergency", dose: "1mg/kg", frequency: "IV bolus repeated PRN", indication: "Malignant hyperthermia, neuroleptic malignant syndrome", sideEffects: ["Muscle weakness", "Nausea", "Hepatotoxicity"], timeCritical: true, class: "Muscle relaxant" },
+  { name: "Dexamethasone", category: "Steroid", dose: "0.15mg/kg", frequency: "Once to four times daily", indication: "Bacterial meningitis, cerebral oedema, croup", sideEffects: ["Hyperglycaemia", "Immunosuppression", "Mood changes"], timeCritical: true, class: "Corticosteroid" },
+  { name: "Adrenaline", category: "Emergency", dose: "0.5mg (1:1000)", frequency: "IM PRN (repeat 5 mins)", indication: "Anaphylaxis, cardiac arrest", sideEffects: ["Palpitations", "Tremor", "Anxiety"], timeCritical: true, class: "Sympathomimetic" },
+  { name: "Nimodipine", category: "Cardiovascular", dose: "60mg", frequency: "Every 4 hours", indication: "Subarachnoid haemorrhage", sideEffects: ["Hypotension", "Headache", "Flushing"], timeCritical: true, class: "Calcium channel blocker" },
+  
+  // Multiple Sclerosis
+  { name: "Fampridine", category: "MS agent", dose: "10mg", frequency: "Twice daily", indication: "Multiple sclerosis walking improvement", sideEffects: ["Seizures", "Insomnia", "Dizziness"], timeCritical: false, class: "Potassium channel blocker" },
 ];
