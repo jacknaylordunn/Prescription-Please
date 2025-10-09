@@ -75,28 +75,30 @@ export const MedicationBox = ({
 
       {/* Brand Strip - Modern design */}
       <div 
-        className="absolute top-0 left-0 right-0 font-bold text-center py-1.5 rounded-t-md"
+        className="absolute top-0 left-0 right-0 font-bold text-center py-1 rounded-t-md"
         style={{ 
-          fontSize: "7px", 
+          fontSize: "6px", 
           background: boxColor.accent,
           color: '#fff',
-          letterSpacing: "1.5px",
+          letterSpacing: "1.2px",
           boxShadow: "0 2px 4px rgba(0,0,0,0.2)"
         }}
       >
         OTC MEDICATION
       </div>
 
-      {/* Content container */}
-      <div className="absolute inset-0 pt-7 pb-6 px-2.5 flex flex-col justify-between">
+      {/* Content container with proper padding */}
+      <div className="absolute" style={{ top: "22px", bottom: "18px", left: "8px", right: "8px", display: "flex", flexDirection: "column", justifyContent: "space-around" }}>
         {/* Medication Name */}
         <div 
-          className="font-bold text-center transition-transform group-hover:scale-105"
+          className="font-bold text-center transition-transform group-hover:scale-105 px-1"
           style={{ 
-            fontSize: medicationName.length > 14 ? "11px" : "13px",
+            fontSize: medicationName.length > 14 ? "10px" : medicationName.length > 10 ? "11px" : "12px",
             color: boxColor.text,
-            lineHeight: "1.3",
-            fontWeight: "800"
+            lineHeight: "1.2",
+            fontWeight: "800",
+            wordBreak: "break-word",
+            overflow: "hidden"
           }}
         >
           {medicationName}
@@ -106,12 +108,13 @@ export const MedicationBox = ({
         <div 
           className="text-center px-2 py-0.5 rounded-md mx-auto"
           style={{ 
-            fontSize: "8px",
+            fontSize: "7.5px",
             color: boxColor.text,
             fontWeight: "700",
             backgroundColor: boxColor.label,
             border: `1.5px solid ${boxColor.accent}`,
-            maxWidth: "fit-content"
+            maxWidth: "fit-content",
+            whiteSpace: "nowrap"
           }}
         >
           {dosage}
@@ -120,16 +123,18 @@ export const MedicationBox = ({
 
       {/* Count - Modern footer */}
       <div 
-        className="absolute bottom-0 left-0 right-0 text-center py-1 overflow-hidden"
+        className="absolute bottom-0 left-0 right-0 text-center overflow-hidden"
         style={{ 
-          fontSize: "6.5px",
+          fontSize: "6px",
           background: `linear-gradient(to bottom, ${boxColor.label}, rgba(255,255,255,0.95))`,
           borderTop: `2px solid ${boxColor.accent}`,
           color: boxColor.text,
           fontWeight: "bold",
           letterSpacing: "0.2px",
           borderBottomLeftRadius: "5px",
-          borderBottomRightRadius: "5px"
+          borderBottomRightRadius: "5px",
+          padding: "3px 4px",
+          lineHeight: "1"
         }}
       >
         {count.includes('ml') || count.includes('tube') ? count.toUpperCase() : `${count} TABLETS`}
@@ -137,19 +142,19 @@ export const MedicationBox = ({
 
       {/* Modern corner accent marks */}
       <div 
-        className="absolute top-8 left-2 w-3 h-3 border-l-2 border-t-2 opacity-30"
+        className="absolute top-6 left-1.5 w-2.5 h-2.5 border-l-2 border-t-2 opacity-30"
         style={{ borderColor: boxColor.accent }}
       />
       <div 
-        className="absolute top-8 right-2 w-3 h-3 border-r-2 border-t-2 opacity-30"
+        className="absolute top-6 right-1.5 w-2.5 h-2.5 border-r-2 border-t-2 opacity-30"
         style={{ borderColor: boxColor.accent }}
       />
       <div 
-        className="absolute bottom-7 left-2 w-3 h-3 border-l-2 border-b-2 opacity-30"
+        className="absolute bottom-5 left-1.5 w-2.5 h-2.5 border-l-2 border-b-2 opacity-30"
         style={{ borderColor: boxColor.accent }}
       />
       <div 
-        className="absolute bottom-7 right-2 w-3 h-3 border-r-2 border-b-2 opacity-30"
+        className="absolute bottom-5 right-1.5 w-2.5 h-2.5 border-r-2 border-b-2 opacity-30"
         style={{ borderColor: boxColor.accent }}
       />
     </div>
