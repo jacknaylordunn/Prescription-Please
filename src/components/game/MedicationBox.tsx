@@ -121,17 +121,20 @@ export const MedicationBox = ({
 
       {/* Count - Modern footer */}
       <div 
-        className="text-center py-1.5 rounded-b-md"
+        className="text-center py-1 rounded-b-md overflow-hidden"
         style={{ 
-          fontSize: "7px",
+          fontSize: "6.5px",
           background: `linear-gradient(to bottom, ${boxColor.label}, rgba(255,255,255,0.95))`,
           borderTop: `2px solid ${boxColor.accent}`,
           color: boxColor.text,
           fontWeight: "bold",
-          letterSpacing: "0.3px",
-          marginLeft: "-10px",
-          marginRight: "-10px",
-          marginBottom: "-10px"
+          letterSpacing: "0.2px",
+          position: "absolute",
+          bottom: "0",
+          left: "0",
+          right: "0",
+          borderBottomLeftRadius: "5px",
+          borderBottomRightRadius: "5px"
         }}
       >
         {count.includes('ml') || count.includes('tube') ? count.toUpperCase() : `${count} TABLETS`}

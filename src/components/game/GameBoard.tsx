@@ -504,12 +504,19 @@ export const GameBoard = () => {
 
       {/* Instructions */}
       {gameState === "idle" && (
-        <div className="absolute bottom-4 md:bottom-8 left-1/2 -translate-x-1/2 bg-card px-4 md:px-6 py-3 md:py-4 border-2 md:border-4 border-primary pixel-text retro-shadow animate-fade-in max-w-[90vw]">
-          <p className="text-center text-[7px] md:text-[9px] leading-relaxed md:leading-loose">
+        <div className="absolute bottom-4 md:bottom-8 left-1/2 -translate-x-1/2 bg-card px-4 md:px-6 py-3 md:py-4 border-2 md:border-4 border-primary pixel-text retro-shadow animate-fade-in max-w-[90vw] md:max-w-none">
+          <p className="text-center text-[7px] md:text-[9px] leading-relaxed md:leading-loose" style={{ color: "#000" }}>
             <span className="font-bold text-primary text-[10px] md:text-[12px]">PRESCRIPTION, PLEASE!</span><br/>
             <br/>
-            Click START on radio • Double-click to enlarge<br/>
-            Drag papers • Toggle lamp for light
+            <span className="font-bold">HOW TO PLAY:</span><br/>
+            Click <span className="font-bold text-primary">START</span> on the radio to begin a new scenario<br/>
+            <span className="font-bold text-primary">Drag</span> documents around to review patient information<br/>
+            <span className="font-bold text-primary">Double-click</span> any document to enlarge it<br/>
+            Click <span className="font-bold text-primary">BEGIN ASSESSMENT</span> when ready<br/>
+            Toggle the <span className="font-bold text-primary">lamp</span> for better lighting<br/>
+            <br/>
+            <span className="font-bold">OBJECTIVE:</span> Review all patient documents and medications,<br/>
+            then answer clinical questions to test your knowledge!
           </p>
         </div>
       )}
