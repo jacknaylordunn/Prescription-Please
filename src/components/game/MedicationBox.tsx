@@ -11,15 +11,40 @@ export const MedicationBox = ({
   count,
   isEnlarged = false 
 }: MedicationBoxProps) => {
-  // Generate a consistent color based on medication name
+  // Generate a consistent modern color scheme based on medication name
   const getBoxColor = (name: string) => {
     const hash = name.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
     const colors = [
-      { bg: '#e8f5e9', border: '#4caf50', text: '#2e7d32', shadow: 'rgba(76, 175, 80, 0.3)' },
-      { bg: '#e3f2fd', border: '#2196f3', text: '#1565c0', shadow: 'rgba(33, 150, 243, 0.3)' },
-      { bg: '#fff3e0', border: '#ff9800', text: '#e65100', shadow: 'rgba(255, 152, 0, 0.3)' },
-      { bg: '#fce4ec', border: '#e91e63', text: '#c2185b', shadow: 'rgba(233, 30, 99, 0.3)' },
-      { bg: '#f3e5f5', border: '#9c27b0', text: '#6a1b9a', shadow: 'rgba(156, 39, 176, 0.3)' },
+      { 
+        bg: 'linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%)', 
+        accent: '#3b82f6',
+        text: '#1e40af',
+        label: '#eff6ff'
+      },
+      { 
+        bg: 'linear-gradient(135deg, #fef3c7 0%, #fde68a 100%)', 
+        accent: '#f59e0b',
+        text: '#92400e',
+        label: '#fffbeb'
+      },
+      { 
+        bg: 'linear-gradient(135deg, #fce7f3 0%, #fbcfe8 100%)', 
+        accent: '#ec4899',
+        text: '#9f1239',
+        label: '#fdf2f8'
+      },
+      { 
+        bg: 'linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%)', 
+        accent: '#22c55e',
+        text: '#166534',
+        label: '#f7fee7'
+      },
+      { 
+        bg: 'linear-gradient(135deg, #fae8ff 0%, #f5d0fe 100%)', 
+        accent: '#a855f7',
+        text: '#6b21a8',
+        label: '#faf5ff'
+      },
     ];
     return colors[hash % colors.length];
   };
@@ -28,18 +53,18 @@ export const MedicationBox = ({
 
   return (
     <div 
-      className="pixel-text select-none document-shadow transition-all duration-300 hover:scale-105 hover:-translate-y-2 hover:shadow-2xl relative animate-fade-in cursor-pointer group"
+      className="pixel-text select-none transition-all duration-300 hover:scale-105 hover:-translate-y-2 relative animate-fade-in cursor-pointer group"
       style={{ 
         width: "160px",
         height: "100px",
-        backgroundColor: boxColor.bg,
-        border: `4px solid ${boxColor.border}`,
-        padding: "8px",
+        background: boxColor.bg,
+        border: `3px solid ${boxColor.accent}`,
+        borderRadius: "8px",
+        padding: "10px",
         display: "flex",
         flexDirection: "column",
         justifyContent: "space-between",
-        boxShadow: `0 6px 12px ${boxColor.shadow}, inset 0 2px 4px rgba(255,255,255,0.4)`,
-        borderRadius: "4px",
+        boxShadow: `0 8px 16px rgba(0,0,0,0.15), 0 4px 6px rgba(0,0,0,0.1)`,
         transformStyle: "preserve-3d"
       }}
     >
@@ -47,124 +72,85 @@ export const MedicationBox = ({
       <div 
         className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
         style={{
-          background: "linear-gradient(135deg, transparent 0%, rgba(255,255,255,0.3) 50%, transparent 100%)",
-          borderRadius: "2px"
+          background: "linear-gradient(135deg, transparent 0%, rgba(255,255,255,0.4) 50%, transparent 100%)",
+          borderRadius: "5px"
         }}
       />
 
-      {/* Brand Strip */}
+      {/* Brand Strip - Modern design */}
       <div 
-        className="font-bold text-center mb-1 -mx-2 -mt-2 p-1.5"
+        className="absolute top-0 left-0 right-0 font-bold text-center -mx-[3px] -mt-[3px] py-1.5 rounded-t-md"
         style={{ 
-          fontSize: "6px", 
-          backgroundColor: boxColor.border,
+          fontSize: "7px", 
+          background: boxColor.accent,
           color: '#fff',
-          letterSpacing: "1px",
+          letterSpacing: "1.5px",
           boxShadow: "0 2px 4px rgba(0,0,0,0.2)"
         }}
       >
-        OTC MEDICINE
+        OTC MEDICATION
       </div>
 
       {/* Medication Name */}
       <div 
-        className="font-bold text-center flex-grow flex items-center justify-center transition-transform group-hover:scale-105"
+        className="font-bold text-center mt-6 transition-transform group-hover:scale-105"
         style={{ 
-          fontSize: medicationName.length > 14 ? "10px" : "12px",
+          fontSize: medicationName.length > 14 ? "11px" : "13px",
           color: boxColor.text,
-          lineHeight: "1.2",
-          textShadow: "0 1px 2px rgba(255,255,255,0.8)"
+          lineHeight: "1.3",
+          fontWeight: "800"
         }}
       >
         {medicationName}
       </div>
 
-      {/* Dosage Info */}
+      {/* Dosage Info with modern badge */}
       <div 
-        className="text-center"
+        className="text-center px-2 py-1 rounded-md mx-auto"
         style={{ 
-          fontSize: "8px",
+          fontSize: "9px",
           color: boxColor.text,
-          fontWeight: "600"
+          fontWeight: "700",
+          backgroundColor: boxColor.label,
+          border: `1.5px solid ${boxColor.accent}`,
+          maxWidth: "fit-content"
         }}
       >
         {dosage}
       </div>
 
-      {/* Count */}
+      {/* Count - Modern footer */}
       <div 
-        className="text-center border-t-2 pt-1.5 -mx-2 -mb-2 px-2 pb-1.5"
+        className="text-center -mx-[10px] -mb-[10px] py-2 rounded-b-md"
         style={{ 
-          fontSize: "7px",
-          borderColor: boxColor.border,
-          backgroundColor: 'rgba(255,255,255,0.6)',
+          fontSize: "8px",
+          background: `linear-gradient(to bottom, ${boxColor.label}, rgba(255,255,255,0.95))`,
+          borderTop: `2px solid ${boxColor.accent}`,
           color: boxColor.text,
           fontWeight: "bold",
-          boxShadow: "inset 0 1px 2px rgba(0,0,0,0.1)"
+          letterSpacing: "0.5px"
         }}
       >
         {count.includes('ml') || count.includes('tube') ? count.toUpperCase() : `${count} TABLETS`}
       </div>
 
-      {/* Decorative corner marks with staggered animation */}
+      {/* Modern corner accent marks */}
       <div 
-        className="absolute top-1.5 left-1.5 animate-pulse" 
-        style={{ 
-          fontSize: "10px", 
-          color: boxColor.border, 
-          fontWeight: "bold",
-          animationDelay: "0s",
-          animationDuration: "2s"
-        }}
-      >┌</div>
+        className="absolute top-8 left-2 w-3 h-3 border-l-2 border-t-2 opacity-30"
+        style={{ borderColor: boxColor.accent }}
+      />
       <div 
-        className="absolute top-1.5 right-1.5 animate-pulse" 
-        style={{ 
-          fontSize: "10px", 
-          color: boxColor.border, 
-          fontWeight: "bold",
-          animationDelay: "0.5s",
-          animationDuration: "2s"
-        }}
-      >┐</div>
+        className="absolute top-8 right-2 w-3 h-3 border-r-2 border-t-2 opacity-30"
+        style={{ borderColor: boxColor.accent }}
+      />
       <div 
-        className="absolute bottom-1.5 left-1.5 animate-pulse" 
-        style={{ 
-          fontSize: "10px", 
-          color: boxColor.border, 
-          fontWeight: "bold",
-          animationDelay: "1s",
-          animationDuration: "2s"
-        }}
-      >└</div>
+        className="absolute bottom-10 left-2 w-3 h-3 border-l-2 border-b-2 opacity-30"
+        style={{ borderColor: boxColor.accent }}
+      />
       <div 
-        className="absolute bottom-1.5 right-1.5 animate-pulse" 
-        style={{ 
-          fontSize: "10px", 
-          color: boxColor.border, 
-          fontWeight: "bold",
-          animationDelay: "1.5s",
-          animationDuration: "2s"
-        }}
-      >┘</div>
-      
-      {/* Blister pack pattern overlay with subtle animation */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden" style={{ opacity: 0.15 }}>
-        <div className="grid grid-cols-5 gap-1 p-3 h-full">
-          {Array.from({ length: 15 }).map((_, i) => (
-            <div 
-              key={i}
-              className="rounded-full border animate-pulse"
-              style={{ 
-                borderColor: boxColor.border,
-                backgroundColor: 'rgba(255,255,255,0.4)',
-                animationDelay: `${i * 0.1}s`,
-                animationDuration: "3s"
-              }}
-            />
-          ))}
-        </div>
-      </div>
+        className="absolute bottom-10 right-2 w-3 h-3 border-r-2 border-b-2 opacity-30"
+        style={{ borderColor: boxColor.accent }}
+      />
     </div>
   );
 };
