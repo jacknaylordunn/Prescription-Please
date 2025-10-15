@@ -115,7 +115,7 @@ export const ukScenarios: Scenario[] = [
     ],
     dispatchInfo: "Category 2: 64-year-old female, acute shortness of breath, known COPD. Daughter reports patient has had a productive cough and wheezing for 2 days, now struggling to breathe. Patient is sitting forward, using accessory muscles. RR 28, SpO2 88% on room air, HR 110, BP 158/92. Widespread wheezing on auscultation.",
     documentMetadata: generateDocumentMetadata(64),
-    gpLetters: ["Discharge Summary", "Repeat Prescription"]
+    gpLetters: ["Blood Test Results", "Medication Review"]
   },
 
   // Scenario 3: Hypoglycaemic Emergency
@@ -132,9 +132,9 @@ export const ukScenarios: Scenario[] = [
       { medication: medications.find(m => m.name === "Atorvastatin")!, quantity: "28 tablets", instructions: "Take one 40mg tablet at night" },
       { medication: medications.find(m => m.name === "Aspirin")!, quantity: "28 tablets", instructions: "Take one 75mg tablet once daily" }
     ],
-    dispatchInfo: "Category 1: 52-year-old male, found collapsed, ?fitting. Neighbour reports patient is diabetic and was last seen earlier today. Patient unresponsive to pain, GCS 3, BGL 2.1 mmol/L. RR 16, SpO2 97% on room air, HR 72, BP 130/80.",
+    dispatchInfo: "Category 1: 52-year-old male, found collapsed, query fitting. Neighbour reports patient is diabetic and was last seen earlier today. Patient unresponsive to pain, GCS 3, BGL 2.1 mmol/L. RR 16, SpO2 97% on room air, HR 72, BP 130/80.",
     documentMetadata: generateDocumentMetadata(52),
-    gpLetters: ["Blood Test Results", "Referral Letter"]
+    gpLetters: ["Blood Test Results", "Medication Review"]
   },
 
   // Scenario 4: Anaphylactic Reaction
@@ -151,7 +151,7 @@ export const ukScenarios: Scenario[] = [
     ],
     dispatchInfo: "Category 1: 28-year-old female, anaphylactic reaction. Friend reports patient ate peanuts and is now struggling to breathe, has facial swelling and rash. Patient is distressed, RR 30, SpO2 85% on room air, HR 130, BP 90/60. Audible wheezing and stridor.",
     documentMetadata: generateDocumentMetadata(28),
-    gpLetters: ["Allergy Action Plan", "Emergency Contact Details"]
+    gpLetters: ["Appointment Summary", "Medication Review"]
   },
 
   // Scenario 5: Suspected Stroke
@@ -167,9 +167,9 @@ export const ukScenarios: Scenario[] = [
       { medication: medications.find(m => m.name === "Atorvastatin")!, quantity: "28 tablets", instructions: "Take one 40mg tablet at night" },
       { medication: medications.find(m => m.name === "Metformin")!, quantity: "56 tablets", instructions: "Take one 500mg tablet twice daily with food" }
     ],
-    dispatchInfo: "Category 1: 70-year-old male, ?stroke. Wife reports sudden onset of facial droop, arm weakness, and slurred speech. Last seen normal 30 minutes ago. Patient alert but confused, right-sided weakness, speech slurred. FAST positive. RR 18, SpO2 98% on room air, HR 80, BP 180/100.",
+    dispatchInfo: "Category 1: 70-year-old male, query stroke. Wife reports sudden onset of facial droop, arm weakness, and slurred speech. Last seen normal 30 minutes ago. Patient alert but confused, right-sided weakness, speech slurred. FAST positive. RR 18, SpO2 98% on room air, HR 80, BP 180/100.",
     documentMetadata: generateDocumentMetadata(70),
-    gpLetters: ["Referral Letter", "Medication Review"]
+    gpLetters: ["Appointment Summary", "Medication Review"]
   },
 
   // Scenario 6: Acute Myocardial Infarction (STEMI)
@@ -187,7 +187,7 @@ export const ukScenarios: Scenario[] = [
     ],
     dispatchInfo: "Category 1: 58-year-old male, chest pain. Wife reports severe crushing chest pain, sweating, and nausea. Patient clutching chest, pale and clammy. RR 22, SpO2 96% on room air, HR 50, BP 90/60. ECG shows ST-segment elevation.",
     documentMetadata: generateDocumentMetadata(58),
-    gpLetters: ["Discharge Summary", "ECG Report"]
+    gpLetters: ["Blood Test Results", "Appointment Summary"]
   },
 
   // Scenario 7: Septic Shock
@@ -203,9 +203,9 @@ export const ukScenarios: Scenario[] = [
       { medication: medications.find(m => m.name === "Donepezil")!, quantity: "28 tablets", instructions: "Take one 5mg tablet at night" },
       { medication: medications.find(m => m.name === "Co-trimoxazole")!, quantity: "14 tablets", instructions: "Take one 960mg tablet twice daily" }
     ],
-    dispatchInfo: "Category 2: 82-year-old female, altered mental status, ?sepsis. Nursing home staff report patient confused, feverish, and hypotensive. RR 30, SpO2 90% on room air, HR 120, BP 80/50. Appears unwell and lethargic.",
+    dispatchInfo: "Category 2: 82-year-old female, altered mental status, query sepsis. Nursing home staff report patient confused, feverish, and hypotensive. RR 30, SpO2 90% on room air, HR 120, BP 80/50. Appears unwell and lethargic.",
     documentMetadata: generateDocumentMetadata(82),
-    gpLetters: ["Care Home Notes", "Medication Chart"]
+    gpLetters: ["Medication Review", "Blood Test Results"]
   },
 
   // Scenario 8: Opioid Overdose
@@ -220,9 +220,9 @@ export const ukScenarios: Scenario[] = [
       { medication: medications.find(m => m.name === "Naloxone")!, quantity: "2 ampoules", instructions: "Administer IM/IV as needed for opioid overdose" },
       { medication: medications.find(m => m.name === "Sertraline")!, quantity: "28 tablets", instructions: "Take one 100mg tablet once daily" }
     ],
-    dispatchInfo: "Category 1: 35-year-old male, ?overdose. Friend reports patient unresponsive, shallow breathing, and pinpoint pupils. RR 8, SpO2 80% on room air, HR 40, BP 90/60. Track marks visible on arms.",
+    dispatchInfo: "Category 1: 35-year-old male, query overdose. Friend reports patient unresponsive, shallow breathing, and pinpoint pupils. RR 8, SpO2 80% on room air, HR 40, BP 90/60. Track marks visible on arms.",
     documentMetadata: generateDocumentMetadata(35),
-    gpLetters: ["Addiction Services Report", "Mental Health Assessment"]
+    gpLetters: ["Medication Review", "Appointment Summary"]
   },
 
   // Scenario 9: Severe Asthma Attack
@@ -239,7 +239,7 @@ export const ukScenarios: Scenario[] = [
     ],
     dispatchInfo: "Category 1: 12-year-old male, severe asthma attack. Mother reports patient struggling to breathe, wheezing, and unable to speak. Patient is distressed, RR 40, SpO2 82% on room air, HR 140, BP 110/70. Audible wheezing and use of accessory muscles.",
     documentMetadata: generateDocumentMetadata(12),
-    gpLetters: ["Asthma Action Plan", "Paediatric Assessment"]
+    gpLetters: ["Appointment Summary", "Medication Review"]
   },
 
   // Scenario 10: Acute Abdominal Pain
@@ -255,6 +255,205 @@ export const ukScenarios: Scenario[] = [
     ],
     dispatchInfo: "Category 2: 45-year-old female, severe abdominal pain. Patient reports sharp lower abdominal pain, nausea, and vomiting. Guarding present. RR 20, SpO2 98% on room air, HR 90, BP 120/80. Possible ectopic pregnancy.",
     documentMetadata: generateDocumentMetadata(45),
-    gpLetters: ["Gynaecology Referral", "Pregnancy Test Results"]
+    gpLetters: ["Appointment Summary", "Blood Test Results"]
+  },
+
+  // Scenario 11: Chronic Kidney Disease with Fluid Overload
+  {
+    patient: {
+      ...generatePatient(67, "Female"),
+      presentation: "Progressive fatigue, nausea and vomiting for 4 days, bilateral leg oedema, reduced urine output, uraemic fetor noted",
+      medicalHistory: ["CKD Stage 4 (eGFR 22)", "Type 2 diabetes mellitus", "Hypertension", "Anaemia of chronic disease", "Renal osteodystrophy"]
+    },
+    prescriptions: [
+      { medication: medications.find(m => m.name === "Furosemide")!, quantity: "28 tablets", instructions: "Take one 80mg tablet once daily in morning" },
+      { medication: medications.find(m => m.name === "Ramipril")!, quantity: "28 tablets", instructions: "Take one 5mg tablet once daily" },
+      { medication: medications.find(m => m.name === "Amlodipine")!, quantity: "28 tablets", instructions: "Take one 10mg tablet once daily" },
+      { medication: medications.find(m => m.name === "Metformin")!, quantity: "56 tablets", instructions: "Take one 500mg tablet twice daily with food" },
+      { medication: medications.find(m => m.name === "Ferrous Sulphate")!, quantity: "28 tablets", instructions: "Take one 200mg tablet once daily" },
+      { medication: medications.find(m => m.name === "Alfacalcidol")!, quantity: "28 capsules", instructions: "Take one 0.5mcg capsule once daily" },
+      { medication: medications.find(m => m.name === "Omeprazole")!, quantity: "28 capsules", instructions: "Take one 20mg capsule once daily" }
+    ],
+    dispatchInfo: "Category 2: 67-year-old female, feeling very unwell, known kidney disease. Daughter reports patient increasingly lethargic over 4 days, vomiting, and swollen legs. Patient appears pale and cachectic, periorbital and bilateral pitting oedema to thighs, uraemic fetor. RR 26, SpO2 94% on room air, HR 102, BP 168/98. Coarse bibasal crackles noted on chest auscultation.",
+    documentMetadata: generateDocumentMetadata(67),
+    gpLetters: ["Blood Test Results", "Appointment Summary"]
+  },
+
+  // Scenario 12: Parkinson's Disease - Off Period
+  {
+    patient: {
+      ...generatePatient(74, "Male"),
+      presentation: "Mechanical fall at home, severe resting tremor, pronounced bradykinesia, rigidity, postural instability, last medication dose 6 hours ago",
+      medicalHistory: ["Parkinson's disease Hoehn & Yahr Stage 3", "Depression", "Orthostatic hypotension", "Multiple falls in past 3 months", "Constipation"]
+    },
+    prescriptions: [
+      { medication: medications.find(m => m.name === "Co-careldopa (Sinemet)")!, quantity: "112 tablets", instructions: "Take one 25/100mg tablet four times daily" },
+      { medication: medications.find(m => m.name === "Ropinirole")!, quantity: "28 tablets", instructions: "Take one 4mg tablet three times daily" },
+      { medication: medications.find(m => m.name === "Selegiline")!, quantity: "28 tablets", instructions: "Take one 10mg tablet each morning" },
+      { medication: medications.find(m => m.name === "Mirtazapine")!, quantity: "28 tablets", instructions: "Take one 30mg tablet at night" },
+      { medication: medications.find(m => m.name === "Bisacodyl")!, quantity: "28 tablets", instructions: "Take one 10mg tablet at night as required" },
+      { medication: medications.find(m => m.name === "Fludrocortisone")!, quantity: "28 tablets", instructions: "Take one 100mcg tablet once daily" }
+    ],
+    dispatchInfo: "Category 2: 74-year-old male, mechanical fall, known Parkinson's disease. Wife reports patient fell getting up from chair, unable to self-mobilise. Patient on floor for 30 minutes before 999 called. Pronounced pill-rolling tremor both hands, cogwheel rigidity in all limbs, mask-like facies, festinating gait noted. No head injury, some skin tears to forearms. RR 18, SpO2 96% on room air, HR 76, BP lying 142/86 sitting 106/64. Wife states patient in off period having missed lunchtime dose of medication.",
+    documentMetadata: generateDocumentMetadata(74),
+    gpLetters: ["Medication Review", "Appointment Summary"]
+  },
+
+  // Scenario 13: Bipolar Disorder - Manic Episode
+  {
+    patient: {
+      ...generatePatient(38, "Male"),
+      presentation: "Decreased need for sleep for 5 days, racing thoughts, pressured speech, grandiose delusions, increased risk-taking behaviour, spent £8000 on credit cards, family very concerned",
+      medicalHistory: ["Bipolar affective disorder Type 1", "Previous manic episode requiring sectioning", "Non-compliance with medication", "Alcohol misuse"]
+    },
+    prescriptions: [
+      { medication: medications.find(m => m.name === "Lithium Carbonate")!, quantity: "56 tablets", instructions: "Take one 400mg tablet twice daily" },
+      { medication: medications.find(m => m.name === "Olanzapine")!, quantity: "28 tablets", instructions: "Take one 15mg tablet at night" },
+      { medication: medications.find(m => m.name === "Sodium Valproate")!, quantity: "56 tablets", instructions: "Take one 500mg tablet twice daily" },
+      { medication: medications.find(m => m.name === "Sertraline")!, quantity: "28 tablets", instructions: "Take one 100mg tablet once daily" }
+    ],
+    dispatchInfo: "Category 3: 38-year-old male, mental health concern, manic behaviour. Family report patient hasn't slept for 5 days, extremely talkative, spending money recklessly, believes he can fly. Patient extremely agitated, pressured speech, flight of ideas, delusional content. Admits not taking medications for 2 weeks. Not aggressive currently but family concerned about risk. Observations stable: RR 18, SpO2 98%, HR 96, BP 138/82. Requires urgent mental health assessment and possible Section 136.",
+    documentMetadata: generateDocumentMetadata(38),
+    gpLetters: ["Medication Review", "Appointment Summary"]
+  },
+
+  // Scenario 14: Pneumonia with Sepsis
+  {
+    patient: {
+      ...generatePatient(81, "Female"),
+      presentation: "Productive cough with rusty coloured sputum for 5 days, fever 39.4C, pleuritic chest pain right lower zone, rigors, confusion, severe shortness of breath",
+      medicalHistory: ["COPD Gold Stage 3", "Atrial fibrillation rate controlled", "Previous pneumonia x2 in last year", "Chronic kidney disease Stage 3"]
+    },
+    prescriptions: [
+      { medication: medications.find(m => m.name === "Co-amoxiclav")!, quantity: "21 tablets", instructions: "Take one 625mg tablet three times daily" },
+      { medication: medications.find(m => m.name === "Clarithromycin")!, quantity: "14 tablets", instructions: "Take one 500mg tablet twice daily" },
+      { medication: medications.find(m => m.name === "Salbutamol Inhaler")!, quantity: "1 inhaler", instructions: "Two puffs four times daily" },
+      { medication: medications.find(m => m.name === "Tiotropium (Spiriva)")!, quantity: "1 inhaler", instructions: "One puff daily" },
+      { medication: medications.find(m => m.name === "Digoxin")!, quantity: "28 tablets", instructions: "Take one 125mcg tablet once daily" },
+      { medication: medications.find(m => m.name === "Apixaban")!, quantity: "56 tablets", instructions: "Take one 2.5mg tablet twice daily" },
+      { medication: medications.find(m => m.name === "Paracetamol")!, quantity: "100 tablets", instructions: "Take two 500mg tablets four times daily" }
+    ],
+    dispatchInfo: "Category 2: 81-year-old female, severe respiratory infection, nursing home resident. Carers report patient very unwell for 5 days, now confused and pyrexial. Patient sitting forward in chair, cachectic appearance, working hard to breathe, coughing up rusty sputum. NEWS2 score 9. RR 32, SpO2 86% on 2L oxygen via nasal cannulae, HR 118 irregular, BP 92/58, Temp 39.4C tympanic. Reduced air entry right lower zone on auscultation, dull to percussion, bronchial breathing. Signs of sepsis present.",
+    documentMetadata: generateDocumentMetadata(81),
+    gpLetters: ["Blood Test Results", "Medication Review"]
+  },
+
+  // Scenario 15: Type 1 Diabetes - DKA
+  {
+    patient: {
+      ...generatePatient(24, "Female"),
+      presentation: "Severe abdominal pain, vomiting for 2 days, excessive thirst, polyuria, Kussmaul breathing noted, fruity breath, feeling very unwell, missed insulin doses due to gastroenteritis",
+      medicalHistory: ["Type 1 diabetes mellitus for 15 years", "Diabetic retinopathy", "Previous DKA x2", "Coeliac disease"]
+    },
+    prescriptions: [
+      { medication: medications.find(m => m.name === "Insulin Aspart (NovoRapid)")!, quantity: "5 cartridges", instructions: "Inject 6-8 units before each meal, adjust according to carbohydrate intake" },
+      { medication: medications.find(m => m.name === "Insulin Glargine (Lantus)")!, quantity: "2 cartridges", instructions: "Inject 24 units subcutaneously at 22:00 daily" },
+      { medication: medications.find(m => m.name === "Ondansetron")!, quantity: "10 tablets", instructions: "Take one 4mg tablet three times daily as required for nausea" }
+    ],
+    dispatchInfo: "Category 1: 24-year-old female, diabetic emergency, unwell for 2 days. Boyfriend reports patient vomiting, unable to keep food or insulin down, very lethargic. Patient appears dehydrated, dry mucous membranes, reduced skin turgor. Kussmaul breathing pattern noted, fruity acetone breath smell. BGL 28.3 mmol/L on paramedic glucometer, ketones 4.8 mmol/L on blood ketone meter. RR 28 deep sighing respirations, SpO2 98% on room air, HR 124, BP 98/62, Temp 37.8C. GCS 14/15, drowsy but rousable. Signs consistent with diabetic ketoacidosis.",
+    documentMetadata: generateDocumentMetadata(24),
+    gpLetters: ["Blood Test Results", "Appointment Confirmation"]
+  },
+
+  // Scenario 16: Acute Coronary Syndrome - NSTEMI
+  {
+    patient: {
+      ...generatePatient(63, "Male"),
+      presentation: "Central crushing chest pain radiating to jaw and left arm for 90 minutes, not relieved by GTN spray, associated nausea and diaphoresis, feeling of impending doom",
+      medicalHistory: ["Stable angina CCS Class II", "Hypertension", "Type 2 diabetes mellitus", "Hypercholesterolaemia", "Ex-smoker 30 pack years"]
+    },
+    prescriptions: [
+      { medication: medications.find(m => m.name === "Aspirin")!, quantity: "28 tablets", instructions: "Take one 75mg tablet once daily in morning" },
+      { medication: medications.find(m => m.name === "Atorvastatin")!, quantity: "28 tablets", instructions: "Take one 80mg tablet at night" },
+      { medication: medications.find(m => m.name === "Bisoprolol")!, quantity: "28 tablets", instructions: "Take one 5mg tablet once daily" },
+      { medication: medications.find(m => m.name === "Ramipril")!, quantity: "28 tablets", instructions: "Take one 10mg tablet once daily" },
+      { medication: medications.find(m => m.name === "Metformin")!, quantity: "56 tablets", instructions: "Take one 1g tablet twice daily with food" },
+      { medication: medications.find(m => m.name === "GTN Spray")!, quantity: "1 spray", instructions: "One or two sprays under tongue as needed for chest pain" },
+      { medication: medications.find(m => m.name === "Isosorbide Mononitrate")!, quantity: "28 tablets", instructions: "Take one 60mg modified release tablet once daily" }
+    ],
+    dispatchInfo: "Category 1: 63-year-old male, chest pain unrelieved by GTN, known cardiac history. Wife called 999 after patient developed severe chest pain watching TV. Patient appears distressed, pale, clammy, nauseous. Used own GTN spray x3 with no relief. Pain score 9/10, describes as crushing weight on chest, radiating to jaw and down left arm. 12-lead ECG shows ST depression in leads V3-V6 and T wave inversion, suspicious for posterior NSTEMI. RR 22, SpO2 96% on room air, HR 94, BP 156/92. Troponin likely elevated - requires urgent PCI.",
+    documentMetadata: generateDocumentMetadata(63),
+    gpLetters: ["Blood Test Results", "Appointment Summary"]
+  },
+
+  // Scenario 17: End Stage COPD - Palliative
+  {
+    patient: {
+      ...generatePatient(72, "Male"),
+      presentation: "Severe dyspnoea at rest despite maximum therapy, unable to walk more than 2 meters, productive cough, extreme fatigue, weight loss 12kg over 3 months, DNACPR in place",
+      medicalHistory: ["COPD Gold Stage 4 Very Severe", "Cor pulmonale", "Long-term oxygen therapy 16 hours daily", "Recurrent infective exacerbations", "Palliative care input", "DNACPR", "Depression"]
+    },
+    prescriptions: [
+      { medication: medications.find(m => m.name === "Salbutamol Inhaler")!, quantity: "2 inhalers", instructions: "Two puffs every 4 hours and as required" },
+      { medication: medications.find(m => m.name === "Seretide (Salmeterol/Fluticasone)")!, quantity: "1 inhaler", instructions: "Two puffs twice daily" },
+      { medication: medications.find(m => m.name === "Tiotropium (Spiriva)")!, quantity: "1 inhaler", instructions: "One puff daily" },
+      { medication: medications.find(m => m.name === "Morphine Sulphate MR")!, quantity: "56 tablets", instructions: "Take one 10mg tablet twice daily for breathlessness" },
+      { medication: medications.find(m => m.name === "Furosemide")!, quantity: "28 tablets", instructions: "Take one 40mg tablet each morning" },
+      { medication: medications.find(m => m.name === "Prednisolone")!, quantity: "28 tablets", instructions: "Take 5mg once daily long-term" },
+      { medication: medications.find(m => m.name === "Mirtazapine")!, quantity: "28 tablets", instructions: "Take one 45mg tablet at night" },
+      { medication: medications.find(m => m.name === "Omeprazole")!, quantity: "28 capsules", instructions: "Take one 20mg capsule once daily" }
+    ],
+    dispatchInfo: "Category 3: 72-year-old male, increasing breathlessness, end stage COPD with palliative approach. Wife called as patient more breathless than usual, requesting assessment. DNACPR in place, discussed with patient present. Patient in armchair with home oxygen running at 2L/min via nasal cannulae. Severe dyspnoea even at rest, using accessory muscles, pursed lip breathing, barrel chest. Cachectic appearance. Patient states just want to be comfortable at home. RR 26, SpO2 88% on 2L oxygen (target 88-92%), HR 98, BP 134/78. Widespread wheeze and reduced air entry bilaterally.",
+    documentMetadata: generateDocumentMetadata(72),
+    gpLetters: ["Medication Review", "Appointment Summary"]
+  },
+
+  // Scenario 18: Acute Severe Asthma - Life Threatening
+  {
+    patient: {
+      ...generatePatient(19, "Female"),
+      presentation: "Severe acute asthma attack, unable to complete sentences, exhausted, no improvement with salbutamol, triggered by viral URTI, previous ICU admission for asthma",
+      medicalHistory: ["Severe asthma with brittle control", "Previous life-threatening attack requiring intubation", "Atopy - allergic rhinitis and eczema", "Poor compliance with preventer therapy"]
+    },
+    prescriptions: [
+      { medication: medications.find(m => m.name === "Salbutamol Inhaler")!, quantity: "2 inhalers", instructions: "Two puffs four times daily and as required for wheeze" },
+      { medication: medications.find(m => m.name === "Seretide (Salmeterol/Fluticasone)")!, quantity: "1 inhaler", instructions: "Two puffs twice daily (currently not using regularly)" },
+      { medication: medications.find(m => m.name === "Montelukast")!, quantity: "28 tablets", instructions: "Take one 10mg tablet at night" },
+      { medication: medications.find(m => m.name === "Prednisolone")!, quantity: "5 tablets", instructions: "Emergency supply - Take 40mg daily for 5 days if exacerbation" }
+    ],
+    dispatchInfo: "Category 1: 19-year-old female, life-threatening asthma attack. Flatmate called 999, patient severely breathless, cannot speak. Patient sat forward tripod position, exhausted, cyanosed. Silent chest in places - ominous sign. Used salbutamol inhaler approximately 20 puffs in last hour with no improvement. PEFR unable to perform due to severity. Life-threatening features present: SpO2 88% on high flow oxygen 15L via non-rebreathe mask, RR 8 (exhaustion), HR 138, BP 124/82, unable to speak, altered consciousness (drowsy), silent chest. Requires immediate pre-alert to ED.",
+    documentMetadata: generateDocumentMetadata(19),
+    gpLetters: ["Appointment Summary", "Medication Review"]
+  },
+
+  // Scenario 19: Vascular Dementia with Behavioural Symptoms
+  {
+    patient: {
+      ...generatePatient(84, "Female"),
+      presentation: "Aggressive behaviour towards care staff, visual hallucinations, wandering at night, refusing personal care and medications, sundowning",
+      medicalHistory: ["Vascular dementia with behavioural disturbance", "Multiple previous TIAs", "Hypertension", "Type 2 diabetes mellitus", "Recurrent falls", "Care home resident"]
+    },
+    prescriptions: [
+      { medication: medications.find(m => m.name === "Memantine")!, quantity: "28 tablets", instructions: "Take one 10mg tablet twice daily" },
+      { medication: medications.find(m => m.name === "Risperidone")!, quantity: "28 tablets", instructions: "Take 0.5mg at night for behavioural disturbance" },
+      { medication: medications.find(m => m.name === "Amlodipine")!, quantity: "28 tablets", instructions: "Take one 10mg tablet once daily" },
+      { medication: medications.find(m => m.name === "Gliclazide")!, quantity: "28 tablets", instructions: "Take one 40mg tablet once daily before breakfast" },
+      { medication: medications.find(m => m.name === "Adcal D3")!, quantity: "56 tablets", instructions: "Chew one tablet twice daily" },
+      { medication: medications.find(m => m.name === "Zopiclone")!, quantity: "14 tablets", instructions: "Take 3.75mg at night as required for sleep" }
+    ],
+    dispatchInfo: "Category 3: 84-year-old female, agitated behaviour, care home resident with dementia. Care staff report patient increasingly aggressive today, trying to leave building, shouting at staff. Sundowning behaviour worsening. Patient currently agitated, not orientated to time place or person. MMSE last recorded 12/30. Observations stable. Requires assessment for acute confusional state.",
+    documentMetadata: generateDocumentMetadata(84),
+    gpLetters: ["Medication Review", "Appointment Summary"]
+  },
+
+  // Scenario 20: Inflammatory Bowel Disease - Severe Flare
+  {
+    patient: {
+      ...generatePatient(32, "Male"),
+      presentation: "Passing fresh blood and mucus per rectum 18 times daily, severe colicky abdominal pain, urgency and tenesmus, fever 38.7C, weight loss 9kg in 2 weeks, unable to eat or drink",
+      medicalHistory: ["Ulcerative colitis pancolitis", "Previous severe flare requiring colectomy discussion", "Iron deficiency anaemia", "Primary sclerosing cholangitis"]
+    },
+    prescriptions: [
+      { medication: medications.find(m => m.name === "Mesalazine")!, quantity: "120 tablets", instructions: "Take 1.2g (three 400mg tablets) four times daily" },
+      { medication: medications.find(m => m.name === "Azathioprine")!, quantity: "56 tablets", instructions: "Take one 150mg tablet once daily" },
+      { medication: medications.find(m => m.name === "Prednisolone")!, quantity: "28 tablets", instructions: "Take 40mg once daily reducing regime" },
+      { medication: medications.find(m => m.name === "Folic Acid")!, quantity: "28 tablets", instructions: "Take one 5mg tablet once daily" },
+      { medication: medications.find(m => m.name === "Ferrous Sulphate")!, quantity: "28 tablets", instructions: "Take one 200mg tablet three times daily" },
+      { medication: medications.find(m => m.name === "Ondansetron")!, quantity: "10 tablets", instructions: "Take one 8mg tablet three times daily as required for nausea" },
+      { medication: medications.find(m => m.name === "Codeine Phosphate")!, quantity: "56 tablets", instructions: "Take one 30mg tablet four times daily for diarrhoea" }
+    ],
+    dispatchInfo: "Category 2: 32-year-old male, severe abdominal pain and bloody diarrhoea, known ulcerative colitis. GP urgent referral, patient deteriorating despite maximum oral therapy. Patient appears very unwell, cachectic, pale. Doubled over with abdominal pain. Abdomen soft but very tender throughout especially left iliac fossa. Signs of dehydration. RR 22, SpO2 98%, HR 116, BP 102/68, Temp 38.7C. Requires urgent hospital assessment.",
+    documentMetadata: generateDocumentMetadata(32),
+    gpLetters: ["Blood Test Results", "Appointment Confirmation"]
   }
 ];
