@@ -3,6 +3,7 @@ import { DraggableItem } from "./DraggableItem";
 import { Prescription } from "./Prescription";
 import { Radio } from "./Radio";
 import { QuizPanel } from "./QuizPanel";
+import { MatchingGame } from "./MatchingGame";
 import { DNACPR } from "./documents/DNACPR";
 import { ReSPECT } from "./documents/ReSPECT";
 import { GPLetter } from "./documents/GPLetter";
@@ -18,7 +19,7 @@ import lampOffImg from "@/assets/lamp-off.png";
 import lampOnImg from "@/assets/lamp-on.png";
 import { Lightbulb } from "lucide-react";
 
-type GameState = "idle" | "dispatch" | "assessing" | "quiz" | "complete";
+type GameState = "idle" | "dispatch" | "assessing" | "quiz" | "matching" | "complete";
 
 export const GameBoard = () => {
   const [lampOn, setLampOn] = useState(false);
@@ -27,6 +28,7 @@ export const GameBoard = () => {
   const [enlargedPrescription, setEnlargedPrescription] = useState(false);
   const [enlargedDoc, setEnlargedDoc] = useState<number | null>(null);
   const [showQuiz, setShowQuiz] = useState(false);
+  const [showMatching, setShowMatching] = useState(false);
   const [allScenarios, setAllScenarios] = useState<Scenario[]>([]);
   const [lastClickedItem, setLastClickedItem] = useState<string | null>(null);
   const [documentConfig, setDocumentConfig] = useState({
@@ -253,14 +255,29 @@ export const GameBoard = () => {
     setCurrentScenarioIndex(nextIndex);
     setGameState("dispatch");
     setShowQuiz(false);
+    setShowMatching(false);
     setEnlargedPrescription(false);
     setEnlargedDoc(null);
     setLastClickedItem("radio"); // Bring radio to front
   };
 
   const handleQuizComplete = () => {
+    // If polypharmacy (4+ meds), show matching game
+    const hasPolypharmacy = currentScenario.prescriptions.length >= 4;
+    if (hasPolypharmacy) {
+      setGameState("matching");
+      setShowQuiz(false);
+      setShowMatching(true);
+    } else {
+      setGameState("complete");
+      setShowQuiz(false);
+      setLastClickedItem("radio"); // Bring radio to front on completion
+    }
+  };
+
+  const handleMatchingComplete = () => {
     setGameState("complete");
-    setShowQuiz(false);
+    setShowMatching(false);
     setLastClickedItem("radio"); // Bring radio to front on completion
   };
 
@@ -318,7 +335,7 @@ export const GameBoard = () => {
       </DraggableItem>
 
       {/* Draggable Prescription */}
-      {(gameState === "dispatch" || gameState === "assessing" || gameState === "quiz" || gameState === "complete") && (
+      {(gameState === "dispatch" || gameState === "assessing" || gameState === "quiz" || gameState === "matching" || gameState === "complete") && (
         <DraggableItem 
           initialX={350} 
           initialY={180} 
@@ -332,7 +349,7 @@ export const GameBoard = () => {
       )}
       
       {/* Additional Documents */}
-      {(gameState === "dispatch" || gameState === "assessing" || gameState === "quiz" || gameState === "complete") && (
+      {(gameState === "dispatch" || gameState === "assessing" || gameState === "quiz" || gameState === "matching" || gameState === "complete") && (
         <>
           {documentConfig.showDNACPR && (
             <DraggableItem 
@@ -498,6 +515,20 @@ export const GameBoard = () => {
         >
           <div className="scale-75 md:scale-90 lg:scale-100 origin-top-left">
             <QuizPanel scenario={currentScenario} onComplete={handleQuizComplete} />
+          </div>
+        </DraggableItem>
+      )}
+
+      {/* Draggable Matching Game Panel */}
+      {showMatching && (
+        <DraggableItem 
+          initialX={Math.min(window.innerWidth / 2 - 300, window.innerWidth - 620)} 
+          initialY={window.innerHeight < 700 ? 50 : 100} 
+          zIndexBase={95}
+          onMouseDown={() => setLastClickedItem("matching")}
+        >
+          <div className="scale-75 md:scale-90 lg:scale-100 origin-top-left">
+            <MatchingGame scenario={currentScenario} onComplete={handleMatchingComplete} />
           </div>
         </DraggableItem>
       )}

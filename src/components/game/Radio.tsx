@@ -4,7 +4,7 @@ interface RadioProps {
   dispatchInfo: string;
   onStartAssessment: () => void;
   onNewCase: () => void;
-  gameState: "idle" | "dispatch" | "assessing" | "quiz" | "complete";
+  gameState: "idle" | "dispatch" | "assessing" | "quiz" | "matching" | "complete";
 }
 
 export const Radio = ({ dispatchInfo, onStartAssessment, onNewCase, gameState }: RadioProps) => {
@@ -75,6 +75,15 @@ export const Radio = ({ dispatchInfo, onStartAssessment, onNewCase, gameState }:
               &gt; {dispatchInfo}<br/>
               <br/>
               &gt; <span className="text-accent animate-pulse">█ COMPLETE CHECK</span>
+            </div>
+          )}
+          
+          {gameState === "matching" && (
+            <div className="text-accent-foreground font-bold animate-fade-in">
+              &gt; *** MATCHING GAME ***<br/>
+              &gt; MATCH MEDICATIONS<br/>
+              <br/>
+              &gt; <span className="text-accent animate-pulse">█ DRAG AND DROP</span>
             </div>
           )}
           
