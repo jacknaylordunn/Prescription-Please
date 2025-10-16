@@ -308,6 +308,7 @@ export const medications: Medication[] = [
   
   // Emergency/ICU medications
   { name: "Thiamine", category: "Supplement", dose: "100mg", frequency: "Three times daily", indication: "Wernicke's encephalopathy prevention, alcohol withdrawal", sideEffects: ["Minimal side effects", "Rare anaphylaxis"], timeCritical: true, class: "Vitamin B1" },
+  { name: "Vitamin B compound", category: "Supplement", dose: "2 tablets", frequency: "Three times daily", indication: "B vitamin deficiency, alcohol withdrawal", sideEffects: ["Minimal side effects", "Rare allergic reactions"], timeCritical: false, class: "B vitamin complex" },
   { name: "Pabrinex", category: "Supplement", dose: "One pair of vials", frequency: "Once or twice daily (IV)", indication: "Wernicke's encephalopathy, alcohol withdrawal", sideEffects: ["Anaphylaxis risk", "Injection site reactions"], timeCritical: true, class: "High-potency B vitamins and C" },
   { name: "N-acetylcysteine", category: "Antidote", dose: "Variable", frequency: "IV infusion protocol", indication: "Paracetamol overdose", sideEffects: ["Nausea", "Anaphylactoid reactions", "Rash"], timeCritical: true, class: "Antidote" },
   { name: "Vitamin K", category: "Supplement", dose: "5-10mg", frequency: "Once daily", indication: "Warfarin reversal, coagulopathy", sideEffects: ["Injection site reactions", "Flushing"], timeCritical: true, class: "Vitamin K" },
@@ -317,6 +318,7 @@ export const medications: Medication[] = [
   { name: "Dexamethasone", category: "Steroid", dose: "0.15mg/kg", frequency: "Once to four times daily", indication: "Bacterial meningitis, cerebral oedema, croup", sideEffects: ["Hyperglycaemia", "Immunosuppression", "Mood changes"], timeCritical: true, class: "Corticosteroid" },
   { name: "Adrenaline", category: "Emergency", dose: "0.5mg (1:1000)", frequency: "IM PRN (repeat 5 mins)", indication: "Anaphylaxis, cardiac arrest", sideEffects: ["Palpitations", "Tremor", "Anxiety"], timeCritical: true, class: "Sympathomimetic" },
   { name: "Nimodipine", category: "Cardiovascular", dose: "60mg", frequency: "Every 4 hours", indication: "Subarachnoid haemorrhage", sideEffects: ["Hypotension", "Headache", "Flushing"], timeCritical: true, class: "Calcium channel blocker" },
+  { name: "Chlordiazepoxide", category: "Benzodiazepine", dose: "5-25mg", frequency: "Reducing dose (TDS-QDS)", indication: "Alcohol withdrawal", sideEffects: ["Drowsiness", "Dependence", "Confusion", "Ataxia"], timeCritical: false, class: "Benzodiazepine (long-acting)" },
   
   // Multiple Sclerosis
   { name: "Fampridine", category: "MS agent", dose: "10mg", frequency: "Twice daily", indication: "Multiple sclerosis walking improvement", sideEffects: ["Seizures", "Insomnia", "Dizziness"], timeCritical: false, class: "Potassium channel blocker" },
