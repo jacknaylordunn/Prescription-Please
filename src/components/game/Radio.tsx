@@ -54,7 +54,7 @@ export const Radio = ({ dispatchInfo, onStartAssessment, onNewCase, gameState }:
           {gameState === "dispatch" && (
             <div className="text-accent-foreground font-bold animate-fade-in">
               &gt; *** NEW CALL ***<br/>
-              &gt; {dispatchInfo}<br/>
+              <span className="text-base">&gt; {dispatchInfo}</span><br/>
               <br/>
               &gt; REVIEW DOCUMENTS<br/>
               &gt; <span className="text-accent animate-pulse">█ BEGIN ASSESSMENT</span>
@@ -72,7 +72,7 @@ export const Radio = ({ dispatchInfo, onStartAssessment, onNewCase, gameState }:
           {gameState === "quiz" && (
             <div className="text-accent-foreground font-bold animate-fade-in">
               &gt; *** ASSESSMENT ***<br/>
-              &gt; {dispatchInfo}<br/>
+              <span className="text-base">&gt; {dispatchInfo}</span><br/>
               <br/>
               &gt; <span className="text-accent animate-pulse">█ COMPLETE CHECK</span>
             </div>
