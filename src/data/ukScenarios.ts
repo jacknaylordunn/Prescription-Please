@@ -105,13 +105,13 @@ export const ukScenarios: Scenario[] = [
       medicalHistory: ["COPD (moderate)", "Asthma", "Hypertension", "Anxiety", "Osteoarthritis"]
     },
     prescriptions: [
-      { medication: medications.find(m => m.name === "Salbutamol Inhaler")!, quantity: "1 inhaler", instructions: "Two puffs as needed for wheezing" },
-      { medication: medications.find(m => m.name === "Seretide (Salmeterol/Fluticasone)")!, quantity: "1 inhaler", instructions: "Two puffs twice daily" },
-      { medication: medications.find(m => m.name === "Tiotropium (Spiriva)")!, quantity: "1 inhaler", instructions: "One puff daily" },
-      { medication: medications.find(m => m.name === "Prednisolone")!, quantity: "7 tablets", instructions: "Take 30mg once daily for 7 days" },
-      { medication: medications.find(m => m.name === "Amoxicillin")!, quantity: "21 capsules", instructions: "Take one 500mg capsule three times daily" },
-      { medication: medications.find(m => m.name === "Amlodipine")!, quantity: "28 tablets", instructions: "Take one 5mg tablet once daily" },
-      { medication: medications.find(m => m.name === "Amitriptyline")!, quantity: "28 tablets", instructions: "Take one 10mg tablet at night" }
+      { medication: medications.find(m => m.name === "Salbutamol Inhaler")!, quantity: "1 inhaler (200 dose)", instructions: "1-2 puffs every 4-6 hours as required" },
+      { medication: medications.find(m => m.name === "Seretide (Salmeterol/Fluticasone)")!, quantity: "1 Accuhaler", instructions: "One inhalation (50/500) twice daily" },
+      { medication: medications.find(m => m.name === "Tiotropium (Spiriva)")!, quantity: "30 capsules + HandiHaler", instructions: "Inhale contents of one 18mcg capsule once daily" },
+      { medication: medications.find(m => m.name === "Prednisolone")!, quantity: "7 x 5mg tablets", instructions: "Take six tablets (30mg) once daily for 7 days" },
+      { medication: medications.find(m => m.name === "Amoxicillin")!, quantity: "21 x 500mg capsules", instructions: "Take one capsule three times daily for 7 days" },
+      { medication: medications.find(m => m.name === "Amlodipine")!, quantity: "28 x 5mg tablets", instructions: "Take one tablet once daily" },
+      { medication: medications.find(m => m.name === "Amitriptyline")!, quantity: "28 x 10mg tablets", instructions: "Take one tablet at bedtime" }
     ],
     dispatchInfo: "Category 2: 64-year-old female, acute shortness of breath, known COPD. Daughter reports patient has had a productive cough and wheezing for 2 days, now struggling to breathe. Patient is sitting forward, using accessory muscles. RR 28, SpO2 88% on room air, HR 110, BP 158/92. Widespread wheezing on auscultation.",
     documentMetadata: generateDocumentMetadata(64),
@@ -126,11 +126,11 @@ export const ukScenarios: Scenario[] = [
       medicalHistory: ["Type 1 diabetes mellitus", "Diabetic neuropathy", "Hypertension", "Hypercholesterolaemia"]
     },
     prescriptions: [
-      { medication: medications.find(m => m.name === "Insulin Aspart (NovoRapid)")!, quantity: "1 cartridge", instructions: "Inject as directed before meals" },
-      { medication: medications.find(m => m.name === "Insulin Glargine (Lantus)")!, quantity: "1 cartridge", instructions: "Inject 20 units at night" },
-      { medication: medications.find(m => m.name === "Lisinopril")!, quantity: "28 tablets", instructions: "Take one 10mg tablet once daily" },
-      { medication: medications.find(m => m.name === "Atorvastatin")!, quantity: "28 tablets", instructions: "Take one 40mg tablet at night" },
-      { medication: medications.find(m => m.name === "Aspirin")!, quantity: "28 tablets", instructions: "Take one 75mg tablet once daily" }
+      { medication: medications.find(m => m.name === "Insulin Aspart (NovoRapid)")!, quantity: "5 x 3ml cartridges", instructions: "Inject 4-10 units before each meal according to blood glucose and carbohydrate intake" },
+      { medication: medications.find(m => m.name === "Insulin Glargine (Lantus)")!, quantity: "2 x 3ml cartridges", instructions: "Inject 20 units subcutaneously once daily at 22:00" },
+      { medication: medications.find(m => m.name === "Lisinopril")!, quantity: "28 x 10mg tablets", instructions: "Take one tablet once daily" },
+      { medication: medications.find(m => m.name === "Atorvastatin")!, quantity: "28 x 40mg tablets", instructions: "Take one tablet at bedtime" },
+      { medication: medications.find(m => m.name === "Aspirin")!, quantity: "28 x 75mg gastro-resistant tablets", instructions: "Take one tablet once daily" }
     ],
     dispatchInfo: "Category 1: 52-year-old male, found collapsed, query fitting. Neighbour reports patient is diabetic and was last seen earlier today. Patient unresponsive to pain, GCS 3, BGL 2.1 mmol/L. RR 16, SpO2 97% on room air, HR 72, BP 130/80.",
     documentMetadata: generateDocumentMetadata(52),

@@ -562,17 +562,23 @@ export const QuizPanel = ({ scenario, onComplete }: QuizPanelProps) => {
                 answered
                   ? selectedAnswer === idx
                     ? idx === questions[currentQuestion].correctAnswer
-                      ? "border-success bg-success/30 retro-shadow"
-                      : "border-destructive bg-destructive/30 retro-shadow"
+                      ? "border-success bg-success/30 text-success-foreground retro-shadow"
+                      : "border-destructive bg-destructive/30 text-destructive-foreground retro-shadow"
                     : idx === questions[currentQuestion].correctAnswer
-                    ? "border-success bg-success/20"
-                    : "border-muted bg-background/50 opacity-60"
-                  : "border-muted hover:border-accent hover:bg-accent/10 hover:scale-102 bg-background/50"
+                    ? "border-success bg-success/20 text-success-foreground"
+                    : "border-muted bg-background/50 opacity-60 text-radio-text/60"
+                  : "border-muted hover:border-accent hover:bg-accent/10 hover:scale-102 bg-background/50 text-radio-text"
               }`}
               style={{ fontSize: "8px", lineHeight: "1.3" }}
             >
-              <span className="font-bold mr-1.5 md:mr-2 text-radio-accent text-[7px] md:text-[9px]">{String.fromCharCode(65 + idx)}.</span>
-              <span className="text-radio-text text-[7px] md:text-[9px]">{option}</span>
+              <span className={`font-bold mr-1.5 md:mr-2 text-[7px] md:text-[9px] ${
+                answered && idx === questions[currentQuestion].correctAnswer
+                  ? "text-success-foreground"
+                  : answered && selectedAnswer === idx && idx !== questions[currentQuestion].correctAnswer
+                  ? "text-destructive-foreground"
+                  : "text-radio-accent"
+              }`}>{String.fromCharCode(65 + idx)}.</span>
+              <span className="text-[7px] md:text-[9px]">{option}</span>
             </button>
           ))}
         </div>
