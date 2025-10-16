@@ -43,64 +43,115 @@ export const QuizPanel = ({ scenario, onComplete }: QuizPanelProps) => {
     return options;
   };
 
-  // Generate questions based on the scenario
+  // Generate questions based on the scenario - FOCUS ON DETECTIVE SKILLS
   const generateQuestions = (): Question[] => {
     const questions: Question[] = [];
     const meds = scenario.prescriptions.map(p => p.medication);
 
-    // Question 1: Drug class identification
+    // Question 1: Suffix-based drug identification (CORE SKILL)
     if (meds.length > 0) {
-      const med = meds[Math.floor(Math.random() * meds.length)];
-      const correctAnswer = med.class;
-      const alternatives = [
-        "Beta-blocker", "Calcium channel blocker", "Proton pump inhibitor",
-        "NSAID", "ACE inhibitor", "Antihistamine", "Antibiotic", "Opioid",
-        "Benzodiazepine", "SSRI", "Statin", "Diuretic"
+      const suffixMeds = [
+        { suffix: "-pril", class: "ACE inhibitor", examples: ["Ramipril", "Lisinopril", "Enalapril"] },
+        { suffix: "-sartan", class: "Angiotensin receptor blocker", examples: ["Losartan", "Candesartan", "Valsartan"] },
+        { suffix: "-olol", class: "Beta-blocker", examples: ["Bisoprolol", "Atenolol", "Metoprolol"] },
+        { suffix: "-dipine", class: "Calcium channel blocker", examples: ["Amlodipine", "Nifedipine", "Felodipine"] },
+        { suffix: "-statin", class: "Statin", examples: ["Atorvastatin", "Simvastatin", "Rosuvastatin"] },
+        { suffix: "-prazole", class: "Proton pump inhibitor", examples: ["Omeprazole", "Lansoprazole", "Esomeprazole"] },
+        { suffix: "-cillin", class: "Penicillin antibiotic", examples: ["Amoxicillin", "Flucloxacillin", "Phenoxymethylpenicillin"] },
+        { suffix: "-pam/-lam", class: "Benzodiazepine", examples: ["Diazepam", "Lorazepam", "Clonazepam"] },
+        { suffix: "-mycin", class: "Macrolide antibiotic", examples: ["Erythromycin", "Clarithromycin", "Azithromycin"] },
+        { suffix: "-tidine", class: "H2 receptor antagonist", examples: ["Ranitidine", "Famotidine", "Cimetidine"] },
+        { suffix: "-lol (not beta)", class: "Bronchodilator", examples: ["Salbutamol", "Terbutaline"] },
+        { suffix: "-oxaban", class: "Direct Oral Anticoagulant", examples: ["Apixaban", "Rivaroxaban", "Edoxaban"] },
+        { suffix: "-azide", class: "Thiazide diuretic", examples: ["Bendroflumethiazide", "Indapamide"] },
+        { suffix: "-semide", class: "Loop diuretic", examples: ["Furosemide", "Bumetanide"] }
       ];
-      const uniqueOptions = createUniqueOptions(correctAnswer, alternatives);
-      const shuffledOptions = [...uniqueOptions].sort(() => Math.random() - 0.5);
-      questions.push({
-        question: `What drug class does ${med.name} belong to?`,
-        options: shuffledOptions,
-        correctAnswer: shuffledOptions.indexOf(correctAnswer),
-        explanation: `${med.name} is a ${med.class}.`
-      });
+      
+      // Find a med from the scenario that has a recognizable suffix
+      const medWithSuffix = meds.find(m => 
+        suffixMeds.some(s => s.examples.some(ex => ex.toLowerCase() === m.name.toLowerCase()))
+      );
+      
+      if (medWithSuffix) {
+        const suffixInfo = suffixMeds.find(s => 
+          s.examples.some(ex => ex.toLowerCase() === medWithSuffix.name.toLowerCase())
+        );
+        
+        if (suffixInfo) {
+          const correctAnswer = suffixInfo.class;
+          const alternatives = suffixMeds.filter(s => s.class !== correctAnswer).map(s => s.class);
+          const uniqueOptions = createUniqueOptions(correctAnswer, alternatives);
+          const shuffledOptions = [...uniqueOptions].sort(() => Math.random() - 0.5);
+          questions.push({
+            question: `A patient has a medication ending in "${suffixInfo.suffix}". What drug class is this likely to be?`,
+            options: shuffledOptions,
+            correctAnswer: shuffledOptions.indexOf(correctAnswer),
+            explanation: `The suffix "${suffixInfo.suffix}" indicates a ${correctAnswer}. ${medWithSuffix.name} follows this pattern. Learning drug suffixes helps paramedics identify medications when patients can't remember names.`
+          });
+        }
+      }
     }
 
-    // Question 2: Side effects (only for medications with specific side effects)
-    if (meds.length > 0) {
-      const medsWithSpecificSideEffects = meds.filter(m => 
-        !m.sideEffects[0].toLowerCase().includes("minimal") && 
-        !m.sideEffects[0].toLowerCase().includes("rare")
+    // Question 2: Identifying medication from suffix patterns (DETECTIVE SKILL)
+    if (meds.length > 1) {
+      const suffixPatterns = [
+        { name: "Bisoprolol", suffix: "-olol", pattern: "beta-blocker" },
+        { name: "Ramipril", suffix: "-pril", pattern: "ACE inhibitor" },
+        { name: "Amlodipine", suffix: "-dipine", pattern: "calcium channel blocker" },
+        { name: "Atorvastatin", suffix: "-statin", pattern: "statin for cholesterol" },
+        { name: "Omeprazole", suffix: "-prazole", pattern: "proton pump inhibitor" },
+        { name: "Losartan", suffix: "-sartan", pattern: "ARB" },
+        { name: "Apixaban", suffix: "-oxaban", pattern: "DOAC anticoagulant" }
+      ];
+      
+      const medInScenario = meds.find(m =>
+        suffixPatterns.some(p => p.name.toLowerCase() === m.name.toLowerCase())
       );
-      if (medsWithSpecificSideEffects.length > 0) {
-        const med = medsWithSpecificSideEffects[Math.floor(Math.random() * medsWithSpecificSideEffects.length)];
-        const correctSideEffect = med.sideEffects[0];
-        
-        // Diverse, clinically realistic side effect alternatives
-        const realisticSideEffects = [
-          "Nausea and vomiting", "Dizziness and headache", "Dry mouth and constipation",
-          "Drowsiness and fatigue", "Diarrhoea and abdominal pain", "Tremor and sweating",
-          "Palpitations and anxiety", "Weight gain and fluid retention", "Insomnia and agitation",
-          "Blurred vision and confusion", "Rash and pruritus", "Muscle weakness and cramps",
-          "Tachycardia and hypertension", "Bradycardia and hypotension", "Flushing and warmth",
-          "Urinary retention", "Increased appetite", "Loss of appetite",
-          "Joint pain and stiffness", "Peripheral oedema", "Photosensitivity",
-          "Tinnitus and hearing loss", "Metallic taste", "Hiccups and belching"
-        ];
-        
-        // Filter out the correct answer and shuffle
-        const alternatives = realisticSideEffects
-          .filter(se => se !== correctSideEffect)
-          .sort(() => Math.random() - 0.5);
-        
-        const uniqueOptions = createUniqueOptions(correctSideEffect, alternatives);
+      
+      if (medInScenario) {
+        const pattern = suffixPatterns.find(p => p.name.toLowerCase() === medInScenario.name.toLowerCase());
+        if (pattern) {
+          const correctAnswer = pattern.suffix;
+          const alternatives = suffixPatterns.filter(p => p.suffix !== correctAnswer).map(p => p.suffix);
+          const uniqueOptions = createUniqueOptions(correctAnswer, alternatives.slice(0, 3));
+          const shuffledOptions = [...uniqueOptions].sort(() => Math.random() - 0.5);
+          questions.push({
+            question: `You find a medication bottle but can't read the full name. You see "${medInScenario.name.slice(0, -4)}..." What suffix would help identify it as a ${pattern.pattern}?`,
+            options: shuffledOptions,
+            correctAnswer: shuffledOptions.indexOf(correctAnswer),
+            explanation: `${medInScenario.name} ends in "${pattern.suffix}", which identifies it as a ${pattern.pattern}. Recognizing suffixes is crucial when labels are damaged or patients can't remember full medication names.`
+          });
+        }
+      }
+    }
+    
+    // Question 2c: Inferring medication from medical history (DETECTIVE SKILL)
+    if (scenario.patient.medicalHistory.length > 0) {
+      const history = scenario.patient.medicalHistory[0].toLowerCase();
+      
+      const historyToSuffix = [
+        { condition: "atrial fibrillation", suffix: "-oxaban (DOAC)", example: "Apixaban, Rivaroxaban" },
+        { condition: "hypertension", suffix: "-pril or -sartan", example: "Ramipril, Losartan" },
+        { condition: "high cholesterol", suffix: "-statin", example: "Atorvastatin" },
+        { condition: "heart failure", suffix: "-pril, -olol, -semide", example: "Ramipril, Bisoprolol, Furosemide" },
+        { condition: "copd", suffix: "-terol or -tropium", example: "Salbutamol, Ipratropium" },
+        { condition: "asthma", suffix: "-sone or -sol", example: "Prednisolone, Salbutamol" },
+        { condition: "type 2 diabetes", suffix: "-formin or -gliflozin", example: "Metformin, Empagliflozin" },
+        { condition: "depression", suffix: "-pram or -oxetine", example: "Citalopram, Fluoxetine" }
+      ];
+      
+      const matchedHistory = historyToSuffix.find(h => history.includes(h.condition));
+      
+      if (matchedHistory) {
+        const correctAnswer = matchedHistory.suffix;
+        const alternatives = historyToSuffix.filter(h => h.condition !== matchedHistory.condition).map(h => h.suffix);
+        const uniqueOptions = createUniqueOptions(correctAnswer, alternatives.slice(0, 3));
         const shuffledOptions = [...uniqueOptions].sort(() => Math.random() - 0.5);
         questions.push({
-          question: `Which is a common side effect of ${med.name}?`,
+          question: `The care plan says patient has ${matchedHistory.condition}. What medication suffix should you expect to find?`,
           options: shuffledOptions,
-          correctAnswer: shuffledOptions.indexOf(correctSideEffect),
-          explanation: `${med.name} commonly causes ${correctSideEffect.toLowerCase()}.`
+          correctAnswer: shuffledOptions.indexOf(correctAnswer),
+          explanation: `Patients with ${matchedHistory.condition} typically take medications ending in ${correctAnswer}, such as ${matchedHistory.example}. This helps you identify relevant medications even when bottles are unlabeled.`
         });
       }
     }
@@ -257,36 +308,77 @@ export const QuizPanel = ({ scenario, onComplete }: QuizPanelProps) => {
       }
     }
 
-    // Question 5: Indication
+    // Question 5: Detective skill - Identifying medication category from clues
     if (meds.length > 0) {
       const med = meds[Math.floor(Math.random() * meds.length)];
-      const correctAnswer = med.indication;
       
-      // Create clinically plausible alternatives based on drug category
-      let alternatives: string[] = [];
-      if (med.category === "Analgesic") {
-        alternatives = ["High blood pressure", "Bacterial infection", "Diabetes", "Thyroid disorder"];
-      } else if (med.category === "Cardiovascular") {
-        alternatives = ["Pain relief", "Bacterial infection", "Constipation", "Anxiety"];
-      } else if (med.category === "Antibiotic") {
-        alternatives = ["High blood pressure", "Pain relief", "Heart failure", "Diabetes"];
-      } else if (med.category === "Antidiabetic") {
-        alternatives = ["High blood pressure", "Pain relief", "Bacterial infection", "Thyroid disorder"];
+      // Create detective-style questions based on indirect clues
+      const detectiveQuestions = [
+        {
+          condition: med.category === "Anticoagulant",
+          question: "Patient says 'I take tablets to thin my blood'. What drug class are they likely taking?",
+          correctAnswer: "Anticoagulant",
+          alternatives: ["Antibiotic", "Analgesic", "Antidiabetic", "Antihypertensive"],
+          explanation: "Patients often describe anticoagulants as 'blood thinners'. Look for suffixes like -oxaban (Apixaban), -arin (Warfarin) or check for AF/DVT history."
+        },
+        {
+          condition: med.category === "Antidiabetic",
+          question: "Patient mentions 'I take something for my sugar'. What category should you investigate?",
+          correctAnswer: "Antidiabetic medication",
+          alternatives: ["Vitamin supplements", "Pain medication", "Heart medication", "Antibiotic"],
+          explanation: "Patients with diabetes often refer to their medication as 'for sugar'. Look for -formin (Metformin), -gliflozin, or insulins in their prescriptions."
+        },
+        {
+          condition: med.class === "Beta-blocker",
+          question: "You find a medication ending in '-olol'. The patient has a regular, slow pulse. What is this medication for?",
+          correctAnswer: "Heart rate and blood pressure control",
+          alternatives: ["Pain relief", "Infection treatment", "Blood sugar control", "Digestion"],
+          explanation: "Medications ending in -olol are beta-blockers (e.g., Bisoprolol). They slow the heart rate and lower blood pressure. Always check pulse before administration."
+        },
+        {
+          condition: med.category === "Anticonvulsant",
+          question: "Care plan mentions 'seizure disorder'. Patient has a purple MedicAlert bracelet. What medication category is likely time-critical?",
+          correctAnswer: "Anticonvulsant",
+          alternatives: ["Painkiller", "Antibiotic", "Vitamin", "Laxative"],
+          explanation: "Epilepsy/seizure patients need anticonvulsants. These are time-critical (MISSED mnemonic - E for Epilepsy). Examples include Levetiracetam, Lamotrigine, Sodium Valproate."
+        },
+        {
+          condition: med.category === "Steroid",
+          question: "Patient has a steroid warning card in their wallet. What medication suffix might you find?",
+          correctAnswer: "-sone or -lone",
+          alternatives: ["-pril", "-statin", "-pam", "-mycin"],
+          explanation: "Steroids like Prednisolone end in -sone or -lone. Steroid cards warn that sudden cessation can be dangerous - these are time-critical medications."
+        }
+      ];
+      
+      const applicableQuestions = detectiveQuestions.filter(q => q.condition);
+      
+      if (applicableQuestions.length > 0) {
+        const selected = applicableQuestions[Math.floor(Math.random() * applicableQuestions.length)];
+        const uniqueOptions = createUniqueOptions(selected.correctAnswer, selected.alternatives);
+        const shuffledOptions = [...uniqueOptions].sort(() => Math.random() - 0.5);
+        questions.push({
+          question: selected.question,
+          options: shuffledOptions,
+          correctAnswer: shuffledOptions.indexOf(selected.correctAnswer),
+          explanation: selected.explanation
+        });
       } else {
-        alternatives = [
+        // Fallback general indication question
+        const correctAnswer = med.indication;
+        const alternatives = [
           "High blood pressure", "Pain relief", "Bacterial infection", "Diabetes",
           "Heart failure", "Thyroid disorder", "Depression", "Anxiety"
         ];
+        const uniqueOptions = createUniqueOptions(correctAnswer, alternatives);
+        const shuffledOptions = [...uniqueOptions].sort(() => Math.random() - 0.5);
+        questions.push({
+          question: `What is ${med.name} primarily used for?`,
+          options: shuffledOptions,
+          correctAnswer: shuffledOptions.indexOf(correctAnswer),
+          explanation: `${med.name} is used for ${med.indication.toLowerCase()}.`
+        });
       }
-      
-      const uniqueOptions = createUniqueOptions(correctAnswer, alternatives);
-      const shuffledOptions = [...uniqueOptions].sort(() => Math.random() - 0.5);
-      questions.push({
-        question: `What is ${med.name} primarily used for?`,
-        options: shuffledOptions,
-        correctAnswer: shuffledOptions.indexOf(correctAnswer),
-        explanation: `${med.name} is used for ${med.indication.toLowerCase()}.`
-      });
     }
     
     // Question 5b: Drug interactions
