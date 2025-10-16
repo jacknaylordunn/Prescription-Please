@@ -566,12 +566,12 @@ export const QuizPanel = ({ scenario, onComplete }: QuizPanelProps) => {
                 disabled={answered}
                 className={`w-full p-1.5 md:p-2 text-left border-2 transition-all font-bold ${
                   showAsIncorrect
-                    ? "border-destructive bg-destructive/40 retro-shadow scale-[0.98]"
+                    ? "border-destructive bg-destructive/50 text-destructive-foreground retro-shadow"
                     : showAsCorrect
-                    ? "border-success bg-success/40 retro-shadow"
+                    ? "border-success bg-success/50 text-success-foreground retro-shadow"
                     : answered
-                    ? "border-muted bg-background/50 opacity-50"
-                    : "border-muted hover:border-accent hover:bg-accent/10 hover:scale-102 bg-background/50"
+                    ? "border-muted bg-background/50 opacity-50 text-radio-text/50"
+                    : "border-muted hover:border-accent hover:bg-accent/10 hover:scale-102 bg-background/50 text-radio-text"
                 }`}
                 style={{ fontSize: "8px", lineHeight: "1.3" }}
               >
@@ -586,18 +586,8 @@ export const QuizPanel = ({ scenario, onComplete }: QuizPanelProps) => {
                 }`}>
                   {String.fromCharCode(65 + idx)}.
                 </span>
-                <span className={`text-[7px] md:text-[9px] ${
-                  showAsIncorrect
-                    ? "text-destructive-foreground"
-                    : showAsCorrect
-                    ? "text-success-foreground"
-                    : answered
-                    ? "text-radio-text/50"
-                    : "text-radio-text"
-                }`}>
+                <span className={`text-[7px] md:text-[9px]`}>
                   {option}
-                  {showAsCorrect && !isSelected && <span className="ml-2">✓</span>}
-                  {showAsIncorrect && <span className="ml-2">✗</span>}
                 </span>
               </button>
             );
