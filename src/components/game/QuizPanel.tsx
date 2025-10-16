@@ -477,445 +477,225 @@ export const QuizPanel = ({ scenario, onComplete }: QuizPanelProps) => {
         explanation: `Missing anticonvulsant doses like ${anticonvulsants[0].name} can trigger seizures, including life-threatening status epilepticus. These are time-critical medications that must not be missed.`
       });
     }
-
-    // SCENARIO-SPECIFIC QUESTIONS - Add diversity beyond medication-focused questions
     
-    // Question 12: Primary assessment based on presentation
-    if (scenario.patient.presentation) {
-      const presentation = scenario.patient.presentation.toLowerCase();
+    // Question 12: Additional drug class questions for variety
+    if (meds.length > 1) {
+      const randomMed = meds[Math.floor(Math.random() * meds.length)];
+      const classQuestions = [
+        {
+          question: `Which of these medications is a ${randomMed.class}?`,
+          correctAnswer: randomMed.name,
+          alternatives: meds.filter(m => m.name !== randomMed.name).map(m => m.name).concat(["Paracetamol", "Aspirin", "Ibuprofen", "Codeine"]),
+          explanation: `${randomMed.name} is classified as a ${randomMed.class}.`
+        }
+      ];
       
-      // Chest pain scenarios
-      if (presentation.includes("chest pain") || presentation.includes("cardiac")) {
-        const chestPainQuestions = [
-          {
-            question: "What is your primary concern with a patient presenting with chest pain?",
-            correctAnswer: "Acute coronary syndrome or myocardial infarction",
-            options: [
-              "Acute coronary syndrome or myocardial infarction",
-              "Indigestion",
-              "Anxiety attack",
-              "Muscle strain"
-            ],
-            explanation: "Chest pain must be treated as cardiac until proven otherwise. Time is muscle - early recognition and treatment of ACS/MI is critical."
-          },
-          {
-            question: "What is the most important initial assessment for chest pain?",
-            correctAnswer: "12-lead ECG within 10 minutes",
-            options: [
-              "12-lead ECG within 10 minutes",
-              "Blood pressure only",
-              "Detailed medical history",
-              "Oxygen saturation"
-            ],
-            explanation: "A 12-lead ECG should be performed within 10 minutes of arrival for any chest pain patient to identify STEMI or other cardiac ischaemia."
-          }
+      const selected = classQuestions[0];
+      const uniqueOptions = createUniqueOptions(selected.correctAnswer, selected.alternatives);
+      const shuffledOptions = [...uniqueOptions].sort(() => Math.random() - 0.5);
+      questions.push({
+        question: selected.question,
+        options: shuffledOptions,
+        correctAnswer: shuffledOptions.indexOf(selected.correctAnswer),
+        explanation: selected.explanation
+      });
+    }
+    
+    // Question 13: Medication-specific monitoring questions
+    if (meds.length > 0) {
+      const lithium = meds.find(m => m.name === "Lithium");
+      const digoxin = meds.find(m => m.name === "Digoxin");
+      const warfarin = meds.find(m => m.name === "Warfarin");
+      const acei = meds.find(m => m.class === "ACE inhibitor");
+      const statin = meds.find(m => m.class === "Statin");
+      
+      if (lithium) {
+        const correctAnswer = "Regular blood level monitoring required - narrow therapeutic window";
+        const options = [
+          correctAnswer,
+          "No monitoring required",
+          "Only check once yearly",
+          "Self-monitoring at home is sufficient"
         ];
-        const selected = chestPainQuestions[Math.floor(Math.random() * chestPainQuestions.length)];
-        const shuffledOptions = [...selected.options].sort(() => Math.random() - 0.5);
+        const shuffledOptions = [...options].sort(() => Math.random() - 0.5);
         questions.push({
-          question: selected.question,
+          question: "What is important to know about Lithium therapy?",
           options: shuffledOptions,
-          correctAnswer: shuffledOptions.indexOf(selected.correctAnswer),
-          explanation: selected.explanation
+          correctAnswer: shuffledOptions.indexOf(correctAnswer),
+          explanation: "Lithium has a narrow therapeutic window and requires regular blood monitoring. Toxicity can occur with dehydration, NSAIDs, or renal impairment."
         });
-      }
-      
-      // Breathing difficulty scenarios
-      if (presentation.includes("breath") || presentation.includes("respiratory") || presentation.includes("dyspnoea")) {
-        const breathingQuestions = [
-          {
-            question: "What is the priority action for a patient with severe breathlessness?",
-            correctAnswer: "Apply high-flow oxygen and assess respiratory effort",
-            options: [
-              "Apply high-flow oxygen and assess respiratory effort",
-              "Take a detailed history first",
-              "Give salbutamol immediately without assessment",
-              "Wait and observe for 5 minutes"
-            ],
-            explanation: "Airway and breathing take priority. Assess respiratory rate, effort, oxygen saturations and provide high-flow oxygen if hypoxic."
-          },
-          {
-            question: "In a breathless patient, what examination finding would most concern you?",
-            correctAnswer: "Silent chest with reduced respiratory effort",
-            options: [
-              "Silent chest with reduced respiratory effort",
-              "Mild wheeze",
-              "Slight tachypnoea",
-              "Patient able to speak in full sentences"
-            ],
-            explanation: "A 'silent chest' with reduced effort indicates severe bronchospasm or exhaustion - this is life-threatening and may require immediate advanced intervention."
-          }
+      } else if (digoxin) {
+        const correctAnswer = "Check heart rate - can cause dangerous bradycardia";
+        const options = [
+          correctAnswer,
+          "Check temperature only",
+          "Check blood pressure only",
+          "No monitoring needed"
         ];
-        const selected = breathingQuestions[Math.floor(Math.random() * breathingQuestions.length)];
-        const shuffledOptions = [...selected.options].sort(() => Math.random() - 0.5);
+        const shuffledOptions = [...options].sort(() => Math.random() - 0.5);
         questions.push({
-          question: selected.question,
+          question: "What must you monitor in a patient taking Digoxin?",
           options: shuffledOptions,
-          correctAnswer: shuffledOptions.indexOf(selected.correctAnswer),
-          explanation: selected.explanation
+          correctAnswer: shuffledOptions.indexOf(correctAnswer),
+          explanation: "Digoxin slows the heart rate. Always check pulse - if <60 bpm, withhold the dose and seek medical advice. Digoxin toxicity causes bradycardia, nausea, and visual disturbances."
         });
-      }
-      
-      // Seizure scenarios
-      if (presentation.includes("seizure") || presentation.includes("fit") || presentation.includes("convulsion")) {
-        const seizureQuestions = [
-          {
-            question: "How long must a seizure last to be considered status epilepticus?",
-            correctAnswer: "5 minutes or more",
-            options: [
-              "5 minutes or more",
-              "10 minutes or more",
-              "15 minutes or more",
-              "30 minutes or more"
-            ],
-            explanation: "Status epilepticus is defined as a seizure lasting 5 minutes or longer, or repeated seizures without recovery. This is a medical emergency requiring immediate treatment."
-          },
-          {
-            question: "What is the key safety priority during an active seizure?",
-            correctAnswer: "Protect from injury and maintain airway",
-            options: [
-              "Protect from injury and maintain airway",
-              "Restrain the patient",
-              "Put something in their mouth",
-              "Give oral medication"
-            ],
-            explanation: "Never restrain a seizing patient or put anything in their mouth. Protect from injury, maintain airway, time the seizure, and be ready to suction if needed."
-          }
+      } else if (warfarin) {
+        const correctAnswer = "Regular INR monitoring to maintain therapeutic range";
+        const options = [
+          correctAnswer,
+          "No monitoring required",
+          "Only blood pressure checks",
+          "Weekly liver function tests"
         ];
-        const selected = seizureQuestions[Math.floor(Math.random() * seizureQuestions.length)];
-        const shuffledOptions = [...selected.options].sort(() => Math.random() - 0.5);
+        const shuffledOptions = [...options].sort(() => Math.random() - 0.5);
         questions.push({
-          question: selected.question,
+          question: "Why does Warfarin require regular monitoring?",
           options: shuffledOptions,
-          correctAnswer: shuffledOptions.indexOf(selected.correctAnswer),
-          explanation: selected.explanation
+          correctAnswer: shuffledOptions.indexOf(correctAnswer),
+          explanation: "Warfarin dosing varies greatly between patients and is affected by diet and other medications. INR testing ensures adequate anticoagulation without excessive bleeding risk."
         });
-      }
-      
-      // Altered consciousness scenarios
-      if (presentation.includes("unconscious") || presentation.includes("unresponsive") || presentation.includes("gcs") || presentation.includes("confused")) {
-        const consciousnessQuestions = [
-          {
-            question: "What is the first assessment priority for an unconscious patient?",
-            correctAnswer: "Check for danger, then assess airway and breathing",
-            options: [
-              "Check for danger, then assess airway and breathing",
-              "Check blood glucose immediately",
-              "Take blood pressure",
-              "Ask family for medical history"
-            ],
-            explanation: "Use DR ABC approach. Ensure scene safety, then immediately assess and manage airway and breathing - these are the immediate life threats."
-          },
-          {
-            question: "What quick bedside test is essential for all patients with altered consciousness?",
-            correctAnswer: "Blood glucose level",
-            options: [
-              "Blood glucose level",
-              "Blood pressure",
-              "Temperature",
-              "ECG"
-            ],
-            explanation: "Hypoglycaemia is a rapidly reversible cause of altered consciousness. Check blood glucose early - if low, treat immediately with IV glucose or IM glucagon."
-          }
+      } else if (acei) {
+        const correctAnswer = "Persistent dry cough is a common side effect";
+        const options = [
+          correctAnswer,
+          "Cough always indicates chest infection",
+          "Cough means allergic reaction",
+          "ACE inhibitors never cause cough"
         ];
-        const selected = consciousnessQuestions[Math.floor(Math.random() * consciousnessQuestions.length)];
-        const shuffledOptions = [...selected.options].sort(() => Math.random() - 0.5);
+        const shuffledOptions = [...options].sort(() => Math.random() - 0.5);
         questions.push({
-          question: selected.question,
+          question: `What should you know about ${acei.name} and respiratory symptoms?`,
           options: shuffledOptions,
-          correctAnswer: shuffledOptions.indexOf(selected.correctAnswer),
-          explanation: selected.explanation
+          correctAnswer: shuffledOptions.indexOf(correctAnswer),
+          explanation: `Dry cough affects up to 10% of patients on ACE inhibitors like ${acei.name}. It is caused by increased bradykinin levels and may require switching to an ARB.`
         });
-      }
-      
-      // Falls scenarios
-      if (presentation.includes("fall") || presentation.includes("fallen")) {
-        const fallQuestions = [
-          {
-            question: "What is the most important question to ask after a fall in an elderly patient?",
-            correctAnswer: "Did you trip or did your legs give way?",
-            options: [
-              "Did you trip or did your legs give way?",
-              "What time did you fall?",
-              "Where does it hurt?",
-              "Have you eaten today?"
-            ],
-            explanation: "Determining if it was a mechanical fall (trip) or medical cause (syncope, weakness) changes your assessment and management priorities significantly."
-          },
-          {
-            question: "What serious injury must you consider in all elderly fallers on anticoagulation?",
-            correctAnswer: "Intracranial haemorrhage",
-            options: [
-              "Intracranial haemorrhage",
-              "Fractured wrist",
-              "Bruised hip",
-              "Soft tissue injury"
-            ],
-            explanation: "Patients on anticoagulants who fall and hit their head are at high risk of intracranial bleeding, even without external signs. This can develop over hours."
-          }
+      } else if (statin) {
+        const correctAnswer = "Muscle pain or weakness - may indicate rhabdomyolysis";
+        const options = [
+          correctAnswer,
+          "No side effects to monitor",
+          "Only check cholesterol levels",
+          "Statins are completely safe"
         ];
-        const selected = fallQuestions[Math.floor(Math.random() * fallQuestions.length)];
-        const shuffledOptions = [...selected.options].sort(() => Math.random() - 0.5);
+        const shuffledOptions = [...options].sort(() => Math.random() - 0.5);
         questions.push({
-          question: selected.question,
+          question: `What serious side effect should you watch for with ${statin.name}?`,
           options: shuffledOptions,
-          correctAnswer: shuffledOptions.indexOf(selected.correctAnswer),
-          explanation: selected.explanation
-        });
-      }
-      
-      // Stroke scenarios
-      if (presentation.includes("stroke") || presentation.includes("weakness") || presentation.includes("facial droop")) {
-        const strokeQuestions = [
-          {
-            question: "What is the time-critical window for thrombolysis in stroke?",
-            correctAnswer: "Within 4.5 hours of symptom onset",
-            options: [
-              "Within 4.5 hours of symptom onset",
-              "Within 12 hours of symptom onset",
-              "Within 24 hours of symptom onset",
-              "Within 1 hour of symptom onset"
-            ],
-            explanation: "Thrombolysis must be given within 4.5 hours of symptom onset. Use FAST assessment and prioritise rapid conveyance to a stroke unit."
-          },
-          {
-            question: "What assessment tool should you use for suspected stroke?",
-            correctAnswer: "FAST (Face, Arms, Speech, Time)",
-            options: [
-              "FAST (Face, Arms, Speech, Time)",
-              "AVPU",
-              "GCS only",
-              "NEWS2 score"
-            ],
-            explanation: "FAST assessment (Face drooping, Arm weakness, Speech difficulty, Time to call 999) is the standard pre-hospital stroke recognition tool."
-          }
-        ];
-        const selected = strokeQuestions[Math.floor(Math.random() * strokeQuestions.length)];
-        const shuffledOptions = [...selected.options].sort(() => Math.random() - 0.5);
-        questions.push({
-          question: selected.question,
-          options: shuffledOptions,
-          correctAnswer: shuffledOptions.indexOf(selected.correctAnswer),
-          explanation: selected.explanation
-        });
-      }
-      
-      // Sepsis scenarios
-      if (presentation.includes("sepsis") || presentation.includes("infection") || (presentation.includes("fever") && presentation.includes("unwell"))) {
-        const sepsisQuestions = [
-          {
-            question: "What are the key red flags suggesting sepsis in an adult?",
-            correctAnswer: "High NEWS2 score, altered mental state, mottled skin",
-            options: [
-              "High NEWS2 score, altered mental state, mottled skin",
-              "Mild fever only",
-              "Slight tachycardia",
-              "Cough and runny nose"
-            ],
-            explanation: "Sepsis causes systemic deterioration. Look for high NEWS2, confusion, mottled/ashen skin, not passed urine, severe breathlessness - these need immediate hospital treatment."
-          },
-          {
-            question: "What is the priority in suspected sepsis?",
-            correctAnswer: "Rapid conveyance to hospital for IV antibiotics",
-            options: [
-              "Rapid conveyance to hospital for IV antibiotics",
-              "Give oral antibiotics on scene",
-              "Wait for symptoms to worsen",
-              "Refer to GP"
-            ],
-            explanation: "Sepsis kills quickly. Early recognition and rapid hospital transfer for IV antibiotics ('Sepsis Six') is critical - every hour delay increases mortality."
-          }
-        ];
-        const selected = sepsisQuestions[Math.floor(Math.random() * sepsisQuestions.length)];
-        const shuffledOptions = [...selected.options].sort(() => Math.random() - 0.5);
-        questions.push({
-          question: selected.question,
-          options: shuffledOptions,
-          correctAnswer: shuffledOptions.indexOf(selected.correctAnswer),
-          explanation: selected.explanation
-        });
-      }
-      
-      // Diabetic emergencies
-      if (presentation.includes("diabetes") || presentation.includes("hyperglycaemia") || presentation.includes("hypoglycaemia") || presentation.includes("dka")) {
-        const diabeticQuestions = [
-          {
-            question: "What are the signs of diabetic ketoacidosis (DKA)?",
-            correctAnswer: "High blood glucose, ketones, Kussmaul breathing, dehydration",
-            options: [
-              "High blood glucose, ketones, Kussmaul breathing, dehydration",
-              "Low blood glucose only",
-              "Normal observations",
-              "Bradycardia and hypertension"
-            ],
-            explanation: "DKA presents with high glucose (>11mmol/L), ketones, deep rapid breathing (Kussmaul), dehydration, abdominal pain, and vomiting. This is life-threatening."
-          },
-          {
-            question: "At what blood glucose level should you treat hypoglycaemia?",
-            correctAnswer: "Below 4.0 mmol/L",
-            options: [
-              "Below 4.0 mmol/L",
-              "Below 8.0 mmol/L",
-              "Below 2.0 mmol/L",
-              "Only if unconscious"
-            ],
-            explanation: "Treat hypoglycaemia if glucose <4.0mmol/L or patient is symptomatic. Give oral glucose if alert, IM glucagon or IV glucose if reduced consciousness."
-          }
-        ];
-        const selected = diabeticQuestions[Math.floor(Math.random() * diabeticQuestions.length)];
-        const shuffledOptions = [...selected.options].sort(() => Math.random() - 0.5);
-        questions.push({
-          question: selected.question,
-          options: shuffledOptions,
-          correctAnswer: shuffledOptions.indexOf(selected.correctAnswer),
-          explanation: selected.explanation
+          correctAnswer: shuffledOptions.indexOf(correctAnswer),
+          explanation: `Statins like ${statin.name} can rarely cause muscle breakdown (rhabdomyolysis). Patients should report unexplained muscle pain, tenderness, or weakness immediately.`
         });
       }
     }
     
-    // Question 13: Medical history based clinical decisions
-    if (scenario.patient.medicalHistory.length > 0) {
-      const history = scenario.patient.medicalHistory;
+    // Question 14: Routes of administration and formulations
+    if (meds.length > 0) {
+      const med = meds[Math.floor(Math.random() * meds.length)];
+      const routeQuestions = [
+        {
+          question: `How is ${med.name} typically administered?`,
+          correctAnswer: "Oral (by mouth)",
+          options: ["Oral (by mouth)", "Intravenous only", "Intramuscular injection", "Topical application"],
+          explanation: `${med.name} is typically taken orally as a tablet or capsule. Always check the prescription for specific instructions.`
+        }
+      ];
       
-      if (history.some(h => h.toLowerCase().includes("copd") || h.toLowerCase().includes("chronic obstructive"))) {
-        const copdQuestions = [
-          {
-            question: "What is the target oxygen saturation for a COPD patient?",
-            correctAnswer: "88-92%",
-            options: [
-              "88-92%",
-              "94-98%",
-              "100%",
-              "80-85%"
-            ],
-            explanation: "COPD patients should have target sats of 88-92%. High oxygen can suppress their respiratory drive. Start low (e.g. 2-4L via nasal cannula) and titrate to target."
-          },
-          {
-            question: "What medication can you give for COPD exacerbation in the pre-hospital setting?",
-            correctAnswer: "Salbutamol and ipratropium nebulisers",
-            options: [
-              "Salbutamol and ipratropium nebulisers",
-              "IV antibiotics only",
-              "Oral steroids only",
-              "Morphine"
-            ],
-            explanation: "Nebulised salbutamol and ipratropium bromide are first-line pre-hospital treatments for COPD exacerbation, driven by oxygen or air depending on sats."
-          }
+      const selected = routeQuestions[0];
+      const shuffledOptions = [...selected.options].sort(() => Math.random() - 0.5);
+      questions.push({
+        question: selected.question,
+        options: shuffledOptions,
+        correctAnswer: shuffledOptions.indexOf(selected.correctAnswer),
+        explanation: selected.explanation
+      });
+    }
+    
+    // Question 15: Contraindications and cautions
+    if (meds.length > 0) {
+      const nsaid = meds.find(m => m.class === "NSAID");
+      const betaBlocker = meds.find(m => m.class === "Beta-blocker");
+      const opioid = meds.find(m => m.class === "Opioid");
+      const metformin = meds.find(m => m.name === "Metformin");
+      
+      if (nsaid) {
+        const correctAnswer = "Caution in patients with kidney disease or history of GI bleeding";
+        const options = [
+          correctAnswer,
+          "Safe for everyone",
+          "Only avoid in pregnancy",
+          "No special precautions needed"
         ];
-        const selected = copdQuestions[Math.floor(Math.random() * copdQuestions.length)];
-        const shuffledOptions = [...selected.options].sort(() => Math.random() - 0.5);
+        const shuffledOptions = [...options].sort(() => Math.random() - 0.5);
         questions.push({
-          question: selected.question,
+          question: `What should you be cautious about when taking ${nsaid.name}?`,
           options: shuffledOptions,
-          correctAnswer: shuffledOptions.indexOf(selected.correctAnswer),
-          explanation: selected.explanation
+          correctAnswer: shuffledOptions.indexOf(correctAnswer),
+          explanation: `NSAIDs like ${nsaid.name} can damage the kidneys and cause gastric ulcers/bleeding. Use with caution in renal impairment, elderly patients, and those with GI history.`
+        });
+      } else if (betaBlocker) {
+        const correctAnswer = "Should be used cautiously in asthma patients";
+        const options = [
+          correctAnswer,
+          "Safe in all respiratory conditions",
+          "Only avoid in diabetes",
+          "No respiratory concerns"
+        ];
+        const shuffledOptions = [...options].sort(() => Math.random() - 0.5);
+        questions.push({
+          question: `What respiratory condition requires caution with ${betaBlocker.name}?`,
+          options: shuffledOptions,
+          correctAnswer: shuffledOptions.indexOf(correctAnswer),
+          explanation: `Beta-blockers like ${betaBlocker.name} can cause bronchospasm in asthma patients. Cardioselective beta-blockers are safer but still require caution.`
+        });
+      } else if (opioid) {
+        const correctAnswer = "Risk of respiratory depression and constipation";
+        const options = [
+          correctAnswer,
+          "No side effects",
+          "Only causes headache",
+          "Completely safe medication"
+        ];
+        const shuffledOptions = [...options].sort(() => Math.random() - 0.5);
+        questions.push({
+          question: `What are the main concerns with ${opioid.name}?`,
+          options: shuffledOptions,
+          correctAnswer: shuffledOptions.indexOf(correctAnswer),
+          explanation: `Opioids like ${opioid.name} can cause respiratory depression (especially in overdose), constipation, drowsiness, and dependence. Always monitor respiratory rate and prescribe laxatives.`
+        });
+      } else if (metformin) {
+        const correctAnswer = "Should be stopped if patient is acutely unwell or dehydrated";
+        const options = [
+          correctAnswer,
+          "Never stop under any circumstances",
+          "Only stop if blood glucose is low",
+          "No special considerations"
+        ];
+        const shuffledOptions = [...options].sort(() => Math.random() - 0.5);
+        questions.push({
+          question: "What is important to know about Metformin in acute illness?",
+          options: shuffledOptions,
+          correctAnswer: shuffledOptions.indexOf(correctAnswer),
+          explanation: "Metformin should be temporarily stopped during acute illness, dehydration, or before contrast imaging due to risk of lactic acidosis, especially if renal function is impaired."
         });
       }
+    }
+    
+    // Question 16: Additional indication questions for variety
+    if (meds.length > 1) {
+      const randomMed = meds[Math.floor(Math.random() * meds.length)];
+      const alternatives = [
+        "Pain relief", "High blood pressure", "Bacterial infection", "Type 2 diabetes",
+        "Heart failure", "Depression", "Anxiety", "Constipation", "Acid reflux",
+        "Thyroid disorder", "Blood clots", "Inflammation"
+      ].filter(ind => ind !== randomMed.indication);
       
-      if (history.some(h => h.toLowerCase().includes("asthma"))) {
-        const asthmaQuestions = [
-          {
-            question: "What are the signs of life-threatening asthma?",
-            correctAnswer: "Silent chest, exhaustion, confusion, SpO2 <92%",
-            options: [
-              "Silent chest, exhaustion, confusion, SpO2 <92%",
-              "Mild wheeze only",
-              "Able to complete sentences",
-              "Peak flow >75% predicted"
-            ],
-            explanation: "Life-threatening features: silent chest, poor respiratory effort, exhaustion, confusion, cyanosis, SpO2 <92%, arrhythmia. These patients need immediate treatment and hospital."
-          },
-          {
-            question: "What is the first-line bronchodilator for acute asthma?",
-            correctAnswer: "Salbutamol nebuliser",
-            options: [
-              "Salbutamol nebuliser",
-              "Oral prednisolone only",
-              "IV hydrocortisone first",
-              "Adrenaline IM"
-            ],
-            explanation: "Salbutamol nebulisers (5mg) are first-line treatment. Can be repeated. Add ipratropium for severe cases. Consider IV magnesium for life-threatening asthma."
-          }
-        ];
-        const selected = asthmaQuestions[Math.floor(Math.random() * asthmaQuestions.length)];
-        const shuffledOptions = [...selected.options].sort(() => Math.random() - 0.5);
-        questions.push({
-          question: selected.question,
-          options: shuffledOptions,
-          correctAnswer: shuffledOptions.indexOf(selected.correctAnswer),
-          explanation: selected.explanation
-        });
-      }
-      
-      if (history.some(h => h.toLowerCase().includes("atrial fibrillation") || h.toLowerCase().includes("af"))) {
-        const afQuestions = [
-          {
-            question: "Why are patients with atrial fibrillation often prescribed anticoagulants?",
-            correctAnswer: "To prevent stroke from blood clots forming in the heart",
-            options: [
-              "To prevent stroke from blood clots forming in the heart",
-              "To control heart rate",
-              "To thin the blood",
-              "To lower blood pressure"
-            ],
-            explanation: "AF causes irregular heart rhythm and blood stasis in the atria, forming clots that can embolise to the brain causing stroke. Anticoagulation reduces this risk by 60-70%."
-          },
-          {
-            question: "If a patient with AF develops sudden weakness and speech problems, what should you suspect?",
-            correctAnswer: "Ischaemic stroke from embolism",
-            options: [
-              "Ischaemic stroke from embolism",
-              "Normal ageing",
-              "Medication side effect",
-              "Dehydration"
-            ],
-            explanation: "AF patients are at high risk of embolic stroke. Sudden neurological symptoms require immediate stroke pathway activation and rapid hospital transfer."
-          }
-        ];
-        const selected = afQuestions[Math.floor(Math.random() * afQuestions.length)];
-        const shuffledOptions = [...selected.options].sort(() => Math.random() - 0.5);
-        questions.push({
-          question: selected.question,
-          options: shuffledOptions,
-          correctAnswer: shuffledOptions.indexOf(selected.correctAnswer),
-          explanation: selected.explanation
-        });
-      }
-      
-      if (history.some(h => h.toLowerCase().includes("heart failure"))) {
-        const hfQuestions = [
-          {
-            question: "What clinical signs indicate acute pulmonary oedema from heart failure?",
-            correctAnswer: "Fine crackles, pink frothy sputum, severe breathlessness",
-            options: [
-              "Fine crackles, pink frothy sputum, severe breathlessness",
-              "Dry cough only",
-              "Chest pain",
-              "High blood pressure only"
-            ],
-            explanation: "Acute pulmonary oedema presents with severe breathlessness, fine crackles throughout lungs, pink frothy sputum. These patients need urgent treatment with CPAP, GTN, and furosemide."
-          },
-          {
-            question: "What medication should you consider for acute heart failure with pulmonary oedema?",
-            correctAnswer: "GTN and furosemide",
-            options: [
-              "GTN and furosemide",
-              "Antibiotics",
-              "Salbutamol only",
-              "Adrenaline"
-            ],
-            explanation: "GTN reduces preload and cardiac workload. Furosemide removes excess fluid. CPAP can be lifesaving by improving oxygenation and reducing need for intubation."
-          }
-        ];
-        const selected = hfQuestions[Math.floor(Math.random() * hfQuestions.length)];
-        const shuffledOptions = [...selected.options].sort(() => Math.random() - 0.5);
-        questions.push({
-          question: selected.question,
-          options: shuffledOptions,
-          correctAnswer: shuffledOptions.indexOf(selected.correctAnswer),
-          explanation: selected.explanation
-        });
-      }
+      const uniqueOptions = createUniqueOptions(randomMed.indication, alternatives);
+      const shuffledOptions = [...uniqueOptions].sort(() => Math.random() - 0.5);
+      questions.push({
+        question: `Which condition is ${randomMed.name} prescribed for?`,
+        options: shuffledOptions,
+        correctAnswer: shuffledOptions.indexOf(randomMed.indication),
+        explanation: `${randomMed.name} is prescribed to treat ${randomMed.indication.toLowerCase()}.`
+      });
     }
 
     // Shuffle all questions and return up to 10
