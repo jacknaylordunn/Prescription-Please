@@ -75,7 +75,47 @@ function generatePatient(age: number, gender: "Male" | "Female"): Patient {
 
 // Enhanced UK-specific scenarios for paramedic training
 export const ukScenarios: Scenario[] = [
-  // Scenario 1: Severe Decompensated Heart Failure with AF
+  // Scenario 1: Sickle Cell Crisis (Vaso-occlusive Crisis)
+  {
+    patient: {
+      ...generatePatient(26, "Male"),
+      presentation: "Severe bilateral leg pain onset 6 hours ago, pain score 10/10, previously prescribed opioids at home ineffective, known sickle cell disease, triggered by cold weather and dehydration",
+      medicalHistory: ["Sickle cell disease HbSS", "Recurrent painful crises requiring hospital admission", "Previous acute chest syndrome", "Chronic kidney disease Stage 2", "Asplenia (autosplenectomy)"]
+    },
+    prescriptions: [
+      { medication: medications.find(m => m.name === "Oramorph")!, quantity: "300ml", instructions: "Take 10-20mg (2-4ml) every 4 hours as required for severe pain" },
+      { medication: medications.find(m => m.name === "Morphine Sulphate MR")!, quantity: "56 tablets", instructions: "Take one 30mg tablet twice daily for background pain" },
+      { medication: medications.find(m => m.name === "Paracetamol")!, quantity: "100 tablets", instructions: "Take two 500mg tablets four times daily regularly" },
+      { medication: medications.find(m => m.name === "Ibuprofen")!, quantity: "84 tablets", instructions: "Take one 400mg tablet three times daily with food" },
+      { medication: medications.find(m => m.name === "Folic Acid")!, quantity: "28 tablets", instructions: "Take one 5mg tablet once daily" },
+      { medication: medications.find(m => m.name === "Phenoxymethylpenicillin")!, quantity: "56 tablets", instructions: "Take one 500mg tablet twice daily (prophylaxis)" },
+      { medication: medications.find(m => m.name === "Omeprazole")!, quantity: "28 capsules", instructions: "Take one 20mg capsule once daily" }
+    ],
+    dispatchInfo: "Category 2: 26-year-old male, severe pain, known sickle cell disease. Patient reports excruciating bilateral leg and lower back pain started 6 hours ago, pain score 10/10. Has taken prescribed oral morphine at home with minimal relief. Patient appears in severe distress, reluctant to move. States similar episodes in past required hospital admission. Vitals: RR 24, SpO2 96% on air (baseline), HR 108, BP 132/84, Temp 37.2°C. Patient requesting strong pain relief urgently. No signs of acute chest syndrome currently but requires close monitoring.",
+    documentMetadata: generateDocumentMetadata(26),
+    gpLetters: ["Blood Test Results", "Medication Review"]
+  },
+
+  // Scenario 2: Addisonian Crisis (Acute Adrenal Insufficiency)
+  {
+    patient: {
+      ...generatePatient(42, "Female"),
+      presentation: "Collapsed at home, severe weakness, confusion, nausea and vomiting for 2 days, abdominal pain, has missed steroid doses due to gastroenteritis",
+      medicalHistory: ["Primary Addison's disease diagnosed 5 years ago", "Hypothyroidism", "Type 1 diabetes mellitus", "Previous adrenal crisis 2 years ago"]
+    },
+    prescriptions: [
+      { medication: medications.find(m => m.name === "Hydrocortisone")!, quantity: "56 tablets", instructions: "Take 10mg on waking, 5mg at lunch, 5mg at 6pm" },
+      { medication: medications.find(m => m.name === "Fludrocortisone")!, quantity: "28 tablets", instructions: "Take one 100mcg tablet once daily in morning" },
+      { medication: medications.find(m => m.name === "Levothyroxine")!, quantity: "28 tablets", instructions: "Take one 100mcg tablet once daily on empty stomach" },
+      { medication: medications.find(m => m.name === "Insulin Aspart (NovoRapid)")!, quantity: "5 cartridges", instructions: "Inject as directed before meals" },
+      { medication: medications.find(m => m.name === "Insulin Glargine (Lantus)")!, quantity: "2 cartridges", instructions: "Inject 18 units at bedtime" }
+    ],
+    dispatchInfo: "Category 1: 42-year-old female, collapsed, known Addison's disease. Husband reports patient been vomiting for 2 days, unable to keep medications down including steroids. Found collapsed in bathroom, confused and unable to stand. Wearing medical alert bracelet stating 'ADDISON'S DISEASE - GIVE HYDROCORTISONE IV 100mg IMMEDIATELY'. Patient extremely weak, drowsy but rousable, GCS 13/15 (E4 V4 M5). Appears dehydrated with pigmented skin. Complaining of severe abdominal pain and nausea. BGL 3.2 mmol/L. Vitals: RR 26, SpO2 98% on air, HR 128, BP 82/48, Temp 37.8°C. Signs consistent with adrenal crisis - LIFE THREATENING EMERGENCY. Requires immediate IV hydrocortisone 100mg, IV fluids, and urgent conveyance.",
+    documentMetadata: generateDocumentMetadata(42),
+    gpLetters: ["Blood Test Results", "Appointment Summary"]
+  },
+
+  // Scenario 3: Severe Decompensated Heart Failure with AF
   {
     patient: {
       ...generatePatient(78, "Male"),
@@ -656,5 +696,77 @@ export const ukScenarios: Scenario[] = [
     dispatchInfo: "Category 2: 58-year-old male, alcohol withdrawal, hallucinations. Hostel staff called 999, patient very agitated, seeing things. Known heavy drinker, last drink 2 days ago. Patient tremulous, diaphoretic, agitated and confused. Visual hallucinations - brushing spiders off body. Orientated to person only. Coarse tremor both hands. RR 22, SpO2 96%, HR 128, BP 172/98, Temp 37.9C. High risk of withdrawal seizures and DTs. Requires benzodiazepines and urgent medical assessment.",
     documentMetadata: generateDocumentMetadata(58),
     gpLetters: ["Medication Review", "Appointment Summary"]
+  },
+
+  // Scenario 31: Meningococcal Septicaemia
+  {
+    patient: {
+      ...generatePatient(19, "Female"),
+      presentation: "Severe headache, photophobia, neck stiffness, non-blanching purpuric rash on legs and trunk, fever 39.8C, vomiting, drowsy, symptoms developed rapidly over 6 hours",
+      medicalHistory: ["Previously fit and well", "University student"]
+    },
+    prescriptions: [
+      { medication: medications.find(m => m.name === "Combined oral contraceptive")!, quantity: "3 packs", instructions: "Take one tablet daily" }
+    ],
+    dispatchInfo: "Category 1: 19-year-old female, suspected meningococcal septicaemia - PRE-ALERT SENT. University flatmate called 999, patient deteriorating rapidly. Complaining of severe headache, photophobic, neck pain. Non-blanching purpuric rash noted on both legs spreading to trunk. Patient drowsy, GCS 13/15 (E4 V4 M5). Kernig's sign positive. RR 28, SpO2 94% on high flow oxygen, HR 136, BP 88/52, Temp 39.8C, CRT 4 seconds. LIFE-THREATENING EMERGENCY. Pre-alert sent. Requires immediate IV/IM benzylpenicillin or ceftriaxone and rapid conveyance to ED.",
+    documentMetadata: generateDocumentMetadata(19),
+    gpLetters: ["Appointment Summary"]
+  },
+
+  // Scenario 32: Acute Massive Pulmonary Embolism
+  {
+    patient: {
+      ...generatePatient(54, "Female"),
+      presentation: "Sudden onset severe breathlessness, sharp pleuritic chest pain right side, feeling like going to die, recent long-haul flight from Australia 2 days ago, right calf swollen and tender",
+      medicalHistory: ["Factor V Leiden thrombophilia", "Previous DVT 5 years ago", "Obesity BMI 34", "Combined oral contraceptive pill", "Smoker 15 pack years"]
+    },
+    prescriptions: [
+      { medication: medications.find(m => m.name === "Apixaban")!, quantity: "56 tablets", instructions: "Take one 2.5mg tablet twice daily (stopped 2 weeks ago for trip)" },
+      { medication: medications.find(m => m.name === "Combined oral contraceptive")!, quantity: "3 packs", instructions: "Take one tablet daily" }
+    ],
+    dispatchInfo: "Category 1: 54-year-old female, sudden onset severe breathlessness, pleuritic chest pain. Husband called 999, patient extremely breathless and distressed. Just returned from Australia 2 days ago. Right calf swollen, hot, tender - positive Homan's sign. Stopped anticoagulation for flight. Patient appears cyanosed, using accessory muscles. RR 34, SpO2 84% on high flow oxygen 15L non-rebreathe, HR 132, BP 92/58. ECG shows sinus tachycardia, right heart strain pattern - S1Q3T3. Clinical features consistent with massive PE. Requires immediate pre-alert and thrombolysis consideration.",
+    documentMetadata: generateDocumentMetadata(54),
+    gpLetters: ["Blood Test Results", "Medication Review"]
+  },
+
+  // Scenario 33: Upper GI Bleed - Variceal
+  {
+    patient: {
+      ...generatePatient(62, "Male"),
+      presentation: "Large volume haematemesis x3, fresh red blood, melaena, severe abdominal pain, dizzy and weak, history of alcohol-related liver cirrhosis",
+      medicalHistory: ["Decompensated liver cirrhosis Child-Pugh C", "Known oesophageal varices", "Portal hypertension", "Ascites", "Previous variceal banding", "Alcohol dependence", "Hepatic encephalopathy"]
+    },
+    prescriptions: [
+      { medication: medications.find(m => m.name === "Propranolol")!, quantity: "28 tablets", instructions: "Take one 80mg tablet twice daily for portal hypertension" },
+      { medication: medications.find(m => m.name === "Spironolactone")!, quantity: "28 tablets", instructions: "Take one 100mg tablet once daily" },
+      { medication: medications.find(m => m.name === "Furosemide")!, quantity: "28 tablets", instructions: "Take one 40mg tablet once daily" },
+      { medication: medications.find(m => m.name === "Lactulose")!, quantity: "500ml", instructions: "Take 30ml three times daily titrate to 2-3 soft stools daily" },
+      { medication: medications.find(m => m.name === "Rifaximin")!, quantity: "56 tablets", instructions: "Take one 550mg tablet twice daily for hepatic encephalopathy" },
+      { medication: medications.find(m => m.name === "Thiamine")!, quantity: "28 tablets", instructions: "Take one 100mg tablet three times daily" },
+      { medication: medications.find(m => m.name === "Omeprazole")!, quantity: "28 capsules", instructions: "Take one 40mg capsule once daily" }
+    ],
+    dispatchInfo: "Category 1: 62-year-old male, massive haematemesis, known varices - PRE-ALERT SENT. Wife called 999 after patient vomited large amounts of bright red blood x3. Patient extremely pale, clammy, shocked. Bowl contains approximately 1.5 litres fresh blood. Further melaena passed. Jaundiced, spider naevi noted, tense ascites, hepatic flap present. GCS 14/15. RR 28, SpO2 92% on high flow oxygen, HR 136, BP 78/42, Temp 37.1C. Massive upper GI bleed from oesophageal varices. LIFE-THREATENING. Requires immediate fluid resuscitation, pre-alert to ED for emergency endoscopy and blood products.",
+    documentMetadata: generateDocumentMetadata(62),
+    gpLetters: ["Blood Test Results", "Medication Review"]
+  },
+
+  // Scenario 34: Hyperglycaemic Hyperosmolar State (HHS)
+  {
+    patient: {
+      ...generatePatient(78, "Female"),
+      presentation: "Increasing confusion over 5 days, excessive thirst, polyuria, severe dehydration, leg weakness unable to stand, reduced oral intake, care home resident",
+      medicalHistory: ["Type 2 diabetes mellitus", "Vascular dementia", "Hypertension", "Previous stroke with residual left-sided weakness", "Recurrent UTIs"]
+    },
+    prescriptions: [
+      { medication: medications.find(m => m.name === "Metformin")!, quantity: "56 tablets", instructions: "Take one 500mg tablet twice daily with food" },
+      { medication: medications.find(m => m.name === "Gliclazide")!, quantity: "28 tablets", instructions: "Take one 80mg tablet twice daily before meals" },
+      { medication: medications.find(m => m.name === "Amlodipine")!, quantity: "28 tablets", instructions: "Take one 10mg tablet once daily" },
+      { medication: medications.find(m => m.name === "Memantine")!, quantity: "28 tablets", instructions: "Take one 10mg tablet twice daily" },
+      { medication: medications.find(m => m.name === "Atorvastatin")!, quantity: "28 tablets", instructions: "Take one 40mg tablet at night" },
+      { medication: medications.find(m => m.name === "Aspirin")!, quantity: "28 tablets", instructions: "Take one 75mg tablet once daily" }
+    ],
+    dispatchInfo: "Category 2: 78-year-old female, severe confusion and dehydration, care home resident. Carers report patient increasingly confused over past week, drinking excessively, passing large amounts of urine, now barely rousable. Patient very drowsy, GCS 11/15 (E3 V3 M5), severe dehydration evident - sunken eyes, dry mucous membranes, poor skin turgor. BGL >33 mmol/L (HI on meter). No ketones on urine dipstick. RR 26, SpO2 94% on room air, HR 118, BP 94/58, Temp 37.6C. Clinical picture consistent with HHS - insidious onset over days, severe hyperglycaemia without ketoacidosis. Requires urgent hospital admission for careful IV fluid resuscitation.",
+    documentMetadata: generateDocumentMetadata(78),
+    gpLetters: ["Blood Test Results", "Medication Review"]
   }
 ];
