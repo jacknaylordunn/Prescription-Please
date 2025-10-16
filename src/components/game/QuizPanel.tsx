@@ -554,39 +554,55 @@ export const QuizPanel = ({ scenario, onComplete }: QuizPanelProps) => {
         {/* Options */}
         <div className="space-y-1.5 md:space-y-2">
           {questions[currentQuestion].options.map((option, idx) => {
-            const isCorrect = idx === questions[currentQuestion].correctAnswer;
-            const isSelected = selectedAnswer === idx;
-            const showAsCorrect = answered && isCorrect;
-            const showAsIncorrect = answered && isSelected && !isCorrect;
+            const isCorrectAnswer = idx === questions[currentQuestion].correctAnswer;
+            const isUserSelection = selectedAnswer === idx;
+            
+            // Determine styling based on answer state
+            let buttonStyle = "";
+            let textStyle = "";
+            let letterStyle = "";
+            
+            if (answered) {
+              if (isUserSelection && isCorrectAnswer) {
+                // User selected correct answer - GREEN
+                buttonStyle = "border-success bg-success/50 retro-shadow";
+                textStyle = "text-success-foreground";
+                letterStyle = "text-success-foreground";
+              } else if (isUserSelection && !isCorrectAnswer) {
+                // User selected wrong answer - RED
+                buttonStyle = "border-destructive bg-destructive/50 retro-shadow";
+                textStyle = "text-destructive-foreground";
+                letterStyle = "text-destructive-foreground";
+              } else if (isCorrectAnswer) {
+                // Show correct answer - GREEN
+                buttonStyle = "border-success bg-success/50 retro-shadow";
+                textStyle = "text-success-foreground";
+                letterStyle = "text-success-foreground";
+              } else {
+                // Other options - dimmed
+                buttonStyle = "border-muted bg-background/50 opacity-50";
+                textStyle = "text-radio-text/50";
+                letterStyle = "text-radio-text/50";
+              }
+            } else {
+              // Before answering
+              buttonStyle = "border-muted hover:border-accent hover:bg-accent/10 hover:scale-102 bg-background/50";
+              textStyle = "text-radio-text";
+              letterStyle = "text-radio-accent";
+            }
             
             return (
               <button
                 key={idx}
                 onClick={() => handleAnswer(idx)}
                 disabled={answered}
-                className={`w-full p-1.5 md:p-2 text-left border-2 transition-all font-bold ${
-                  showAsIncorrect
-                    ? "border-destructive bg-destructive/50 text-destructive-foreground retro-shadow"
-                    : showAsCorrect
-                    ? "border-success bg-success/50 text-success-foreground retro-shadow"
-                    : answered
-                    ? "border-muted bg-background/50 opacity-50 text-radio-text/50"
-                    : "border-muted hover:border-accent hover:bg-accent/10 hover:scale-102 bg-background/50 text-radio-text"
-                }`}
+                className={`w-full p-1.5 md:p-2 text-left border-2 transition-all font-bold ${buttonStyle}`}
                 style={{ fontSize: "8px", lineHeight: "1.3" }}
               >
-                <span className={`font-bold mr-1.5 md:mr-2 text-[7px] md:text-[9px] ${
-                  showAsIncorrect
-                    ? "text-destructive-foreground"
-                    : showAsCorrect
-                    ? "text-success-foreground"
-                    : answered
-                    ? "text-radio-text/50"
-                    : "text-radio-accent"
-                }`}>
+                <span className={`font-bold mr-1.5 md:mr-2 text-[7px] md:text-[9px] ${letterStyle}`}>
                   {String.fromCharCode(65 + idx)}.
                 </span>
-                <span className={`text-[7px] md:text-[9px]`}>
+                <span className={`text-[7px] md:text-[9px] ${textStyle}`}>
                   {option}
                 </span>
               </button>
