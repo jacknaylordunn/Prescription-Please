@@ -566,102 +566,95 @@ export const ukScenarios: Scenario[] = [
     gpLetters: ["Medication Review", "Appointment Summary"]
   },
 
-  // Scenario 26: Myasthenia Gravis Crisis
+  // Scenario 26: Severe Dehydration - Gastroenteritis
   {
     patient: {
       ...generatePatient(67, "Female"),
-      presentation: "Progressive difficulty swallowing, choking on secretions, bilateral ptosis, diplopia, weak voice, difficulty holding head up, respiratory distress, triggered by chest infection",
-      medicalHistory: ["Myasthenia gravis diagnosed 8 years ago", "Thymectomy 2020", "Hypothyroidism", "Osteoporosis", "Recent chest infection"]
+      presentation: "Profuse vomiting and diarrhoea for 3 days, unable to keep fluids down, dizzy on standing, reduced urine output, extreme weakness",
+      medicalHistory: ["Hypertension", "Type 2 diabetes mellitus", "Osteoarthritis"]
     },
     prescriptions: [
-      { medication: medications.find(m => m.name === "Pyridostigmine")!, quantity: "168 tablets", instructions: "Take one 60mg tablet six times daily (every 4 hours)" },
-      { medication: medications.find(m => m.name === "Prednisolone")!, quantity: "28 tablets", instructions: "Take 40mg once daily in morning - DO NOT STOP SUDDENLY" },
-      { medication: medications.find(m => m.name === "Azathioprine")!, quantity: "56 tablets", instructions: "Take one 100mg tablet once daily" },
-      { medication: medications.find(m => m.name === "Levothyroxine")!, quantity: "28 tablets", instructions: "Take one 100mcg tablet once daily" },
-      { medication: medications.find(m => m.name === "Alendronic Acid")!, quantity: "4 tablets", instructions: "Take one 70mg tablet once weekly" },
-      { medication: medications.find(m => m.name === "Adcal D3")!, quantity: "56 tablets", instructions: "Chew one tablet twice daily" },
-      { medication: medications.find(m => m.name === "Amoxicillin")!, quantity: "21 capsules", instructions: "Take one 500mg capsule three times daily for 7 days (started 3 days ago)" }
+      { medication: medications.find(m => m.name === "Ramipril")!, quantity: "28 tablets", instructions: "Take one 5mg tablet once daily" },
+      { medication: medications.find(m => m.name === "Amlodipine")!, quantity: "28 tablets", instructions: "Take one 5mg tablet once daily" },
+      { medication: medications.find(m => m.name === "Metformin")!, quantity: "56 tablets", instructions: "Take one 850mg tablet twice daily with food" },
+      { medication: medications.find(m => m.name === "Co-codamol 8/500")!, quantity: "100 tablets", instructions: "Take two tablets four times daily for arthritis pain" }
     ],
-    dispatchInfo: "Category 1: 67-year-old female, myasthenia crisis, respiratory compromise. Patient's husband called 999 after patient unable to swallow medications, choking on secretions. Patient appears very unwell, severe bilateral ptosis, unable to keep eyes open, weak voice barely audible, pooling of saliva. Difficulty maintaining head position. Respiratory distress with accessory muscle use. Patient had chest infection 1 week ago, not fully recovered. RR 28 shallow, SpO2 90% on room air, HR 110, BP 148/92. Myasthenic crisis - requires urgent ICU assessment, potential intubation, IV immunoglobulin or plasmapheresis. Pre-alert essential.",
+    dispatchInfo: "Category 2: 67-year-old female, severe vomiting and diarrhoea, dehydration. Daughter reports patient very unwell for 3 days, unable to keep anything down. Patient appears dehydrated, sunken eyes, dry mucous membranes, reduced skin turgor. Postural hypotension noted. RR 22, SpO2 96% on room air, HR 108, BP lying 96/54 sitting 78/48, Temp 37.4C. Continuing to take ACE inhibitor and metformin despite vomiting - risk of AKI.",
     documentMetadata: generateDocumentMetadata(67),
-    gpLetters: ["Blood Test Results", "Medication Review"]
+    gpLetters: ["Medication Review", "Blood Test Results"]
   },
 
-  // Scenario 27: Sickle Cell Crisis
+  // Scenario 27: Chest Infection - Frail Elderly
   {
     patient: {
-      ...generatePatient(26, "Male"),
-      presentation: "Severe pain 10/10 in back, chest, and both legs, started 6 hours ago and worsening, difficulty breathing, nausea, triggered by cold weather and dehydration",
-      medicalHistory: ["Sickle cell disease HbSS", "Recurrent painful crises requiring hospital admission", "Chronic pain", "Asplenia", "Pulmonary hypertension", "Avascular necrosis hip"]
+      ...generatePatient(88, "Male"),
+      presentation: "Productive cough yellow sputum, breathless, fever, reduced oral intake for 2 days, increasing confusion, normally independent",
+      medicalHistory: ["Previous pneumonia", "Benign prostatic hyperplasia", "Mild cognitive impairment", "Lives alone with package of care"]
     },
     prescriptions: [
-      { medication: medications.find(m => m.name === "Hydroxycarbamide")!, quantity: "56 capsules", instructions: "Take one 500mg capsule twice daily" },
-      { medication: medications.find(m => m.name === "Folic Acid")!, quantity: "28 tablets", instructions: "Take one 5mg tablet once daily" },
-      { medication: medications.find(m => m.name === "Penicillin V")!, quantity: "56 tablets", instructions: "Take one 250mg tablet twice daily for life (asplenic)" },
-      { medication: medications.find(m => m.name === "Morphine Sulphate MR")!, quantity: "56 tablets", instructions: "Take one 60mg tablet twice daily for chronic pain" },
-      { medication: medications.find(m => m.name === "Oramorph")!, quantity: "300ml", instructions: "Take 20mg (10ml) every 2 hours as required for breakthrough pain" },
-      { medication: medications.find(m => m.name === "Pregabalin")!, quantity: "56 capsules", instructions: "Take one 150mg capsule twice daily" },
-      { medication: medications.find(m => m.name === "Lansoprazole")!, quantity: "28 capsules", instructions: "Take one 30mg capsule once daily" }
+      { medication: medications.find(m => m.name === "Amoxicillin")!, quantity: "21 capsules", instructions: "Take one 500mg capsule three times daily (started yesterday)" },
+      { medication: medications.find(m => m.name === "Tamsulosin")!, quantity: "28 capsules", instructions: "Take one 400mcg modified release capsule once daily" },
+      { medication: medications.find(m => m.name === "Paracetamol")!, quantity: "100 tablets", instructions: "Take two 500mg tablets four times daily for fever" }
     ],
-    dispatchInfo: "Category 1: 26-year-old male, sickle cell crisis, severe pain. Known to hospital haematology team. Patient in extreme distress, pain score 10/10, taken maximum oramorph at home with no relief. Pain in back, chest, and legs. Short of breath. Patient appears dehydrated, in obvious pain, unable to get comfortable. RR 26, SpO2 94% on room air (baseline 96%), HR 118, BP 142/88, Temp 37.8C. Sickle cell crisis - requires strong analgesia, high flow oxygen, IV fluids, urgent haematology review. Known to be DIFFICULT IV ACCESS - requires early consideration of IO access.",
-    documentMetadata: generateDocumentMetadata(26),
-    gpLetters: ["Blood Test Results", "Appointment Summary"]
+    dispatchInfo: "Category 2: 88-year-old male, respiratory infection, increasing confusion. Carer found patient more confused than usual, fever noted. GP started antibiotics yesterday but patient deteriorating. Patient disorientated to time and place, productive cough, working to breathe. RR 26, SpO2 91% on room air, HR 102, BP 108/64, Temp 38.6C. Coarse crackles right base. Frail elderly patient with possible hospital-acquired pneumonia.",
+    documentMetadata: generateDocumentMetadata(88),
+    gpLetters: ["Medication Review", "Appointment Summary"]
   },
 
-  // Scenario 28: Addisonian Crisis
+  // Scenario 28: Lower Limb Cellulitis with Sepsis
   {
     patient: {
-      ...generatePatient(52, "Female"),
-      presentation: "Severe vomiting and diarrhoea for 2 days, extreme weakness, confusion, unable to stand, dizzy, abdominal pain, ran out of steroids 3 days ago",
-      medicalHistory: ["Primary adrenal insufficiency (Addison's disease)", "Hypothyroidism", "Type 1 diabetes mellitus", "Pernicious anaemia"]
+      ...generatePatient(52, "Male"),
+      presentation: "Hot swollen painful right leg for 2 days, spreading red rash, fever, rigors, feeling very unwell, small cut to leg 1 week ago",
+      medicalHistory: ["Type 2 diabetes mellitus poorly controlled", "Peripheral vascular disease", "Chronic venous insufficiency", "Obesity BMI 38", "Previous cellulitis x3"]
     },
     prescriptions: [
-      { medication: medications.find(m => m.name === "Hydrocortisone")!, quantity: "56 tablets", instructions: "Take 20mg in morning, 10mg at lunchtime - ESSENTIAL FOR LIFE" },
-      { medication: medications.find(m => m.name === "Fludrocortisone")!, quantity: "28 tablets", instructions: "Take one 100mcg tablet once daily" },
-      { medication: medications.find(m => m.name === "Levothyroxine")!, quantity: "28 tablets", instructions: "Take one 125mcg tablet once daily" },
-      { medication: medications.find(m => m.name === "Insulin Aspart (NovoRapid)")!, quantity: "5 cartridges", instructions: "Inject according to blood glucose before meals" },
-      { medication: medications.find(m => m.name === "Insulin Glargine (Lantus)")!, quantity: "2 cartridges", instructions: "Inject 18 units subcutaneously at 22:00 daily" },
-      { medication: medications.find(m => m.name === "Hydroxocobalamin")!, quantity: "Injection", instructions: "1mg IM injection every 3 months (due)" }
+      { medication: medications.find(m => m.name === "Metformin")!, quantity: "56 tablets", instructions: "Take one 1g tablet twice daily with food" },
+      { medication: medications.find(m => m.name === "Gliclazide")!, quantity: "28 tablets", instructions: "Take one 80mg tablet twice daily before meals" },
+      { medication: medications.find(m => m.name === "Atorvastatin")!, quantity: "28 tablets", instructions: "Take one 40mg tablet at night" },
+      { medication: medications.find(m => m.name === "Aspirin")!, quantity: "28 tablets", instructions: "Take one 75mg tablet once daily" },
+      { medication: medications.find(m => m.name === "Flucloxacillin")!, quantity: "28 capsules", instructions: "Take two 500mg capsules four times daily (started today by GP)" }
     ],
-    dispatchInfo: "Category 1: 52-year-old female, Addisonian crisis, critically unwell. Emergency ID bracelet visible stating 'ADDISON'S DISEASE - GIVE HYDROCORTISONE URGENTLY'. Partner states patient ran out of steroids, developed gastroenteritis, now very unwell. Patient extremely weak, drowsy, confused (GCS 13/15), severe abdominal pain. Skin hyperpigmented. RR 24, SpO2 96%, HR 124 weak pulse, BP 76/42, Temp 35.8C, BGL 2.8 mmol/L. Life-threatening Addisonian crisis - requires IMMEDIATE IV hydrocortisone 100mg, IV fluids, glucose, pre-alert to ED.",
+    dispatchInfo: "Category 2: 52-year-old male, infected leg, signs of sepsis. GP started antibiotics this morning but patient deteriorating. Right leg grossly swollen, erythematous from toes to mid-thigh, very hot to touch, exquisitely tender. Tracking erythema noted. Small ulcer on lateral malleolus. Patient pyrexial, rigors. NEWS2 score 7. RR 24, SpO2 95% on room air, HR 118, BP 104/68, Temp 39.2C, BGL 18.4 mmol/L. Requires IV antibiotics and fluids urgently.",
     documentMetadata: generateDocumentMetadata(52),
     gpLetters: ["Blood Test Results", "Medication Review"]
   },
 
-  // Scenario 29: Lithium Toxicity
+  // Scenario 29: Acute Urinary Retention
   {
     patient: {
-      ...generatePatient(61, "Male"),
-      presentation: "Coarse tremor, slurred speech, confusion, ataxia, nausea and vomiting, diarrhoea, increased thirst and urination, started diuretic for ankle swelling 1 week ago",
-      medicalHistory: ["Bipolar affective disorder Type 1", "Hypertension", "Chronic kidney disease Stage 3", "Hypothyroidism", "On lithium for 20 years"]
+      ...generatePatient(76, "Male"),
+      presentation: "Unable to pass urine for 12 hours, severe suprapubic pain and distension, feeling desperate to urinate, started new medication yesterday",
+      medicalHistory: ["Benign prostatic hyperplasia", "Hypertension", "Depression", "Constipation"]
     },
     prescriptions: [
-      { medication: medications.find(m => m.name === "Lithium Carbonate")!, quantity: "56 tablets", instructions: "Take 400mg twice daily - LEVELS MUST BE MONITORED" },
-      { medication: medications.find(m => m.name === "Quetiapine")!, quantity: "28 tablets", instructions: "Take 200mg at night" },
+      { medication: medications.find(m => m.name === "Tamsulosin")!, quantity: "28 capsules", instructions: "Take one 400mcg modified release capsule once daily" },
+      { medication: medications.find(m => m.name === "Finasteride")!, quantity: "28 tablets", instructions: "Take one 5mg tablet once daily" },
       { medication: medications.find(m => m.name === "Amlodipine")!, quantity: "28 tablets", instructions: "Take one 10mg tablet once daily" },
-      { medication: medications.find(m => m.name === "Bendroflumethiazide")!, quantity: "28 tablets", instructions: "Take one 2.5mg tablet once daily in morning (STARTED 1 WEEK AGO)" },
-      { medication: medications.find(m => m.name === "Levothyroxine")!, quantity: "28 tablets", instructions: "Take one 100mcg tablet once daily" }
+      { medication: medications.find(m => m.name === "Amitriptyline")!, quantity: "28 tablets", instructions: "Take one 25mg tablet at night (STARTED YESTERDAY for depression)" },
+      { medication: medications.find(m => m.name === "Lactulose")!, quantity: "500ml", instructions: "Take 15ml twice daily" }
     ],
-    dispatchInfo: "Category 2: 61-year-old male, confusion and tremor, on lithium therapy. Wife concerned about worsening tremor and confusion over past few days. GP started diuretic last week for ankle swelling. Patient confused, disorientated to time. Coarse tremor visible in hands. Slurred speech. Unsteady gait, ataxia. Patient reports increased thirst and urination. RR 18, SpO2 97%, HR 64, BP 138/84. LITHIUM TOXICITY - thiazide diuretic interaction. Urgent U&Es and lithium level required. Requires IV fluids, stop lithium and diuretic, potential haemodialysis.",
-    documentMetadata: generateDocumentMetadata(61),
-    gpLetters: ["Blood Test Results", "Medication Review"]
+    dispatchInfo: "Category 2: 76-year-old male, acute urinary retention, severe pain. Wife called 999, patient in agony unable to pass urine. Started new antidepressant yesterday. Patient in extreme distress, palpable bladder to umbilicus, percussion dull, severe suprapubic tenderness. Unable to pass any urine despite trying. RR 20, SpO2 97%, HR 96, BP 168/94. Amitriptyline likely cause - anticholinergic effect. Requires urgent catheterisation.",
+    documentMetadata: generateDocumentMetadata(76),
+    gpLetters: ["Medication Review", "Appointment Summary"]
   },
 
-  // Scenario 30: Neuroleptic Malignant Syndrome
+  // Scenario 30: Acute Alcohol Withdrawal
   {
     patient: {
-      ...generatePatient(38, "Male"),
-      presentation: "High fever 40.2C, severe muscle rigidity, altered mental status, profuse sweating, tachycardia, antipsychotic dose increased 1 week ago",
-      medicalHistory: ["Treatment-resistant schizophrenia", "Started clozapine 6 months ago", "Previous extrapyramidal side effects with other antipsychotics", "Obesity BMI 38"]
+      ...generatePatient(58, "Male"),
+      presentation: "Tremors, sweating profusely, seeing spiders on walls, agitated, confused, last drink 48 hours ago, usually drinks 2 bottles vodka daily",
+      medicalHistory: ["Alcohol dependence", "Chronic liver disease", "Oesophageal varices", "Previous withdrawal seizures", "Peripheral neuropathy", "Vitamin deficiencies"]
     },
     prescriptions: [
-      { medication: medications.find(m => m.name === "Clozapine")!, quantity: "56 tablets", instructions: "Take 300mg twice daily (INCREASED FROM 250mg 1 WEEK AGO)" },
-      { medication: medications.find(m => m.name === "Procyclidine")!, quantity: "84 tablets", instructions: "Take one 5mg tablet three times daily" },
-      { medication: medications.find(m => m.name === "Lorazepam")!, quantity: "28 tablets", instructions: "Take one 1mg tablet twice daily as required for anxiety" },
-      { medication: medications.find(m => m.name === "Metformin")!, quantity: "56 tablets", instructions: "Take one 500mg tablet twice daily" }
+      { medication: medications.find(m => m.name === "Thiamine")!, quantity: "28 tablets", instructions: "Take one 100mg tablet three times daily" },
+      { medication: medications.find(m => m.name === "Vitamin B compound")!, quantity: "28 tablets", instructions: "Take two tablets three times daily" },
+      { medication: medications.find(m => m.name === "Omeprazole")!, quantity: "28 capsules", instructions: "Take one 40mg capsule once daily" },
+      { medication: medications.find(m => m.name === "Propranolol")!, quantity: "28 tablets", instructions: "Take one 40mg tablet three times daily" },
+      { medication: medications.find(m => m.name === "Chlordiazepoxide")!, quantity: "28 capsules", instructions: "Reducing dose regime as per community alcohol team" }
     ],
-    dispatchInfo: "Category 1: 38-year-old male, high fever and rigidity, on clozapine. Support worker at residential home extremely concerned. Patient developed high fever overnight, now very confused and rigid. Mental health team contacted. Patient appears acutely unwell, diaphoretic, extremely rigid (lead-pipe rigidity), fluctuating consciousness (GCS 12/15), unable to follow commands. RR 30, SpO2 95%, HR 138, BP 168/104, Temp 40.2C. NEUROLEPTIC MALIGNANT SYNDROME - life-threatening emergency. Requires immediate cooling, IV fluids, stop clozapine, dantrolene, ICU admission. Pre-alert essential.",
-    documentMetadata: generateDocumentMetadata(38),
-    gpLetters: ["Medication Review", "Blood Test Results"]
+    dispatchInfo: "Category 2: 58-year-old male, alcohol withdrawal, hallucinations. Hostel staff called 999, patient very agitated, seeing things. Known heavy drinker, last drink 2 days ago. Patient tremulous, diaphoretic, agitated and confused. Visual hallucinations - brushing spiders off body. Orientated to person only. Coarse tremor both hands. RR 22, SpO2 96%, HR 128, BP 172/98, Temp 37.9C. High risk of withdrawal seizures and DTs. Requires benzodiazepines and urgent medical assessment.",
+    documentMetadata: generateDocumentMetadata(58),
+    gpLetters: ["Medication Review", "Appointment Summary"]
   }
 ];
