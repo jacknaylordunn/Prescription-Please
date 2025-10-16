@@ -553,34 +553,55 @@ export const QuizPanel = ({ scenario, onComplete }: QuizPanelProps) => {
 
         {/* Options */}
         <div className="space-y-1.5 md:space-y-2">
-          {questions[currentQuestion].options.map((option, idx) => (
-            <button
-              key={idx}
-              onClick={() => handleAnswer(idx)}
-              disabled={answered}
-              className={`w-full p-1.5 md:p-2 text-left border-2 transition-all font-bold ${
-                answered
-                  ? selectedAnswer === idx
-                    ? idx === questions[currentQuestion].correctAnswer
-                      ? "border-success bg-success/30 text-success-foreground retro-shadow"
-                      : "border-destructive bg-destructive/30 text-destructive-foreground retro-shadow"
-                    : idx === questions[currentQuestion].correctAnswer
-                    ? "border-success bg-success/20 text-success-foreground"
-                    : "border-muted bg-background/50 opacity-60 text-radio-text/60"
-                  : "border-muted hover:border-accent hover:bg-accent/10 hover:scale-102 bg-background/50 text-radio-text"
-              }`}
-              style={{ fontSize: "8px", lineHeight: "1.3" }}
-            >
-              <span className={`font-bold mr-1.5 md:mr-2 text-[7px] md:text-[9px] ${
-                answered && idx === questions[currentQuestion].correctAnswer
-                  ? "text-success-foreground"
-                  : answered && selectedAnswer === idx && idx !== questions[currentQuestion].correctAnswer
-                  ? "text-destructive-foreground"
-                  : "text-radio-accent"
-              }`}>{String.fromCharCode(65 + idx)}.</span>
-              <span className="text-[7px] md:text-[9px]">{option}</span>
-            </button>
-          ))}
+          {questions[currentQuestion].options.map((option, idx) => {
+            const isCorrect = idx === questions[currentQuestion].correctAnswer;
+            const isSelected = selectedAnswer === idx;
+            const showAsCorrect = answered && isCorrect;
+            const showAsIncorrect = answered && isSelected && !isCorrect;
+            
+            return (
+              <button
+                key={idx}
+                onClick={() => handleAnswer(idx)}
+                disabled={answered}
+                className={`w-full p-1.5 md:p-2 text-left border-2 transition-all font-bold ${
+                  showAsIncorrect
+                    ? "border-destructive bg-destructive/40 retro-shadow scale-[0.98]"
+                    : showAsCorrect
+                    ? "border-success bg-success/40 retro-shadow"
+                    : answered
+                    ? "border-muted bg-background/50 opacity-50"
+                    : "border-muted hover:border-accent hover:bg-accent/10 hover:scale-102 bg-background/50"
+                }`}
+                style={{ fontSize: "8px", lineHeight: "1.3" }}
+              >
+                <span className={`font-bold mr-1.5 md:mr-2 text-[7px] md:text-[9px] ${
+                  showAsIncorrect
+                    ? "text-destructive-foreground"
+                    : showAsCorrect
+                    ? "text-success-foreground"
+                    : answered
+                    ? "text-radio-text/50"
+                    : "text-radio-accent"
+                }`}>
+                  {String.fromCharCode(65 + idx)}.
+                </span>
+                <span className={`text-[7px] md:text-[9px] ${
+                  showAsIncorrect
+                    ? "text-destructive-foreground"
+                    : showAsCorrect
+                    ? "text-success-foreground"
+                    : answered
+                    ? "text-radio-text/50"
+                    : "text-radio-text"
+                }`}>
+                  {option}
+                  {showAsCorrect && !isSelected && <span className="ml-2">✓</span>}
+                  {showAsIncorrect && <span className="ml-2">✗</span>}
+                </span>
+              </button>
+            );
+          })}
         </div>
       </div>
 
