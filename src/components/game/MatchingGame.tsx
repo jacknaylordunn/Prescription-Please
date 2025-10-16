@@ -110,26 +110,26 @@ export const MatchingGame = ({ scenario, onComplete }: MatchingGameProps) => {
   const matchedDrugIds = new Set(Object.values(matches));
 
   return (
-    <div className="border-4 border-primary/40 p-6 pixel-text retro-shadow max-w-[95vw] overflow-y-auto max-h-[80vh] bg-card" style={{ width: "min(650px, 95vw)" }}>
+    <div className="border-4 border-primary p-3 pixel-text retro-shadow bg-background max-w-full overflow-hidden" style={{ width: "min(550px, 95vw)", maxHeight: "70vh" }}>
       {/* Header */}
-      <div className="border-b-2 border-primary pb-3 mb-4 bg-primary/5 p-3 rounded">
-        <h2 className="font-bold text-card-foreground text-[12px] md:text-[14px]">
+      <div className="border-b-2 border-primary/50 pb-2 mb-3">
+        <h2 className="font-bold text-foreground text-[10px] md:text-[11px]">
           🎯 DRUG MATCHING EXERCISE
         </h2>
-        <div className="font-bold mt-2 text-card-foreground/80 text-[10px] md:text-[11px]">
+        <div className="mt-1 text-foreground/70 text-[8px] md:text-[9px]">
           {selectedDrug 
-            ? "✓ Now click the matching class or indication" 
-            : "Click a medication, then click its matching class or indication"}
+            ? "✓ Now click the matching class/indication" 
+            : "Click a medication, then its match"}
         </div>
-        <div className="mt-1 text-primary font-bold text-[10px]">
-          Progress: {completedPairs.length}/{targetCards.length} matched
+        <div className="mt-1 text-primary font-bold text-[8px]">
+          {completedPairs.length}/{targetCards.length} matched
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-3 overflow-y-auto" style={{ maxHeight: "50vh" }}>
         {/* Left column - Drug cards */}
-        <div className="space-y-2">
-          <h3 className="font-bold text-card-foreground bg-primary/10 p-2 rounded text-[11px] md:text-[12px] mb-3 border-l-4 border-primary">
+        <div className="space-y-1.5">
+          <h3 className="font-bold text-foreground bg-primary/20 px-2 py-1 rounded text-[9px] mb-2 border-l-2 border-primary">
             💊 MEDICATIONS
           </h3>
           {drugCards.map((drug) => (
@@ -137,15 +137,15 @@ export const MatchingGame = ({ scenario, onComplete }: MatchingGameProps) => {
               key={drug.id}
               onClick={() => handleDrugClick(drug.id)}
               disabled={matchedDrugIds.has(drug.id)}
-              className={`w-full p-4 border-2 rounded transition-all text-left ${
+              className={`w-full px-2 py-2 border-2 rounded transition-all text-left text-[8px] md:text-[9px] ${
                 matchedDrugIds.has(drug.id)
-                  ? "border-success bg-success/10 opacity-70 cursor-not-allowed"
+                  ? "border-success/50 bg-success/20 opacity-60 cursor-not-allowed text-success-foreground"
                   : selectedDrug === drug.id
-                  ? "border-accent bg-accent/20 scale-[1.03] shadow-lg ring-2 ring-accent/60"
-                  : "border-border bg-card hover:border-accent hover:bg-accent/5 hover:scale-[1.02] cursor-pointer"
+                  ? "border-accent bg-accent/30 scale-[1.02] shadow-md ring-1 ring-accent/50 text-foreground"
+                  : "border-border bg-background hover:border-accent/70 hover:bg-accent/10 cursor-pointer text-foreground"
               }`}
             >
-              <div className="font-bold text-card-foreground text-[10px] md:text-[11px]">
+              <div className="font-bold">
                 {matchedDrugIds.has(drug.id) ? "✓ " : ""}{drug.drugName}
               </div>
             </button>
@@ -153,8 +153,8 @@ export const MatchingGame = ({ scenario, onComplete }: MatchingGameProps) => {
         </div>
 
         {/* Right column - Target cards */}
-        <div className="space-y-2">
-          <h3 className="font-bold text-card-foreground bg-accent/10 p-2 rounded text-[11px] md:text-[12px] mb-3 border-l-4 border-accent">
+        <div className="space-y-1.5">
+          <h3 className="font-bold text-foreground bg-accent/20 px-2 py-1 rounded text-[9px] mb-2 border-l-2 border-accent">
             🎯 MATCH TO
           </h3>
           {targetCards.map((target) => {
@@ -167,24 +167,24 @@ export const MatchingGame = ({ scenario, onComplete }: MatchingGameProps) => {
                 key={target.id}
                 onClick={() => handleTargetClick(target.id)}
                 disabled={isMatched || !selectedDrug}
-                className={`w-full p-4 border-2 rounded min-h-[70px] transition-all text-left ${
+                className={`w-full px-2 py-2 border-2 rounded min-h-[45px] transition-all text-left text-[8px] md:text-[9px] ${
                   isMatched
-                    ? "border-success bg-success/10 cursor-not-allowed"
+                    ? "border-success/50 bg-success/20 cursor-not-allowed text-success-foreground"
                     : selectedDrug
-                    ? "border-accent bg-card border-dashed hover:bg-accent/10 hover:scale-[1.02] cursor-pointer shadow-sm"
-                    : "border-border bg-muted/20 border-dashed cursor-not-allowed opacity-50"
+                    ? "border-accent/70 bg-background border-dashed hover:bg-accent/10 cursor-pointer text-foreground"
+                    : "border-border/40 bg-background/50 border-dashed cursor-not-allowed opacity-40 text-foreground/50"
                 }`}
               >
-                <div className="font-bold text-card-foreground mb-2 text-[10px] md:text-[11px]">
+                <div className="font-bold mb-1">
                   {target.content}
                 </div>
-                <div className="text-card-foreground/60 text-[9px] md:text-[10px]">
-                  {target.type === "class" ? "📚 Drug Class" : "🎯 Indication"}
+                <div className="text-foreground/60 text-[7px] md:text-[8px]">
+                  {target.type === "class" ? "📚 Class" : "🎯 Use"}
                 </div>
                 {isMatched && matchedDrug && (
-                  <div className="mt-2 pt-2 border-t border-success/40">
-                    <div className="text-success text-[9px] md:text-[10px] font-bold">
-                      ✓ Matched: {matchedDrug.drugName}
+                  <div className="mt-1 pt-1 border-t border-success/40">
+                    <div className="text-success text-[7px] md:text-[8px] font-bold">
+                      ✓ {matchedDrug.drugName}
                     </div>
                   </div>
                 )}
@@ -195,17 +195,17 @@ export const MatchingGame = ({ scenario, onComplete }: MatchingGameProps) => {
       </div>
 
       {/* Complete Button */}
-      <div className="mt-6 pt-4 border-t-2 border-primary/30">
+      <div className="mt-3 pt-2 border-t-2 border-primary/50">
         <Button 
           onClick={handleComplete}
           disabled={!allMatched}
-          className={`w-full font-bold border-2 retro-shadow transition-all text-[10px] md:text-[11px] py-4 ${
+          className={`w-full font-bold border-2 retro-shadow transition-all text-[8px] md:text-[9px] py-2 ${
             allMatched
-              ? "bg-success hover:bg-success/90 text-success-foreground border-success hover:scale-[1.02]"
-              : "bg-muted/50 text-card-foreground/50 border-border cursor-not-allowed opacity-60"
+              ? "bg-success hover:bg-success/90 text-success-foreground border-success hover:scale-[1.01]"
+              : "bg-muted/30 text-foreground/40 border-border cursor-not-allowed opacity-50"
           }`}
         >
-          {allMatched ? "✓ COMPLETE MATCHING GAME" : `Match all to continue (${completedPairs.length}/${targetCards.length})`}
+          {allMatched ? "✓ COMPLETE" : `MATCH ALL (${completedPairs.length}/${targetCards.length})`}
         </Button>
       </div>
     </div>
