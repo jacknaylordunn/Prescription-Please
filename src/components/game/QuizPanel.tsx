@@ -532,9 +532,9 @@ export const QuizPanel = ({ scenario, onComplete }: QuizPanelProps) => {
   }
 
   return (
-    <div className="border-4 border-muted p-3 md:p-4 pixel-text retro-shadow max-w-[95vw] md:max-w-none overflow-y-auto max-h-[80vh] md:max-h-none" style={{ width: "min(380px, 95vw)", backgroundColor: "hsl(240, 10%, 25%)" }}>
+    <div className="border-4 border-border p-3 md:p-4 pixel-text retro-shadow max-w-[95vw] md:max-w-none overflow-y-auto max-h-[80vh] md:max-h-none" style={{ width: "min(380px, 95vw)", backgroundColor: "hsl(240, 10%, 25%)" }}>
       {/* Header */}
-      <div className="border-b-2 border-primary pb-2 mb-2 md:mb-3 bg-primary/20">
+      <div className="border-b-2 border-muted pb-2 mb-2 md:mb-3 bg-muted/20">
         <h2 className="font-bold text-radio-text text-[9px] md:text-[11px]">
           PATIENT ASSESSMENT
         </h2>
@@ -545,7 +545,7 @@ export const QuizPanel = ({ scenario, onComplete }: QuizPanelProps) => {
 
       {/* Question */}
       <div className="mb-3 md:mb-4">
-        <div className="bg-primary/20 border-2 border-primary p-2 md:p-3 mb-2 md:mb-3">
+        <div className="bg-muted/20 border-2 border-muted p-2 md:p-3 mb-2 md:mb-3">
           <p className="font-bold text-radio-text text-[8px] md:text-[10px] leading-relaxed">
             {questions[currentQuestion].question}
           </p>
@@ -562,10 +562,10 @@ export const QuizPanel = ({ scenario, onComplete }: QuizPanelProps) => {
                 answered
                   ? selectedAnswer === idx
                     ? idx === questions[currentQuestion].correctAnswer
-                      ? "border-accent bg-accent/30 retro-shadow"
+                      ? "border-success bg-success/30 retro-shadow"
                       : "border-destructive bg-destructive/30 retro-shadow"
                     : idx === questions[currentQuestion].correctAnswer
-                    ? "border-accent bg-accent/20"
+                    ? "border-success bg-success/20"
                     : "border-muted bg-background/50 opacity-60"
                   : "border-muted hover:border-accent hover:bg-accent/10 hover:scale-102 bg-background/50"
               }`}
