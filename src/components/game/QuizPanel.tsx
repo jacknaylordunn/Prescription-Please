@@ -77,24 +77,22 @@ export const QuizPanel = ({ scenario, onComplete }: QuizPanelProps) => {
         const med = medsWithSpecificSideEffects[Math.floor(Math.random() * medsWithSpecificSideEffects.length)];
         const correctSideEffect = med.sideEffects[0];
         
-        // Create clinically appropriate alternatives based on drug class
-        let alternatives: string[] = [];
-        if (med.class.includes("Beta-blocker")) {
-          alternatives = ["Tachycardia", "Hypertension", "Increased energy", "Diarrhoea"];
-        } else if (med.class.includes("ACE inhibitor")) {
-          alternatives = ["Constipation", "Euphoria", "Increased appetite", "Tachycardia"];
-        } else if (med.class.includes("Opioid")) {
-          alternatives = ["Diarrhoea", "Increased alertness", "Hypertension", "Tachycardia"];
-        } else if (med.class.includes("NSAID")) {
-          alternatives = ["Drowsiness", "Bradycardia", "Increased appetite", "Euphoria"];
-        } else if (med.class.includes("Diuretic")) {
-          alternatives = ["Fluid retention", "Weight gain", "Increased thirst only", "Bradycardia"];
-        } else {
-          alternatives = [
-            "Euphoria", "Increased appetite", "Excessive energy", "Improved vision",
-            "Enhanced memory", "Increased strength", "Better sleep quality", "Heightened alertness"
-          ];
-        }
+        // Diverse, clinically realistic side effect alternatives
+        const realisticSideEffects = [
+          "Nausea and vomiting", "Dizziness and headache", "Dry mouth and constipation",
+          "Drowsiness and fatigue", "Diarrhoea and abdominal pain", "Tremor and sweating",
+          "Palpitations and anxiety", "Weight gain and fluid retention", "Insomnia and agitation",
+          "Blurred vision and confusion", "Rash and pruritus", "Muscle weakness and cramps",
+          "Tachycardia and hypertension", "Bradycardia and hypotension", "Flushing and warmth",
+          "Urinary retention", "Increased appetite", "Loss of appetite",
+          "Joint pain and stiffness", "Peripheral oedema", "Photosensitivity",
+          "Tinnitus and hearing loss", "Metallic taste", "Hiccups and belching"
+        ];
+        
+        // Filter out the correct answer and shuffle
+        const alternatives = realisticSideEffects
+          .filter(se => se !== correctSideEffect)
+          .sort(() => Math.random() - 0.5);
         
         const uniqueOptions = createUniqueOptions(correctSideEffect, alternatives);
         const shuffledOptions = [...uniqueOptions].sort(() => Math.random() - 0.5);
@@ -443,8 +441,8 @@ export const QuizPanel = ({ scenario, onComplete }: QuizPanelProps) => {
       }
     }
     
-    // Question 10: Polypharmacy awareness
-    if (meds.length >= 4) {
+    // Question 10: Polypharmacy awareness (only for 6+ medications, 40% chance to reduce frequency)
+    if (meds.length >= 6 && Math.random() > 0.6) {
       const correctAnswer6 = "Increased risk of drug interactions and adverse effects";
       const options6 = [
         correctAnswer6,
