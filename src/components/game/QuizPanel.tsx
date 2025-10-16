@@ -532,9 +532,9 @@ export const QuizPanel = ({ scenario, onComplete }: QuizPanelProps) => {
   }
 
   return (
-    <div className="border-4 border-border p-3 md:p-4 pixel-text retro-shadow max-w-[95vw] md:max-w-none overflow-y-auto max-h-[80vh] md:max-h-none" style={{ width: "min(380px, 95vw)", backgroundColor: "hsl(240, 10%, 25%)" }}>
+    <div className="border-4 border-muted p-3 md:p-4 pixel-text retro-shadow max-w-[95vw] md:max-w-none overflow-y-auto max-h-[80vh] md:max-h-none" style={{ width: "min(380px, 95vw)", backgroundColor: "hsl(240, 10%, 25%)" }}>
       {/* Header */}
-      <div className="border-b-2 border-muted pb-2 mb-2 md:mb-3 bg-muted/20">
+      <div className="border-b-2 border-primary pb-2 mb-2 md:mb-3 bg-primary/20">
         <h2 className="font-bold text-radio-text text-[9px] md:text-[11px]">
           PATIENT ASSESSMENT
         </h2>
@@ -545,7 +545,7 @@ export const QuizPanel = ({ scenario, onComplete }: QuizPanelProps) => {
 
       {/* Question */}
       <div className="mb-3 md:mb-4">
-        <div className="bg-muted/20 border-2 border-muted p-2 md:p-3 mb-2 md:mb-3">
+        <div className="bg-primary/20 border-2 border-primary p-2 md:p-3 mb-2 md:mb-3">
           <p className="font-bold text-radio-text text-[8px] md:text-[10px] leading-relaxed">
             {questions[currentQuestion].question}
           </p>
@@ -553,46 +553,28 @@ export const QuizPanel = ({ scenario, onComplete }: QuizPanelProps) => {
 
         {/* Options */}
         <div className="space-y-1.5 md:space-y-2">
-          {questions[currentQuestion].options.map((option, idx) => {
-            const isCorrectAnswer = idx === questions[currentQuestion].correctAnswer;
-            const isUserSelection = selectedAnswer === idx;
-            
-            // Determine styling based on answer state
-            let buttonClasses = "";
-            
-            if (answered) {
-              if (isCorrectAnswer) {
-                // ALWAYS show correct answer in GREEN - same style as red but green
-                buttonClasses = "border-success bg-success/50 text-success-foreground retro-shadow";
-              } else if (isUserSelection && !isCorrectAnswer) {
-                // User selected WRONG answer - RED - exact same style but red
-                buttonClasses = "border-destructive bg-destructive/50 text-destructive-foreground retro-shadow";
-              } else {
-                // Other options - dimmed
-                buttonClasses = "border-muted bg-background/50 opacity-40 text-radio-text/50";
-              }
-            } else {
-              // Before answering
-              buttonClasses = "border-muted hover:border-accent hover:bg-accent/10 hover:scale-102 bg-background/50 text-radio-text";
-            }
-            
-            return (
-              <button
-                key={idx}
-                onClick={() => handleAnswer(idx)}
-                disabled={answered}
-                className={`w-full p-1.5 md:p-2 text-left border-2 transition-all font-bold ${buttonClasses}`}
-                style={{ fontSize: "8px", lineHeight: "1.3" }}
-              >
-                <span className="font-bold mr-1.5 md:mr-2 text-[7px] md:text-[9px]">
-                  {String.fromCharCode(65 + idx)}.
-                </span>
-                <span className="text-[7px] md:text-[9px]">
-                  {option}
-                </span>
-              </button>
-            );
-          })}
+          {questions[currentQuestion].options.map((option, idx) => (
+            <button
+              key={idx}
+              onClick={() => handleAnswer(idx)}
+              disabled={answered}
+              className={`w-full p-1.5 md:p-2 text-left border-2 transition-all font-bold ${
+                answered
+                  ? selectedAnswer === idx
+                    ? idx === questions[currentQuestion].correctAnswer
+                      ? "border-accent bg-accent/30 retro-shadow"
+                      : "border-destructive bg-destructive/30 retro-shadow"
+                    : idx === questions[currentQuestion].correctAnswer
+                    ? "border-accent bg-accent/20"
+                    : "border-muted bg-background/50 opacity-60"
+                  : "border-muted hover:border-accent hover:bg-accent/10 hover:scale-102 bg-background/50"
+              }`}
+              style={{ fontSize: "8px", lineHeight: "1.3" }}
+            >
+              <span className="font-bold mr-1.5 md:mr-2 text-radio-accent text-[7px] md:text-[9px]">{String.fromCharCode(65 + idx)}.</span>
+              <span className="text-radio-text text-[7px] md:text-[9px]">{option}</span>
+            </button>
+          ))}
         </div>
       </div>
 
