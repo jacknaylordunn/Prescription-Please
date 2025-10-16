@@ -558,37 +558,22 @@ export const QuizPanel = ({ scenario, onComplete }: QuizPanelProps) => {
             const isUserSelection = selectedAnswer === idx;
             
             // Determine styling based on answer state
-            let buttonStyle = "";
-            let textStyle = "";
-            let letterStyle = "";
+            let buttonClasses = "";
             
             if (answered) {
-              if (isUserSelection && isCorrectAnswer) {
-                // User selected correct answer - GREEN
-                buttonStyle = "border-success bg-success/50 retro-shadow";
-                textStyle = "text-success-foreground";
-                letterStyle = "text-success-foreground";
+              if (isCorrectAnswer) {
+                // ALWAYS show correct answer in GREEN
+                buttonClasses = "border-success border-4 bg-success/60 text-success-foreground retro-shadow";
               } else if (isUserSelection && !isCorrectAnswer) {
-                // User selected wrong answer - RED
-                buttonStyle = "border-destructive bg-destructive/50 retro-shadow";
-                textStyle = "text-destructive-foreground";
-                letterStyle = "text-destructive-foreground";
-              } else if (isCorrectAnswer) {
-                // Show correct answer - GREEN
-                buttonStyle = "border-success bg-success/50 retro-shadow";
-                textStyle = "text-success-foreground";
-                letterStyle = "text-success-foreground";
+                // User selected WRONG answer - RED
+                buttonClasses = "border-destructive border-4 bg-destructive/60 text-destructive-foreground retro-shadow";
               } else {
                 // Other options - dimmed
-                buttonStyle = "border-muted bg-background/50 opacity-50";
-                textStyle = "text-radio-text/50";
-                letterStyle = "text-radio-text/50";
+                buttonClasses = "border-muted bg-background/50 opacity-40 text-radio-text/50";
               }
             } else {
               // Before answering
-              buttonStyle = "border-muted hover:border-accent hover:bg-accent/10 hover:scale-102 bg-background/50";
-              textStyle = "text-radio-text";
-              letterStyle = "text-radio-accent";
+              buttonClasses = "border-muted hover:border-accent hover:bg-accent/10 hover:scale-102 bg-background/50 text-radio-text";
             }
             
             return (
@@ -596,13 +581,13 @@ export const QuizPanel = ({ scenario, onComplete }: QuizPanelProps) => {
                 key={idx}
                 onClick={() => handleAnswer(idx)}
                 disabled={answered}
-                className={`w-full p-1.5 md:p-2 text-left border-2 transition-all font-bold ${buttonStyle}`}
+                className={`w-full p-1.5 md:p-2 text-left border-2 transition-all font-bold ${buttonClasses}`}
                 style={{ fontSize: "8px", lineHeight: "1.3" }}
               >
-                <span className={`font-bold mr-1.5 md:mr-2 text-[7px] md:text-[9px] ${letterStyle}`}>
+                <span className="font-bold mr-1.5 md:mr-2 text-[7px] md:text-[9px]">
                   {String.fromCharCode(65 + idx)}.
                 </span>
-                <span className={`text-[7px] md:text-[9px] ${textStyle}`}>
+                <span className="text-[7px] md:text-[9px]">
                   {option}
                 </span>
               </button>
