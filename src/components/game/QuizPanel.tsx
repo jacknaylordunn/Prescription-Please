@@ -478,6 +478,446 @@ export const QuizPanel = ({ scenario, onComplete }: QuizPanelProps) => {
       });
     }
 
+    // SCENARIO-SPECIFIC QUESTIONS - Add diversity beyond medication-focused questions
+    
+    // Question 12: Primary assessment based on presentation
+    if (scenario.patient.presentation) {
+      const presentation = scenario.patient.presentation.toLowerCase();
+      
+      // Chest pain scenarios
+      if (presentation.includes("chest pain") || presentation.includes("cardiac")) {
+        const chestPainQuestions = [
+          {
+            question: "What is your primary concern with a patient presenting with chest pain?",
+            correctAnswer: "Acute coronary syndrome or myocardial infarction",
+            options: [
+              "Acute coronary syndrome or myocardial infarction",
+              "Indigestion",
+              "Anxiety attack",
+              "Muscle strain"
+            ],
+            explanation: "Chest pain must be treated as cardiac until proven otherwise. Time is muscle - early recognition and treatment of ACS/MI is critical."
+          },
+          {
+            question: "What is the most important initial assessment for chest pain?",
+            correctAnswer: "12-lead ECG within 10 minutes",
+            options: [
+              "12-lead ECG within 10 minutes",
+              "Blood pressure only",
+              "Detailed medical history",
+              "Oxygen saturation"
+            ],
+            explanation: "A 12-lead ECG should be performed within 10 minutes of arrival for any chest pain patient to identify STEMI or other cardiac ischaemia."
+          }
+        ];
+        const selected = chestPainQuestions[Math.floor(Math.random() * chestPainQuestions.length)];
+        const shuffledOptions = [...selected.options].sort(() => Math.random() - 0.5);
+        questions.push({
+          question: selected.question,
+          options: shuffledOptions,
+          correctAnswer: shuffledOptions.indexOf(selected.correctAnswer),
+          explanation: selected.explanation
+        });
+      }
+      
+      // Breathing difficulty scenarios
+      if (presentation.includes("breath") || presentation.includes("respiratory") || presentation.includes("dyspnoea")) {
+        const breathingQuestions = [
+          {
+            question: "What is the priority action for a patient with severe breathlessness?",
+            correctAnswer: "Apply high-flow oxygen and assess respiratory effort",
+            options: [
+              "Apply high-flow oxygen and assess respiratory effort",
+              "Take a detailed history first",
+              "Give salbutamol immediately without assessment",
+              "Wait and observe for 5 minutes"
+            ],
+            explanation: "Airway and breathing take priority. Assess respiratory rate, effort, oxygen saturations and provide high-flow oxygen if hypoxic."
+          },
+          {
+            question: "In a breathless patient, what examination finding would most concern you?",
+            correctAnswer: "Silent chest with reduced respiratory effort",
+            options: [
+              "Silent chest with reduced respiratory effort",
+              "Mild wheeze",
+              "Slight tachypnoea",
+              "Patient able to speak in full sentences"
+            ],
+            explanation: "A 'silent chest' with reduced effort indicates severe bronchospasm or exhaustion - this is life-threatening and may require immediate advanced intervention."
+          }
+        ];
+        const selected = breathingQuestions[Math.floor(Math.random() * breathingQuestions.length)];
+        const shuffledOptions = [...selected.options].sort(() => Math.random() - 0.5);
+        questions.push({
+          question: selected.question,
+          options: shuffledOptions,
+          correctAnswer: shuffledOptions.indexOf(selected.correctAnswer),
+          explanation: selected.explanation
+        });
+      }
+      
+      // Seizure scenarios
+      if (presentation.includes("seizure") || presentation.includes("fit") || presentation.includes("convulsion")) {
+        const seizureQuestions = [
+          {
+            question: "How long must a seizure last to be considered status epilepticus?",
+            correctAnswer: "5 minutes or more",
+            options: [
+              "5 minutes or more",
+              "10 minutes or more",
+              "15 minutes or more",
+              "30 minutes or more"
+            ],
+            explanation: "Status epilepticus is defined as a seizure lasting 5 minutes or longer, or repeated seizures without recovery. This is a medical emergency requiring immediate treatment."
+          },
+          {
+            question: "What is the key safety priority during an active seizure?",
+            correctAnswer: "Protect from injury and maintain airway",
+            options: [
+              "Protect from injury and maintain airway",
+              "Restrain the patient",
+              "Put something in their mouth",
+              "Give oral medication"
+            ],
+            explanation: "Never restrain a seizing patient or put anything in their mouth. Protect from injury, maintain airway, time the seizure, and be ready to suction if needed."
+          }
+        ];
+        const selected = seizureQuestions[Math.floor(Math.random() * seizureQuestions.length)];
+        const shuffledOptions = [...selected.options].sort(() => Math.random() - 0.5);
+        questions.push({
+          question: selected.question,
+          options: shuffledOptions,
+          correctAnswer: shuffledOptions.indexOf(selected.correctAnswer),
+          explanation: selected.explanation
+        });
+      }
+      
+      // Altered consciousness scenarios
+      if (presentation.includes("unconscious") || presentation.includes("unresponsive") || presentation.includes("gcs") || presentation.includes("confused")) {
+        const consciousnessQuestions = [
+          {
+            question: "What is the first assessment priority for an unconscious patient?",
+            correctAnswer: "Check for danger, then assess airway and breathing",
+            options: [
+              "Check for danger, then assess airway and breathing",
+              "Check blood glucose immediately",
+              "Take blood pressure",
+              "Ask family for medical history"
+            ],
+            explanation: "Use DR ABC approach. Ensure scene safety, then immediately assess and manage airway and breathing - these are the immediate life threats."
+          },
+          {
+            question: "What quick bedside test is essential for all patients with altered consciousness?",
+            correctAnswer: "Blood glucose level",
+            options: [
+              "Blood glucose level",
+              "Blood pressure",
+              "Temperature",
+              "ECG"
+            ],
+            explanation: "Hypoglycaemia is a rapidly reversible cause of altered consciousness. Check blood glucose early - if low, treat immediately with IV glucose or IM glucagon."
+          }
+        ];
+        const selected = consciousnessQuestions[Math.floor(Math.random() * consciousnessQuestions.length)];
+        const shuffledOptions = [...selected.options].sort(() => Math.random() - 0.5);
+        questions.push({
+          question: selected.question,
+          options: shuffledOptions,
+          correctAnswer: shuffledOptions.indexOf(selected.correctAnswer),
+          explanation: selected.explanation
+        });
+      }
+      
+      // Falls scenarios
+      if (presentation.includes("fall") || presentation.includes("fallen")) {
+        const fallQuestions = [
+          {
+            question: "What is the most important question to ask after a fall in an elderly patient?",
+            correctAnswer: "Did you trip or did your legs give way?",
+            options: [
+              "Did you trip or did your legs give way?",
+              "What time did you fall?",
+              "Where does it hurt?",
+              "Have you eaten today?"
+            ],
+            explanation: "Determining if it was a mechanical fall (trip) or medical cause (syncope, weakness) changes your assessment and management priorities significantly."
+          },
+          {
+            question: "What serious injury must you consider in all elderly fallers on anticoagulation?",
+            correctAnswer: "Intracranial haemorrhage",
+            options: [
+              "Intracranial haemorrhage",
+              "Fractured wrist",
+              "Bruised hip",
+              "Soft tissue injury"
+            ],
+            explanation: "Patients on anticoagulants who fall and hit their head are at high risk of intracranial bleeding, even without external signs. This can develop over hours."
+          }
+        ];
+        const selected = fallQuestions[Math.floor(Math.random() * fallQuestions.length)];
+        const shuffledOptions = [...selected.options].sort(() => Math.random() - 0.5);
+        questions.push({
+          question: selected.question,
+          options: shuffledOptions,
+          correctAnswer: shuffledOptions.indexOf(selected.correctAnswer),
+          explanation: selected.explanation
+        });
+      }
+      
+      // Stroke scenarios
+      if (presentation.includes("stroke") || presentation.includes("weakness") || presentation.includes("facial droop")) {
+        const strokeQuestions = [
+          {
+            question: "What is the time-critical window for thrombolysis in stroke?",
+            correctAnswer: "Within 4.5 hours of symptom onset",
+            options: [
+              "Within 4.5 hours of symptom onset",
+              "Within 12 hours of symptom onset",
+              "Within 24 hours of symptom onset",
+              "Within 1 hour of symptom onset"
+            ],
+            explanation: "Thrombolysis must be given within 4.5 hours of symptom onset. Use FAST assessment and prioritise rapid conveyance to a stroke unit."
+          },
+          {
+            question: "What assessment tool should you use for suspected stroke?",
+            correctAnswer: "FAST (Face, Arms, Speech, Time)",
+            options: [
+              "FAST (Face, Arms, Speech, Time)",
+              "AVPU",
+              "GCS only",
+              "NEWS2 score"
+            ],
+            explanation: "FAST assessment (Face drooping, Arm weakness, Speech difficulty, Time to call 999) is the standard pre-hospital stroke recognition tool."
+          }
+        ];
+        const selected = strokeQuestions[Math.floor(Math.random() * strokeQuestions.length)];
+        const shuffledOptions = [...selected.options].sort(() => Math.random() - 0.5);
+        questions.push({
+          question: selected.question,
+          options: shuffledOptions,
+          correctAnswer: shuffledOptions.indexOf(selected.correctAnswer),
+          explanation: selected.explanation
+        });
+      }
+      
+      // Sepsis scenarios
+      if (presentation.includes("sepsis") || presentation.includes("infection") || (presentation.includes("fever") && presentation.includes("unwell"))) {
+        const sepsisQuestions = [
+          {
+            question: "What are the key red flags suggesting sepsis in an adult?",
+            correctAnswer: "High NEWS2 score, altered mental state, mottled skin",
+            options: [
+              "High NEWS2 score, altered mental state, mottled skin",
+              "Mild fever only",
+              "Slight tachycardia",
+              "Cough and runny nose"
+            ],
+            explanation: "Sepsis causes systemic deterioration. Look for high NEWS2, confusion, mottled/ashen skin, not passed urine, severe breathlessness - these need immediate hospital treatment."
+          },
+          {
+            question: "What is the priority in suspected sepsis?",
+            correctAnswer: "Rapid conveyance to hospital for IV antibiotics",
+            options: [
+              "Rapid conveyance to hospital for IV antibiotics",
+              "Give oral antibiotics on scene",
+              "Wait for symptoms to worsen",
+              "Refer to GP"
+            ],
+            explanation: "Sepsis kills quickly. Early recognition and rapid hospital transfer for IV antibiotics ('Sepsis Six') is critical - every hour delay increases mortality."
+          }
+        ];
+        const selected = sepsisQuestions[Math.floor(Math.random() * sepsisQuestions.length)];
+        const shuffledOptions = [...selected.options].sort(() => Math.random() - 0.5);
+        questions.push({
+          question: selected.question,
+          options: shuffledOptions,
+          correctAnswer: shuffledOptions.indexOf(selected.correctAnswer),
+          explanation: selected.explanation
+        });
+      }
+      
+      // Diabetic emergencies
+      if (presentation.includes("diabetes") || presentation.includes("hyperglycaemia") || presentation.includes("hypoglycaemia") || presentation.includes("dka")) {
+        const diabeticQuestions = [
+          {
+            question: "What are the signs of diabetic ketoacidosis (DKA)?",
+            correctAnswer: "High blood glucose, ketones, Kussmaul breathing, dehydration",
+            options: [
+              "High blood glucose, ketones, Kussmaul breathing, dehydration",
+              "Low blood glucose only",
+              "Normal observations",
+              "Bradycardia and hypertension"
+            ],
+            explanation: "DKA presents with high glucose (>11mmol/L), ketones, deep rapid breathing (Kussmaul), dehydration, abdominal pain, and vomiting. This is life-threatening."
+          },
+          {
+            question: "At what blood glucose level should you treat hypoglycaemia?",
+            correctAnswer: "Below 4.0 mmol/L",
+            options: [
+              "Below 4.0 mmol/L",
+              "Below 8.0 mmol/L",
+              "Below 2.0 mmol/L",
+              "Only if unconscious"
+            ],
+            explanation: "Treat hypoglycaemia if glucose <4.0mmol/L or patient is symptomatic. Give oral glucose if alert, IM glucagon or IV glucose if reduced consciousness."
+          }
+        ];
+        const selected = diabeticQuestions[Math.floor(Math.random() * diabeticQuestions.length)];
+        const shuffledOptions = [...selected.options].sort(() => Math.random() - 0.5);
+        questions.push({
+          question: selected.question,
+          options: shuffledOptions,
+          correctAnswer: shuffledOptions.indexOf(selected.correctAnswer),
+          explanation: selected.explanation
+        });
+      }
+    }
+    
+    // Question 13: Medical history based clinical decisions
+    if (scenario.patient.medicalHistory.length > 0) {
+      const history = scenario.patient.medicalHistory;
+      
+      if (history.some(h => h.toLowerCase().includes("copd") || h.toLowerCase().includes("chronic obstructive"))) {
+        const copdQuestions = [
+          {
+            question: "What is the target oxygen saturation for a COPD patient?",
+            correctAnswer: "88-92%",
+            options: [
+              "88-92%",
+              "94-98%",
+              "100%",
+              "80-85%"
+            ],
+            explanation: "COPD patients should have target sats of 88-92%. High oxygen can suppress their respiratory drive. Start low (e.g. 2-4L via nasal cannula) and titrate to target."
+          },
+          {
+            question: "What medication can you give for COPD exacerbation in the pre-hospital setting?",
+            correctAnswer: "Salbutamol and ipratropium nebulisers",
+            options: [
+              "Salbutamol and ipratropium nebulisers",
+              "IV antibiotics only",
+              "Oral steroids only",
+              "Morphine"
+            ],
+            explanation: "Nebulised salbutamol and ipratropium bromide are first-line pre-hospital treatments for COPD exacerbation, driven by oxygen or air depending on sats."
+          }
+        ];
+        const selected = copdQuestions[Math.floor(Math.random() * copdQuestions.length)];
+        const shuffledOptions = [...selected.options].sort(() => Math.random() - 0.5);
+        questions.push({
+          question: selected.question,
+          options: shuffledOptions,
+          correctAnswer: shuffledOptions.indexOf(selected.correctAnswer),
+          explanation: selected.explanation
+        });
+      }
+      
+      if (history.some(h => h.toLowerCase().includes("asthma"))) {
+        const asthmaQuestions = [
+          {
+            question: "What are the signs of life-threatening asthma?",
+            correctAnswer: "Silent chest, exhaustion, confusion, SpO2 <92%",
+            options: [
+              "Silent chest, exhaustion, confusion, SpO2 <92%",
+              "Mild wheeze only",
+              "Able to complete sentences",
+              "Peak flow >75% predicted"
+            ],
+            explanation: "Life-threatening features: silent chest, poor respiratory effort, exhaustion, confusion, cyanosis, SpO2 <92%, arrhythmia. These patients need immediate treatment and hospital."
+          },
+          {
+            question: "What is the first-line bronchodilator for acute asthma?",
+            correctAnswer: "Salbutamol nebuliser",
+            options: [
+              "Salbutamol nebuliser",
+              "Oral prednisolone only",
+              "IV hydrocortisone first",
+              "Adrenaline IM"
+            ],
+            explanation: "Salbutamol nebulisers (5mg) are first-line treatment. Can be repeated. Add ipratropium for severe cases. Consider IV magnesium for life-threatening asthma."
+          }
+        ];
+        const selected = asthmaQuestions[Math.floor(Math.random() * asthmaQuestions.length)];
+        const shuffledOptions = [...selected.options].sort(() => Math.random() - 0.5);
+        questions.push({
+          question: selected.question,
+          options: shuffledOptions,
+          correctAnswer: shuffledOptions.indexOf(selected.correctAnswer),
+          explanation: selected.explanation
+        });
+      }
+      
+      if (history.some(h => h.toLowerCase().includes("atrial fibrillation") || h.toLowerCase().includes("af"))) {
+        const afQuestions = [
+          {
+            question: "Why are patients with atrial fibrillation often prescribed anticoagulants?",
+            correctAnswer: "To prevent stroke from blood clots forming in the heart",
+            options: [
+              "To prevent stroke from blood clots forming in the heart",
+              "To control heart rate",
+              "To thin the blood",
+              "To lower blood pressure"
+            ],
+            explanation: "AF causes irregular heart rhythm and blood stasis in the atria, forming clots that can embolise to the brain causing stroke. Anticoagulation reduces this risk by 60-70%."
+          },
+          {
+            question: "If a patient with AF develops sudden weakness and speech problems, what should you suspect?",
+            correctAnswer: "Ischaemic stroke from embolism",
+            options: [
+              "Ischaemic stroke from embolism",
+              "Normal ageing",
+              "Medication side effect",
+              "Dehydration"
+            ],
+            explanation: "AF patients are at high risk of embolic stroke. Sudden neurological symptoms require immediate stroke pathway activation and rapid hospital transfer."
+          }
+        ];
+        const selected = afQuestions[Math.floor(Math.random() * afQuestions.length)];
+        const shuffledOptions = [...selected.options].sort(() => Math.random() - 0.5);
+        questions.push({
+          question: selected.question,
+          options: shuffledOptions,
+          correctAnswer: shuffledOptions.indexOf(selected.correctAnswer),
+          explanation: selected.explanation
+        });
+      }
+      
+      if (history.some(h => h.toLowerCase().includes("heart failure"))) {
+        const hfQuestions = [
+          {
+            question: "What clinical signs indicate acute pulmonary oedema from heart failure?",
+            correctAnswer: "Fine crackles, pink frothy sputum, severe breathlessness",
+            options: [
+              "Fine crackles, pink frothy sputum, severe breathlessness",
+              "Dry cough only",
+              "Chest pain",
+              "High blood pressure only"
+            ],
+            explanation: "Acute pulmonary oedema presents with severe breathlessness, fine crackles throughout lungs, pink frothy sputum. These patients need urgent treatment with CPAP, GTN, and furosemide."
+          },
+          {
+            question: "What medication should you consider for acute heart failure with pulmonary oedema?",
+            correctAnswer: "GTN and furosemide",
+            options: [
+              "GTN and furosemide",
+              "Antibiotics",
+              "Salbutamol only",
+              "Adrenaline"
+            ],
+            explanation: "GTN reduces preload and cardiac workload. Furosemide removes excess fluid. CPAP can be lifesaving by improving oxygenation and reducing need for intubation."
+          }
+        ];
+        const selected = hfQuestions[Math.floor(Math.random() * hfQuestions.length)];
+        const shuffledOptions = [...selected.options].sort(() => Math.random() - 0.5);
+        questions.push({
+          question: selected.question,
+          options: shuffledOptions,
+          correctAnswer: shuffledOptions.indexOf(selected.correctAnswer),
+          explanation: selected.explanation
+        });
+      }
+    }
+
     // Shuffle all questions and return up to 10
     return questions.sort(() => Math.random() - 0.5).slice(0, 10);
   };
