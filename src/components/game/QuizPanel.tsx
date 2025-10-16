@@ -562,11 +562,11 @@ export const QuizPanel = ({ scenario, onComplete }: QuizPanelProps) => {
             
             if (answered) {
               if (isCorrectAnswer) {
-                // ALWAYS show correct answer in GREEN
-                buttonClasses = "border-success border-4 bg-success/60 text-success-foreground retro-shadow";
+                // ALWAYS show correct answer in GREEN - same style as red but green
+                buttonClasses = "border-success bg-success/50 text-success-foreground retro-shadow";
               } else if (isUserSelection && !isCorrectAnswer) {
-                // User selected WRONG answer - RED
-                buttonClasses = "border-destructive border-4 bg-destructive/60 text-destructive-foreground retro-shadow";
+                // User selected WRONG answer - RED - exact same style but red
+                buttonClasses = "border-destructive bg-destructive/50 text-destructive-foreground retro-shadow";
               } else {
                 // Other options - dimmed
                 buttonClasses = "border-muted bg-background/50 opacity-40 text-radio-text/50";
