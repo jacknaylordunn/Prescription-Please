@@ -72,16 +72,25 @@ export function generateRandomPatient(age: number, gender: "Male" | "Female"): P
   };
 }
 
-// Condition templates with realistic medication combinations
+// Massively expanded condition templates for maximum diversity
 const conditionTemplates = [
   {
-    condition: "Heart Failure",
+    condition: "Heart Failure with Reduced EF",
     ageRange: [65, 85],
     presentation: "Shortness of breath, ankle swelling, fatigue for past week",
     medications: ["Furosemide", "Bisoprolol", "Ramipril", "Atorvastatin"],
     history: ["Heart failure NYHA Class III", "Atrial fibrillation", "Hypertension"],
     dispatch: "elderly patient, difficulty breathing, bilateral ankle swelling. Patient sitting upright, orthopnoea, RR 24, SpO2 91% on air.",
     gpLetters: ["Blood Test Results", "Appointment Summary"] as GPLetterType[]
+  },
+  {
+    condition: "Heart Failure with Preserved EF",
+    ageRange: [70, 88],
+    presentation: "Dyspnoea on minimal exertion, orthopnoea requiring 3 pillows, paroxysmal nocturnal dyspnoea",
+    medications: ["Bumetanide", "Candesartan", "Spironolactone", "Digoxin"],
+    history: ["Heart failure with preserved ejection fraction", "Hypertension", "Type 2 diabetes"],
+    dispatch: "severe breathlessness, fluid overload. Patient exhausted, bibasal crackles, elevated JVP noted.",
+    gpLetters: ["Blood Test Results", "Medication Review"] as GPLetterType[]
   },
   {
     condition: "COPD Exacerbation",
@@ -283,6 +292,177 @@ const conditionTemplates = [
     gpLetters: ["Blood Test Results", "Appointment Confirmation"] as GPLetterType[]
   },
   {
+    condition: "Advanced Renal Failure on Conservative Management",
+    ageRange: [70, 90],
+    presentation: "Severe fatigue, nausea, poor appetite, confusion, metallic taste in mouth, pruritus",
+    medications: ["Alfacalcidol", "Calcium Carbonate", "Sevelamer", "Ferrous Sulphate", "Erythropoietin"],
+    history: ["CKD Stage 5 eGFR 12 - conservative pathway", "Anaemia of chronic disease", "Secondary hyperparathyroidism"],
+    dispatch: "very unwell, kidney failure patient. Patient lethargic, uraemic, pale, uraemic frost noted on skin.",
+    gpLetters: ["Blood Test Results", "Medication Review"] as GPLetterType[]
+  },
+  {
+    condition: "Systemic Lupus Erythematosus Flare",
+    ageRange: [25, 50],
+    presentation: "Malar rash, severe joint pain, fatigue, mouth ulcers, photosensitivity",
+    medications: ["Hydroxychloroquine", "Prednisolone", "Azathioprine", "Mycophenolate"],
+    history: ["SLE diagnosed 5 years", "Lupus nephritis", "Previous DVT"],
+    dispatch: "autoimmune condition flare. Patient with butterfly rash, multiple joint involvement, unwell.",
+    gpLetters: ["Blood Test Results", "Appointment Summary"] as GPLetterType[]
+  },
+  {
+    condition: "Polymyalgia Rheumatica",
+    ageRange: [60, 80],
+    presentation: "Severe bilateral shoulder and hip girdle pain, morning stiffness lasting 4 hours, unable to raise arms",
+    medications: ["Prednisolone", "Omeprazole", "Adcal D3", "Alendronic Acid"],
+    history: ["Polymyalgia rheumatica", "Steroid-induced osteoporosis prevention"],
+    dispatch: "severe muscle pain, difficulty moving. Patient struggling with basic movements, ESR likely very elevated.",
+    gpLetters: ["Blood Test Results"] as GPLetterType[]
+  },
+  {
+    condition: "Temporal Arteritis",
+    ageRange: [65, 85],
+    presentation: "Severe temporal headache, jaw claudication, visual disturbance, scalp tenderness",
+    medications: ["Prednisolone", "Omeprazole", "Aspirin", "Alendronic Acid"],
+    history: ["Giant cell arteritis", "Risk of vision loss"],
+    dispatch: "severe headache, query stroke. Patient with temporal tenderness, visual symptoms, needs urgent treatment.",
+    gpLetters: ["Blood Test Results", "Appointment Confirmation"] as GPLetterType[]
+  },
+  {
+    condition: "Addison's Disease Stable",
+    ageRange: [30, 60],
+    presentation: "Routine visit but feeling more tired than usual, mentions brown skin pigmentation",
+    medications: ["Hydrocortisone", "Fludrocortisone"],
+    history: ["Primary adrenal insufficiency", "Type 1 diabetes", "Hypothyroidism"],
+    dispatch: "unwell, known Addison's. Wearing medical alert bracelet. Important to maintain steroid doses.",
+    gpLetters: ["Blood Test Results", "Medication Review"] as GPLetterType[]
+  },
+  {
+    condition: "Myasthenia Gravis",
+    ageRange: [30, 70],
+    presentation: "Progressive muscle weakness worsening throughout day, ptosis, diplopia, difficulty chewing and swallowing",
+    medications: ["Pyridostigmine", "Prednisolone", "Azathioprine"],
+    history: ["Myasthenia gravis", "Thymectomy 2 years ago", "Previous myasthenic crisis"],
+    dispatch: "increasing weakness, known myasthenia. Patient struggling to hold head up, weak voice, respiratory concerns.",
+    gpLetters: ["Medication Review", "Appointment Summary"] as GPLetterType[]
+  },
+  {
+    condition: "Severe Psoriatic Arthritis",
+    ageRange: [40, 65],
+    presentation: "Painful swollen joints in hands and feet, nail pitting, extensive psoriatic plaques, dactylitis",
+    medications: ["Methotrexate", "Folic Acid", "Adalimumab", "Naproxen", "Omeprazole"],
+    history: ["Psoriatic arthritis", "Psoriasis extensive", "Previous uveitis"],
+    dispatch: "severe arthritis, skin condition. Patient struggling with mobility, hands swollen.",
+    gpLetters: ["Blood Test Results", "Medication Review"] as GPLetterType[]
+  },
+  {
+    condition: "Ankylosing Spondylitis",
+    ageRange: [25, 55],
+    presentation: "Severe lower back pain and stiffness worse in morning, reduced spinal mobility, question mark posture",
+    medications: ["Naproxen", "Sulfasalazine", "Etanercept", "Omeprazole"],
+    history: ["Ankylosing spondylitis", "Inflammatory back pain", "Anterior uveitis x2"],
+    dispatch: "back pain, chronic condition. Patient very stiff, limited spinal movement noted.",
+    gpLetters: ["Blood Test Results"] as GPLetterType[]
+  },
+  {
+    condition: "Severe Osteoporosis Post-Fracture",
+    ageRange: [70, 90],
+    presentation: "Previous vertebral compression fractures, height loss, kyphosis, chronic back pain",
+    medications: ["Alendronic Acid", "Adcal D3", "Denosumab", "Tramadol"],
+    history: ["Severe osteoporosis T-score -3.5", "Multiple fragility fractures", "Previous hip fracture"],
+    dispatch: "fall, high fracture risk patient. Very frail, needs careful handling.",
+    gpLetters: ["Blood Test Results", "Appointment Summary"] as GPLetterType[]
+  },
+  {
+    condition: "Pernicious Anaemia",
+    ageRange: [50, 75],
+    presentation: "Extreme fatigue, numbness and tingling in hands and feet, memory problems, pale appearance",
+    medications: ["Hydroxocobalamin Injection", "Folic Acid", "Ferrous Sulphate"],
+    history: ["Pernicious anaemia", "Vitamin B12 deficiency with neuropathy", "Autoimmune gastritis"],
+    dispatch: "very tired, anaemia patient. Patient pale, confused, needs B12 injection history.",
+    gpLetters: ["Blood Test Results"] as GPLetterType[]
+  },
+  {
+    condition: "Haemochromatosis",
+    ageRange: [45, 70],
+    presentation: "Chronic fatigue, joint pain particularly knuckles, bronze skin pigmentation, abdominal pain",
+    medications: ["Desferrioxamine", "Bisoprolol", "Metformin"],
+    history: ["Hereditary haemochromatosis", "Iron overload", "Early cirrhosis", "Diabetes secondary to iron"],
+    dispatch: "unwell, iron overload disorder. Patient requiring regular venesection.",
+    gpLetters: ["Blood Test Results", "Appointment Summary"] as GPLetterType[]
+  },
+  {
+    condition: "Sarcoidosis Pulmonary",
+    ageRange: [30, 60],
+    presentation: "Persistent dry cough, dyspnoea on exertion, fatigue, erythema nodosum on shins",
+    medications: ["Prednisolone", "Methotrexate", "Omeprazole", "Adcal D3"],
+    history: ["Pulmonary sarcoidosis Stage 3", "Cardiac involvement", "Hypercalcaemia episodes"],
+    dispatch: "breathing difficulty, lung condition. Patient SOB, needs monitoring.",
+    gpLetters: ["Blood Test Results", "Medication Review"] as GPLetterType[]
+  },
+  {
+    condition: "Trigeminal Neuralgia",
+    ageRange: [50, 75],
+    presentation: "Excruciating electric shock-like facial pain triggered by touch, wind, eating, speaking",
+    medications: ["Carbamazepine", "Gabapentin", "Amitriptyline"],
+    history: ["Trigeminal neuralgia right V2/V3", "Previous MVD surgery", "Pain poorly controlled"],
+    dispatch: "severe facial pain. Patient in extreme discomfort, avoiding movement of face.",
+    gpLetters: ["Medication Review"] as GPLetterType[]
+  },
+  {
+    condition: "Meniere's Disease",
+    ageRange: [40, 70],
+    presentation: "Severe rotational vertigo, tinnitus, fluctuating hearing loss, nausea and vomiting",
+    medications: ["Betahistine", "Prochlorperazine", "Cyclizine"],
+    history: ["Meniere's disease left ear", "Recurrent vertigo attacks", "Progressive hearing loss"],
+    dispatch: "severe dizziness, vomiting. Patient unable to move without vertigo.",
+    gpLetters: ["Appointment Summary"] as GPLetterType[]
+  },
+  {
+    condition: "Hereditary Angioedema",
+    ageRange: [25, 55],
+    presentation: "Swelling of face, lips, tongue, abdominal pain from bowel wall swelling",
+    medications: ["Danazol", "Tranexamic Acid", "C1-inhibitor concentrate"],
+    history: ["Hereditary angioedema", "Previous airway compromise", "Family history"],
+    dispatch: "facial swelling, airway risk. Patient with known condition, may need urgent treatment.",
+    gpLetters: ["Medication Review"] as GPLetterType[]
+  },
+  {
+    condition: "Acromegaly",
+    ageRange: [40, 65],
+    presentation: "Enlarged hands and feet, prominent jaw, headaches, visual field defects, joint pain",
+    medications: ["Octreotide", "Cabergoline", "Levothyroxine"],
+    history: ["Acromegaly from pituitary adenoma", "Post-transsphenoidal surgery", "Hypopituitarism"],
+    dispatch: "headache, endocrine disorder. Patient with characteristic features.",
+    gpLetters: ["Blood Test Results", "Appointment Summary"] as GPLetterType[]
+  },
+  {
+    condition: "Cushing's Syndrome",
+    ageRange: [35, 65],
+    presentation: "Central obesity, moon face, buffalo hump, easy bruising, proximal muscle weakness",
+    medications: ["Ketoconazole", "Spironolactone", "Amlodipine", "Metformin"],
+    history: ["Cushing's syndrome iatrogenic", "Hypertension", "Steroid-induced diabetes"],
+    dispatch: "unwell, hormonal condition. Patient with cushingoid features.",
+    gpLetters: ["Blood Test Results", "Medication Review"] as GPLetterType[]
+  },
+  {
+    condition: "Primary Biliary Cholangitis",
+    ageRange: [45, 70],
+    presentation: "Severe pruritus, fatigue, jaundice, xanthelasma around eyes",
+    medications: ["Ursodeoxycholic Acid", "Cholestyramine", "Vitamin D", "Calcium Carbonate"],
+    history: ["Primary biliary cholangitis", "Progressive liver disease", "Osteoporosis"],
+    dispatch: "jaundice, liver disease. Patient very itchy, fatigued.",
+    gpLetters: ["Blood Test Results", "Appointment Summary"] as GPLetterType[]
+  },
+  {
+    condition: "Polycythemia Vera",
+    ageRange: [50, 75],
+    presentation: "Plethoric appearance, headaches, dizziness, pruritus after hot bath, splenomegaly",
+    medications: ["Hydroxycarbamide", "Aspirin", "Allopurinol"],
+    history: ["Polycythemia vera", "Previous thrombotic event", "Regular venesection"],
+    dispatch: "dizziness, blood disorder. Patient red-faced, needs stroke assessment.",
+    gpLetters: ["Blood Test Results"] as GPLetterType[]
+  },
+  {
     condition: "Peripheral Arterial Disease",
     ageRange: [60, 85],
     presentation: "Intermittent claudication right calf after 50 meters, rest pain at night, cold pale foot, absent pedal pulses",
@@ -367,10 +547,181 @@ const conditionTemplates = [
     condition: "Myasthenia Gravis Crisis",
     ageRange: [30, 65],
     presentation: "Progressive muscle weakness, ptosis bilateral, diplopia, dysphagia, dyspnoea, facial weakness, respiratory distress with reduced vital capacity",
-    medications: ["Pyridostigmine", "Prednisolone", "Azathioprine"],
-    history: ["Myasthenia gravis diagnosed 3 years ago", "Recent chest infection", "Previous myasthenic crisis requiring ICU"],
-    dispatch: "severe muscle weakness, breathing difficulty. Patient unable to lift head, ptosis both eyes, weak voice, struggling to swallow secretions, RR 28, SpO2 89% - respiratory failure imminent, needs ICU.",
-    gpLetters: ["Blood Test Results", "Appointment Summary"] as GPLetterType[]
+    medications: ["Pyridostigmine", "Prednisolone", "Immunoglobulin"],
+    history: ["Myasthenia gravis", "Previous crisis requiring ventilation", "Thymoma"],
+    dispatch: "respiratory distress, myasthenia crisis. Patient weak, struggling to breathe, needs urgent ICU assessment and possible ventilation.",
+    gpLetters: ["Medication Review"] as GPLetterType[]
+  },
+  {
+    condition: "Hyperemesis Gravidarum",
+    ageRange: [20, 40],
+    presentation: "Severe persistent vomiting, unable to keep any food or fluids down for 3 days, weight loss, ketones in urine, pregnancy 8 weeks",
+    medications: ["Cyclizine", "Prochlorperazine", "Metoclopramide", "Thiamine"],
+    history: ["First trimester pregnancy", "Previous hyperemesis", "Dehydration"],
+    dispatch: "pregnant woman, severe vomiting. Patient very dehydrated, ketotic, needs IV fluids urgently.",
+    gpLetters: ["Appointment Confirmation"] as GPLetterType[]
+  },
+  {
+    condition: "Acute Glaucoma",
+    ageRange: [55, 80],
+    presentation: "Sudden severe eye pain, blurred vision, seeing halos around lights, headache, nausea and vomiting, red eye, hazy cornea, fixed dilated pupil",
+    medications: ["Acetazolamide", "Timolol", "Pilocarpine", "Latanoprost"],
+    history: ["Narrow angle anatomy", "Hypermetropia", "Family history glaucoma"],
+    dispatch: "severe eye pain and vision loss. Patient in severe pain, red eye, ophthalmology emergency to prevent permanent blindness.",
+    gpLetters: [] as GPLetterType[]
+  },
+  {
+    condition: "Malignant Hyperthermia Post-Surgery",
+    ageRange: [20, 60],
+    presentation: "Rapidly rising temperature post-general anaesthetic, muscle rigidity, tachycardia, hyperventilation, acidosis",
+    medications: ["Dantrolene", "Procainamide"],
+    history: ["Recent surgery with general anaesthetic", "Possible family history MH"],
+    dispatch: "post-operative complication. Patient hyperpyrexial, rigid, critically unwell - anaesthetic emergency.",
+    gpLetters: [] as GPLetterType[]
+  },
+  {
+    condition: "Neuroleptic Malignant Syndrome",
+    ageRange: [25, 65],
+    presentation: "High fever 40°C, severe muscle rigidity lead pipe, altered mental status, autonomic instability, recent antipsychotic increase",
+    medications: ["Haloperidol", "Olanzapine", "Dantrolene", "Bromocriptine"],
+    history: ["Schizophrenia", "Recent medication change", "Dehydration"],
+    dispatch: "very unwell psychiatric patient. Rigid, confused, extremely pyrexial - life-threatening emergency.",
+    gpLetters: ["Medication Review"] as GPLetterType[]
+  },
+  {
+    condition: "Wernicke's Encephalopathy",
+    ageRange: [40, 70],
+    presentation: "Confusion, ataxia, ophthalmoplegia, nystagmus, recent alcohol binge with poor nutrition",
+    medications: ["Pabrinex", "Thiamine", "Diazepam"],
+    history: ["Chronic alcohol dependence", "Malnourished", "Previous Wernicke's"],
+    dispatch: "confused alcohol patient, neurological signs. Needs urgent high-dose IV thiamine to prevent Korsakoff's.",
+    gpLetters: [] as GPLetterType[]
+  },
+  {
+    condition: "Status Epilepticus",
+    ageRange: [20, 70],
+    presentation: "Continuous seizure activity for 15 minutes, not regaining consciousness between seizures, cyanosed",
+    medications: ["Levetiracetam", "Sodium Valproate", "Phenytoin", "Lorazepam"],
+    history: ["Epilepsy", "Recent medication non-compliance", "Sleep deprivation"],
+    dispatch: "prolonged seizure. Patient still seizing on arrival, needs urgent benzodiazepines and ICU.",
+    gpLetters: ["Medication Review"] as GPLetterType[]
+  },
+  {
+    condition: "Serotonin Syndrome",
+    ageRange: [30, 65],
+    presentation: "Agitation, confusion, tremor, hyperreflexia, clonus, hyperthermia 39.2°C, dilated pupils, diarrhoea, recent SSRI increase plus tramadol",
+    medications: ["Citalopram", "Tramadol", "Cyproheptadine"],
+    history: ["Depression", "Chronic pain", "Recent medication change"],
+    dispatch: "confused and agitated, possible drug interaction. Patient tremulous, hyperreflexic, needs urgent treatment.",
+    gpLetters: ["Medication Review"] as GPLetterType[]
+  },
+  {
+    condition: "Thyroid Storm",
+    ageRange: [25, 60],
+    presentation: "Extreme agitation, confusion, fever 40.2°C, severe tachycardia AF 165, diarrhoea, vomiting, tremor, lid lag, goitre",
+    medications: ["Carbimazole", "Propylthiouracil", "Propranolol", "Hydrocortisone"],
+    history: ["Graves disease", "Recent infection", "Non-compliant with medication"],
+    dispatch: "life-threatening thyroid crisis. Patient extremely unwell, needs immediate treatment to prevent death.",
+    gpLetters: ["Blood Test Results"] as GPLetterType[]
+  },
+  {
+    condition: "Hyperosmolar Hyperglycaemic State",
+    ageRange: [60, 85],
+    presentation: "Gradually worsening confusion over days, profound dehydration, blood glucose 45 mmol/L, osmolality very high, no ketones",
+    medications: ["Metformin", "Gliclazide", "Insulin"],
+    history: ["Type 2 diabetes", "Recent illness", "Poor oral intake"],
+    dispatch: "confused diabetic, extremely high blood sugar. Patient severely dehydrated, drowsy, needs cautious rehydration.",
+    gpLetters: ["Blood Test Results"] as GPLetterType[]
+  },
+  {
+    condition: "Acute Severe Asthma Life-Threatening",
+    ageRange: [20, 50],
+    presentation: "Unable to speak, silent chest, exhaustion, confusion, SpO2 88%, PEFR <33% predicted, bradycardia developing",
+    medications: ["Salbutamol", "Ipratropium", "Prednisolone", "Magnesium Sulphate"],
+    history: ["Poorly controlled asthma", "Multiple ICU admissions", "Poor compliance with preventer"],
+    dispatch: "life-threatening asthma. Patient exhausted, silent chest, near respiratory arrest - needs immediate treatment.",
+    gpLetters: [] as GPLetterType[]
+  },
+  {
+    condition: "Acute Dystonia from Antipsychotics",
+    ageRange: [20, 50],
+    presentation: "Sudden onset muscle spasms, tongue protrusion, torticollis, oculogyric crisis, distressing, recent antipsychotic start",
+    medications: ["Haloperidol", "Procyclidine", "Benztropine"],
+    history: ["Schizophrenia", "Started new antipsychotic 3 days ago"],
+    dispatch: "unusual muscle spasms, psychiatric patient. Acute dystonic reaction, needs anticholinergic urgently.",
+    gpLetters: ["Medication Review"] as GPLetterType[]
+  },
+  {
+    condition: "Lithium Toxicity",
+    ageRange: [30, 70],
+    presentation: "Coarse tremor, ataxia, dysarthria, confusion, nausea, diarrhoea, recent dehydration from gastroenteritis, taking lithium",
+    medications: ["Lithium Carbonate"],
+    history: ["Bipolar disorder", "Recent gastroenteritis with dehydration", "Normal renal function previously"],
+    dispatch: "confused psychiatric patient on lithium. Signs of toxicity, needs urgent lithium level and renal function.",
+    gpLetters: ["Blood Test Results", "Medication Review"] as GPLetterType[]
+  },
+  {
+    condition: "Digoxin Toxicity",
+    ageRange: [70, 90],
+    presentation: "Nausea, vomiting, visual disturbance seeing yellow-green halos, bradycardia 42, recent addition of clarithromycin for chest infection",
+    medications: ["Digoxin", "Furosemide", "Clarithromycin"],
+    history: ["Atrial fibrillation", "Heart failure", "CKD stage 3", "Drug interaction"],
+    dispatch: "elderly patient, slow pulse, unwell. Possible digoxin toxicity from antibiotic interaction.",
+    gpLetters: ["Blood Test Results"] as GPLetterType[]
+  },
+  {
+    condition: "Warfarin Over-Anticoagulation with Bleeding",
+    ageRange: [65, 85],
+    presentation: "Large haematomas on minimal trauma, nosebleed won't stop, blood in urine, INR 8.5, recently started antibiotics",
+    medications: ["Warfarin", "Vitamin K", "Tranexamic Acid"],
+    history: ["Atrial fibrillation on warfarin", "Recent antibiotics affecting INR", "Previous stable INR"],
+    dispatch: "bleeding patient on warfarin. Multiple bleeding sites, needs urgent reversal and hospital assessment.",
+    gpLetters: ["Blood Test Results"] as GPLetterType[]
+  },
+  {
+    condition: "Opioid Overdose",
+    ageRange: [20, 60],
+    presentation: "Reduced consciousness GCS 8, pinpoint pupils, respiratory depression RR 6, SpO2 82%, recent heroin use suspected",
+    medications: ["Naloxone"],
+    history: ["Opioid dependence", "Multiple previous overdoses", "Hepatitis C"],
+    dispatch: "unconscious patient, suspected overdose. Pinpoint pupils, barely breathing, needs immediate naloxone.",
+    gpLetters: [] as GPLetterType[]
+  },
+  {
+    condition: "Benzodiazepine Overdose",
+    ageRange: [30, 70],
+    presentation: "Drowsy GCS 11, ataxia, slurred speech, reduced respiratory rate, found with empty diazepam bottles",
+    medications: ["Diazepam", "Flumazenil"],
+    history: ["Anxiety disorder", "Deliberate overdose", "Previous suicide attempts"],
+    dispatch: "overdose, reduced consciousness. Found with empty medication bottles, needs hospital assessment.",
+    gpLetters: [] as GPLetterType[]
+  },
+  {
+    condition: "Paracetamol Overdose",
+    ageRange: [18, 60],
+    presentation: "Took 40 paracetamol tablets 6 hours ago, currently asymptomatic but will develop liver failure without treatment",
+    medications: ["Acetylcysteine", "Activated Charcoal"],
+    history: ["Depression", "Deliberate self-harm", "Time-critical for treatment"],
+    dispatch: "overdose paracetamol. Patient currently well but needs urgent hospital for antidote within window.",
+    gpLetters: [] as GPLetterType[]
+  },
+  {
+    condition: "Beta-Blocker Overdose",
+    ageRange: [40, 75],
+    presentation: "Severe bradycardia 32, hypotension 75/42, drowsiness, confusion, took whole bottle of bisoprolol",
+    medications: ["Bisoprolol", "Glucagon", "Calcium Gluconate"],
+    history: ["Depression", "Hypertension on beta-blockers", "Deliberate overdose"],
+    dispatch: "overdose, very slow pulse. Patient bradycardic and hypotensive, needs ICU care.",
+    gpLetters: [] as GPLetterType[]
+  },
+  {
+    condition: "Calcium Channel Blocker Overdose",
+    ageRange: [35, 70],
+    presentation: "Severe hypotension 68/38, bradycardia, altered mental status, hyperglycaemia, took 60 amlodipine tablets",
+    medications: ["Amlodipine", "Calcium Gluconate", "Insulin-Glucose"],
+    history: ["Hypertension", "Deliberate self-harm", "Critical overdose"],
+    dispatch: "serious overdose, shocked. Patient profoundly hypotensive, needs aggressive resuscitation.",
+    gpLetters: [] as GPLetterType[]
   },
   {
     condition: "Addisonian Crisis",
