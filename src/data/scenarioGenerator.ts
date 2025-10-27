@@ -72,16 +72,25 @@ export function generateRandomPatient(age: number, gender: "Male" | "Female"): P
   };
 }
 
-// Massively expanded condition templates for maximum diversity
+// UK Paramedic-focused scenarios with common and uncommon prescription drugs
 const conditionTemplates = [
   {
     condition: "Heart Failure with Reduced EF",
     ageRange: [65, 85],
     presentation: "Shortness of breath, ankle swelling, fatigue for past week",
-    medications: ["Furosemide", "Bisoprolol", "Ramipril", "Atorvastatin"],
+    medications: ["Furosemide", "Bisoprolol", "Ramipril", "Atorvastatin", "Spironolactone"],
     history: ["Heart failure NYHA Class III", "Atrial fibrillation", "Hypertension"],
     dispatch: "elderly patient, difficulty breathing, bilateral ankle swelling. Patient sitting upright, orthopnoea, RR 24, SpO2 91% on air.",
     gpLetters: ["Blood Test Results", "Appointment Summary"] as GPLetterType[]
+  },
+  {
+    condition: "Acute Coronary Syndrome Post-PCI",
+    ageRange: [55, 75],
+    presentation: "Chest discomfort radiating to jaw, recent stent placement 3 months ago",
+    medications: ["Aspirin", "Ticagrelor", "Bisoprolol", "Atorvastatin", "Ramipril", "Lansoprazole"],
+    history: ["Recent PCI with drug-eluting stent", "Type 2 diabetes", "Hypertension"],
+    dispatch: "chest pain, cardiac history. Patient clutching chest, pale, clammy, previous stent, on dual antiplatelet therapy.",
+    gpLetters: ["Appointment Summary"] as GPLetterType[]
   },
   {
     condition: "Heart Failure with Preserved EF",
@@ -102,30 +111,58 @@ const conditionTemplates = [
     gpLetters: ["Medication Review"] as GPLetterType[]
   },
   {
-    condition: "Type 2 Diabetes",
+    condition: "Type 2 Diabetes with Complications",
     ageRange: [45, 75],
     presentation: "Hyperglycaemia with blood glucose 18mmol/L, polyuria, polydipsia, fatigue for 4 days",
-    medications: ["Metformin", "Gliclazide", "Simvastatin", "Ramipril"],
-    history: ["Type 2 diabetes poorly controlled HbA1c 72", "Obesity BMI 34", "Hyperlipidaemia"],
-    dispatch: "diabetic emergency, BM 18 at home. Patient alert, appears dehydrated, increased urination, fruity breath noted.",
+    medications: ["Metformin", "Gliclazide", "Empagliflozin", "Insulin Glargine", "Simvastatin", "Ramipril"],
+    history: ["Type 2 diabetes poorly controlled HbA1c 72", "Diabetic neuropathy", "Obesity BMI 34", "Hyperlipidaemia"],
+    dispatch: "diabetic emergency, BM 18 at home. Patient alert, appears dehydrated, increased urination, fruity breath noted, pins and needles in feet.",
     gpLetters: ["Appointment Confirmation", "Blood Test Results"] as GPLetterType[]
   },
   {
-    condition: "Atrial Fibrillation",
-    ageRange: [60, 85],
-    presentation: "Palpitations, dizziness, chest discomfort",
-    medications: ["Digoxin", "Apixaban", "Bisoprolol", "Atorvastatin"],
-    history: ["Atrial fibrillation", "Previous stroke", "Hypertension"],
-    dispatch: "irregular heartbeat, feeling dizzy. Patient sitting, appears anxious, pulse irregular.",
+    condition: "Type 1 Diabetes",
+    ageRange: [18, 45],
+    presentation: "Hypoglycaemia 2.8mmol/L, confusion, sweating, tremor",
+    medications: ["Insulin NovoRapid", "Insulin Lantus", "Metformin"],
+    history: ["Type 1 diabetes", "Previous DKA admission", "Poor glucose control"],
+    dispatch: "diabetic hypo, confused. Patient sweating profusely, BM 2.8, shaking, aggressive when approached, needs urgent glucose.",
     gpLetters: ["Blood Test Results"] as GPLetterType[]
   },
   {
-    condition: "Epilepsy",
+    condition: "Atrial Fibrillation with High CHA2DS2-VASc",
+    ageRange: [60, 85],
+    presentation: "Palpitations, dizziness, chest discomfort",
+    medications: ["Digoxin", "Apixaban", "Bisoprolol", "Atorvastatin"],
+    history: ["Atrial fibrillation", "Previous stroke", "Hypertension", "Heart failure"],
+    dispatch: "irregular heartbeat, feeling dizzy. Patient sitting, appears anxious, pulse irregular 120-140, previous stroke risk high.",
+    gpLetters: ["Blood Test Results"] as GPLetterType[]
+  },
+  {
+    condition: "Ventricular Tachycardia History",
+    ageRange: [50, 75],
+    presentation: "Palpitations, near syncope, ICD in situ",
+    medications: ["Amiodarone", "Bisoprolol", "Ramipril", "Atorvastatin", "Aspirin"],
+    history: ["Ventricular tachycardia", "ICD implanted", "Previous cardiac arrest", "Ischaemic cardiomyopathy"],
+    dispatch: "palpitations, ICD patient. Patient feeling faint, ICD may have fired, rapid irregular pulse, previous VT arrests.",
+    gpLetters: ["Appointment Summary"] as GPLetterType[]
+  },
+  {
+    condition: "Epilepsy Refractory",
     ageRange: [20, 50],
     presentation: "Tonic-clonic seizure 10 minutes ago, post-ictal phase with confusion and drowsiness",
-    medications: ["Levetiracetam", "Sertraline", "Folic Acid"],
-    history: ["Generalised epilepsy", "Depression", "Non-compliance with medications"],
-    dispatch: "witnessed tonic-clonic seizure, now post-ictal. Patient GCS 13/15 (E4 V4 M5), confused to time and place, tongue bitten, incontinent of urine."
+    medications: ["Levetiracetam", "Sodium Valproate", "Lamotrigine", "Sertraline", "Folic Acid"],
+    history: ["Generalised epilepsy refractory", "Depression", "Previous status epilepticus"],
+    dispatch: "witnessed tonic-clonic seizure, now post-ictal. Patient GCS 13/15 (E4 V4 M5), confused to time and place, tongue bitten, incontinent of urine.",
+    gpLetters: ["Medication Review"] as GPLetterType[]
+  },
+  {
+    condition: "Focal Epilepsy",
+    ageRange: [25, 60],
+    presentation: "Focal seizure with altered awareness, automatisms, post-ictal confusion",
+    medications: ["Carbamazepine", "Clobazam", "Vitamin D"],
+    history: ["Temporal lobe epilepsy", "Previous head injury", "Learning disability"],
+    dispatch: "witnessed seizure, unusual behaviour. Patient confused, lip smacking movements noted, family concerned.",
+    gpLetters: ["Blood Test Results"] as GPLetterType[]
   },
   {
     condition: "Depression with Chronic Pain",
@@ -152,12 +189,22 @@ const conditionTemplates = [
     dispatch: "confused elderly patient, care home resident. Carer concerned about possible infection."
   },
   {
-    condition: "Asthma",
+    condition: "Severe Asthma",
     ageRange: [20, 45],
     presentation: "Acute severe asthma exacerbation, unable to complete sentences, severe wheeze",
-    medications: ["Salbutamol", "Omeprazole"],
-    history: ["Asthma with previous ICU admission", "Eczema", "Hayfever"],
-    dispatch: "life-threatening asthma attack, severe respiratory distress. Patient sat forward, RR 32, SpO2 90%, peak flow 40% predicted, used salbutamol 10 puffs with minimal effect."
+    medications: ["Salbutamol", "Beclomethasone", "Montelukast", "Prednisolone", "Omeprazole"],
+    history: ["Asthma with previous ICU admission", "Eczema", "GORD", "Poor inhaler technique"],
+    dispatch: "life-threatening asthma attack, severe respiratory distress. Patient sat forward, RR 32, SpO2 90%, peak flow 40% predicted, used salbutamol 10 puffs with minimal effect.",
+    gpLetters: ["Appointment Summary"] as GPLetterType[]
+  },
+  {
+    condition: "Brittle Asthma Type 1",
+    ageRange: [18, 40],
+    presentation: "Severe sudden onset dyspnoea, silent chest, extreme distress",
+    medications: ["Salbutamol", "Fluticasone", "Salmeterol", "Prednisolone", "Theophylline"],
+    history: ["Brittle asthma", "Multiple ICU admissions", "Previous intubation x2", "Steroid-dependent"],
+    dispatch: "critical asthma attack. Patient exhausted, minimal air entry, unable to speak, SpO2 85%, silent chest, immediate transfer required.",
+    gpLetters: ["Medication Review"] as GPLetterType[]
   },
   {
     condition: "Cellulitis",
@@ -462,14 +509,87 @@ const conditionTemplates = [
     dispatch: "dizziness, blood disorder. Patient red-faced, needs stroke assessment.",
     gpLetters: ["Blood Test Results"] as GPLetterType[]
   },
+  // Add more scenarios with common UK prescription drugs
   {
-    condition: "Peripheral Arterial Disease",
+    condition: "Chronic Obstructive Pulmonary Disease with Cor Pulmonale",
     ageRange: [60, 85],
-    presentation: "Intermittent claudication right calf after 50 meters, rest pain at night, cold pale foot, absent pedal pulses",
-    medications: ["Aspirin", "Atorvastatin", "Clopidogrel", "Ramipril"],
-    history: ["Peripheral arterial disease", "Type 2 diabetes", "Active smoker 40 pack years", "Previous TIA"],
-    dispatch: "leg pain, circulation problems. Patient pale foot noted, capillary refill 5 seconds, absent pulses, needs urgent vascular assessment.",
+    presentation: "Worsening dyspnoea, productive cough, peripheral oedema, raised JVP",
+    medications: ["Salbutamol", "Ipratropium", "Fluticasone", "Azithromycin", "Furosemide", "Oxygen"],
+    history: ["COPD Gold Stage 4 very severe", "Cor pulmonale", "Previous NIV", "Long-term oxygen therapy"],
+    dispatch: "severe breathing difficulty, chronic lung disease. Patient on LTOT, SpO2 target 88-92%, peripheral oedema, raised JVP, needs careful oxygen management.",
+    gpLetters: ["Blood Test Results", "Medication Review"] as GPLetterType[]
+  },
+  {
+    condition: "Benzodiazepine Dependence",
+    ageRange: [45, 75],
+    presentation: "Anxiety, tremor, insomnia, panic attacks, on long-term benzodiazepines",
+    medications: ["Diazepam", "Zopiclone", "Sertraline", "Propranolol"],
+    history: ["Benzodiazepine dependence", "Anxiety disorder", "Previous seizure on withdrawal"],
+    dispatch: "anxious patient, long-term sedatives. Patient shaky, requesting medication, dependency concerns.",
+    gpLetters: ["Medication Review"] as GPLetterType[]
+  },
+  {
+    condition: "Opioid Substitution Therapy",
+    ageRange: [25, 55],
+    presentation: "Abdominal pain, drug seeking behaviour, on methadone programme",
+    medications: ["Methadone", "Naloxone nasal spray", "Sertraline"],
+    history: ["Opioid use disorder", "On supervised methadone programme", "Hepatitis C", "Overdose history x3"],
+    dispatch: "abdominal pain, drug dependency patient. Patient on methadone programme, check overdose risk, naloxone available.",
+    gpLetters: ["Medication Review"] as GPLetterType[]
+  },
+  {
+    condition: "Polymyalgia Rheumatica",
+    ageRange: [65, 85],
+    presentation: "Severe bilateral shoulder and hip pain and stiffness, worse in morning, difficulty getting out of bed",
+    medications: ["Prednisolone", "Lansoprazole", "Adcal D3", "Alendronic Acid"],
+    history: ["Polymyalgia rheumatica", "Currently on high-dose steroids", "Risk of GCA"],
+    dispatch: "severe muscle pain and stiffness. Patient elderly, on steroids, needs visual symptom assessment for GCA.",
+    gpLetters: ["Blood Test Results", "Medication Review"] as GPLetterType[]
+  },
+  {
+    condition: "Dementia with Challenging Behaviours",
+    ageRange: [75, 95],
+    presentation: "Aggression, wandering, sundowning, refusing care and medications",
+    medications: ["Donepezil", "Memantine", "Quetiapine", "Lorazepam PRN"],
+    history: ["Alzheimer's dementia", "BPSD", "Care home resident", "Falls risk"],
+    dispatch: "confused and aggressive. Patient with advanced dementia, trying to leave, safety concern, PRN given.",
+    gpLetters: ["Medication Review", "Appointment Summary"] as GPLetterType[]
+  },
+  {
+    condition: "Neutropenic Sepsis Post-Chemotherapy",
+    ageRange: [45, 75],
+    presentation: "Fever 38.5°C, rigors, severe malaise, recent chemotherapy 7 days ago",
+    medications: ["Co-amoxiclav", "GCSF injections", "Ondansetron", "Morphine"],
+    history: ["Breast cancer on chemotherapy", "Neutropenic episode x1", "Central line in situ"],
+    dispatch: "fever in cancer patient, recent chemo. Patient very unwell, pyrexial, neutropenic sepsis suspected - time critical, needs immediate antibiotics.",
     gpLetters: ["Appointment Summary"] as GPLetterType[]
+  },
+  {
+    condition: "Addison's Disease Adrenal Crisis",
+    ageRange: [30, 60],
+    presentation: "Severe vomiting and diarrhoea, hypotension, confusion, pigmentation, recent vomiting bug, missed hydrocortisone",
+    medications: ["Hydrocortisone", "Fludrocortisone"],
+    history: ["Addison's disease primary adrenal insufficiency", "Previous adrenal crisis", "Steroid emergency card"],
+    dispatch: "very unwell, adrenal crisis. Patient with Addison's, hypotensive 78/42, confused, vomited all medications, needs immediate IV hydrocortisone 100mg - life threatening.",
+    gpLetters: ["Medication Review"] as GPLetterType[]
+  },
+  {
+    condition: "Clozapine-Treated Schizophrenia",
+    ageRange: [30, 60],
+    presentation: "Fever, sore throat, malaise - clozapine patient requiring urgent FBC",
+    medications: ["Clozapine", "Aripiprazole", "Procyclidine", "Omeprazole"],
+    history: ["Treatment-resistant schizophrenia on clozapine", "Regular blood monitoring", "Previous agranulocytosis scare"],
+    dispatch: "unwell, clozapine patient with fever. Patient pyrexial, sore throat - agranulocytosis risk, needs urgent FBC, inform psychiatry.",
+    gpLetters: ["Blood Test Results", "Medication Review"] as GPLetterType[]
+  },
+  {
+    condition: "Lithium Toxicity",
+    ageRange: [35, 65],
+    presentation: "Tremor, confusion, slurred speech, ataxia, diarrhoea and vomiting, taking NSAIDs for headache",
+    medications: ["Lithium", "Olanzapine", "Propranolol", "Ibuprofen"],
+    history: ["Bipolar disorder", "On lithium for 10 years", "Recent dehydration from gastroenteritis"],
+    dispatch: "confused and shaky, bipolar patient on lithium. Patient ataxic, coarse tremor, slurred speech - lithium toxicity suspected, needs urgent lithium level and renal function.",
+    gpLetters: ["Blood Test Results"] as GPLetterType[]
   },
   {
     condition: "Pulmonary Embolism",

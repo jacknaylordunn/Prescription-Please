@@ -48,23 +48,31 @@ export const QuizPanel = ({ scenario, onComplete }: QuizPanelProps) => {
     const questions: Question[] = [];
     const meds = scenario.prescriptions.map(p => p.medication);
 
-    // Question 1: Suffix-based drug identification (CORE SKILL)
+    // Question 1: EXPANDED Suffix-based drug identification (CORE PARAMEDIC SKILL)
     if (meds.length > 0) {
       const suffixMeds = [
-        { suffix: "-pril", class: "ACE inhibitor", examples: ["Ramipril", "Lisinopril", "Enalapril"] },
-        { suffix: "-sartan", class: "Angiotensin receptor blocker", examples: ["Losartan", "Candesartan", "Valsartan"] },
-        { suffix: "-olol", class: "Beta-blocker", examples: ["Bisoprolol", "Atenolol", "Metoprolol"] },
-        { suffix: "-dipine", class: "Calcium channel blocker", examples: ["Amlodipine", "Nifedipine", "Felodipine"] },
-        { suffix: "-statin", class: "Statin", examples: ["Atorvastatin", "Simvastatin", "Rosuvastatin"] },
-        { suffix: "-prazole", class: "Proton pump inhibitor", examples: ["Omeprazole", "Lansoprazole", "Esomeprazole"] },
-        { suffix: "-cillin", class: "Penicillin antibiotic", examples: ["Amoxicillin", "Flucloxacillin", "Phenoxymethylpenicillin"] },
-        { suffix: "-pam/-lam", class: "Benzodiazepine", examples: ["Diazepam", "Lorazepam", "Clonazepam"] },
-        { suffix: "-mycin", class: "Macrolide antibiotic", examples: ["Erythromycin", "Clarithromycin", "Azithromycin"] },
-        { suffix: "-tidine", class: "H2 receptor antagonist", examples: ["Ranitidine", "Famotidine", "Cimetidine"] },
-        { suffix: "-lol (not beta)", class: "Bronchodilator", examples: ["Salbutamol", "Terbutaline"] },
-        { suffix: "-oxaban", class: "Direct Oral Anticoagulant", examples: ["Apixaban", "Rivaroxaban", "Edoxaban"] },
-        { suffix: "-azide", class: "Thiazide diuretic", examples: ["Bendroflumethiazide", "Indapamide"] },
-        { suffix: "-semide", class: "Loop diuretic", examples: ["Furosemide", "Bumetanide"] }
+        { suffix: "-pril", class: "ACE inhibitor", examples: ["Ramipril", "Lisinopril", "Enalapril", "Perindopril"], indication: "Hypertension, heart failure" },
+        { suffix: "-sartan", class: "Angiotensin receptor blocker (ARB)", examples: ["Losartan", "Candesartan", "Valsartan", "Irbesartan"], indication: "Alternative to ACE inhibitors" },
+        { suffix: "-olol", class: "Beta-blocker", examples: ["Bisoprolol", "Atenolol", "Metoprolol", "Propranolol", "Carvedilol"], indication: "Heart rate control, hypertension" },
+        { suffix: "-dipine", class: "Calcium channel blocker", examples: ["Amlodipine", "Nifedipine", "Felodipine", "Diltiazem"], indication: "Hypertension, angina" },
+        { suffix: "-statin", class: "Statin (HMG-CoA reductase inhibitor)", examples: ["Atorvastatin", "Simvastatin", "Rosuvastatin", "Pravastatin"], indication: "Cholesterol reduction" },
+        { suffix: "-prazole", class: "Proton pump inhibitor (PPI)", examples: ["Omeprazole", "Lansoprazole", "Esomeprazole", "Pantoprazole"], indication: "Acid reflux, gastric protection" },
+        { suffix: "-cillin", class: "Penicillin antibiotic", examples: ["Amoxicillin", "Flucloxacillin", "Phenoxymethylpenicillin", "Co-amoxiclav"], indication: "Bacterial infections" },
+        { suffix: "-pam/-lam", class: "Benzodiazepine", examples: ["Diazepam", "Lorazepam", "Clonazepam", "Temazepam"], indication: "Anxiety, seizures - CAUTION dependency" },
+        { suffix: "-mycin", class: "Macrolide antibiotic", examples: ["Erythromycin", "Clarithromycin", "Azithromycin"], indication: "Penicillin-allergic patients" },
+        { suffix: "-tidine", class: "H2 receptor antagonist", examples: ["Ranitidine", "Famotidine", "Cimetidine"], indication: "Acid reduction (older than PPIs)" },
+        { suffix: "-terol", class: "Bronchodilator (Beta-2 agonist)", examples: ["Salbutamol", "Terbutaline", "Salmeterol"], indication: "Asthma, COPD - rescue inhalers" },
+        { suffix: "-oxaban", class: "Direct Oral Anticoagulant (DOAC)", examples: ["Apixaban", "Rivaroxaban", "Edoxaban"], indication: "AF, DVT/PE - BLEEDING RISK" },
+        { suffix: "-azide", class: "Thiazide diuretic", examples: ["Bendroflumethiazide", "Indapamide"], indication: "Hypertension, mild heart failure" },
+        { suffix: "-semide", class: "Loop diuretic", examples: ["Furosemide", "Bumetanide"], indication: "Heart failure, fluid overload" },
+        { suffix: "-formin", class: "Biguanide antidiabetic", examples: ["Metformin"], indication: "Type 2 diabetes first line" },
+        { suffix: "-gliflozin", class: "SGLT2 inhibitor", examples: ["Empagliflozin", "Dapagliflozin"], indication: "Type 2 diabetes, heart failure" },
+        { suffix: "-gliptin", class: "DPP-4 inhibitor", examples: ["Sitagliptin", "Linagliptin"], indication: "Type 2 diabetes" },
+        { suffix: "-pam (opioid)", class: "Opioid analgesic", examples: ["Tramadol", "Tapentadol"], indication: "Moderate-severe pain" },
+        { suffix: "-tidine (opioid)", class: "Antihistamine", examples: ["Cetirizine", "Loratadine", "Fexofenadine"], indication: "Allergies" },
+        { suffix: "-tropium", class: "Anticholinergic bronchodilator", examples: ["Ipratropium", "Tiotropium"], indication: "COPD maintenance" },
+        { suffix: "-sone", class: "Corticosteroid", examples: ["Prednisolone", "Hydrocortisone", "Dexamethasone"], indication: "Inflammation - TIME CRITICAL" },
+        { suffix: "-prazine", class: "Antipsychotic/Antiemetic", examples: ["Prochlorperazine", "Chlorpromazine"], indication: "Nausea, psychosis" }
       ];
       
       // Find a med from the scenario that has a recognizable suffix
@@ -86,7 +94,7 @@ export const QuizPanel = ({ scenario, onComplete }: QuizPanelProps) => {
             question: `A patient has a medication ending in "${suffixInfo.suffix}". What drug class is this likely to be?`,
             options: shuffledOptions,
             correctAnswer: shuffledOptions.indexOf(correctAnswer),
-            explanation: `The suffix "${suffixInfo.suffix}" indicates a ${correctAnswer}. ${medWithSuffix.name} follows this pattern. Learning drug suffixes helps paramedics identify medications when patients can't remember names.`
+            explanation: `The suffix "${suffixInfo.suffix}" indicates a ${suffixInfo.class}. ${medWithSuffix.name} follows this pattern. Paramedics must recognize drug suffixes to identify medications when bottles are damaged or patients are unable to communicate. This skill is essential for managing allergies, drug interactions, and time-critical medications. Clinical use: ${suffixInfo.indication}.`
           });
         }
       }
@@ -787,6 +795,286 @@ export const QuizPanel = ({ scenario, onComplete }: QuizPanelProps) => {
         options: shuffledOptions,
         correctAnswer: shuffledOptions.indexOf(randomMed.indication),
         explanation: `${randomMed.name} is prescribed to treat ${randomMed.indication.toLowerCase()}.`
+      });
+    }
+    
+    // ADVANCED PARAMEDIC QUESTIONS - Drug Interactions
+    if (meds.length >= 2) {
+      // DOAC + NSAID interaction
+      const doac = meds.find(m => m.class === "Direct Oral Anticoagulant");
+      const nsaid = meds.find(m => m.class === "NSAID");
+      if (doac && nsaid) {
+        const correctAnswer = "High risk of bleeding - avoid NSAIDs";
+        const options = [
+          correctAnswer,
+          "Safe combination with no issues",
+          "Only avoid paracetamol",
+          "Increase anticoagulant dose"
+        ];
+        const shuffledOptions = [...options].sort(() => Math.random() - 0.5);
+        questions.push({
+          question: `A patient is taking ${doac.name} and ${nsaid.name}. What's your concern?`,
+          options: shuffledOptions,
+          correctAnswer: shuffledOptions.indexOf(correctAnswer),
+          explanation: `Combining anticoagulants like ${doac.name} with NSAIDs like ${nsaid.name} significantly increases bleeding risk. NSAIDs also inhibit platelet function and can cause GI bleeding. Advise paracetamol instead for pain relief.`
+        });
+      }
+      
+      // ACE inhibitor + Diuretic in dehydration
+      const acei = meds.find(m => m.class === "ACE inhibitor");
+      const diuretic = meds.find(m => m.category === "Diuretic");
+      if (acei && diuretic) {
+        const correctAnswer = "Risk of acute kidney injury if patient is dehydrated";
+        const options = [
+          correctAnswer,
+          "No concerns - both are safe together",
+          "Only worry about heart rate",
+          "Increase both doses"
+        ];
+        const shuffledOptions = [...options].sort(() => Math.random() - 0.5);
+        questions.push({
+          question: `Patient on ${acei.name} and ${diuretic.name} presents with vomiting. What's your concern?`,
+          options: shuffledOptions,
+          correctAnswer: shuffledOptions.indexOf(correctAnswer),
+          explanation: `ACE inhibitors and diuretics together can cause acute kidney injury during dehydration. The combination reduces renal perfusion - consider stopping temporarily in acute illness and ensure adequate hydration.`
+        });
+      }
+      
+      // Digoxin + Diuretic = electrolyte imbalance
+      const digoxin = meds.find(m => m.name === "Digoxin");
+      if (digoxin && diuretic) {
+        const correctAnswer = "Hypokalaemia increases digoxin toxicity risk";
+        const options = [
+          correctAnswer,
+          "No interaction concerns",
+          "Both medications are synergistic",
+          "Only affects blood sugar"
+        ];
+        const shuffledOptions = [...options].sort(() => Math.random() - 0.5);
+        questions.push({
+          question: `Why is the combination of Digoxin and ${diuretic.name} concerning?`,
+          options: shuffledOptions,
+          correctAnswer: shuffledOptions.indexOf(correctAnswer),
+          explanation: `Diuretics like ${diuretic.name} can cause low potassium (hypokalaemia), which increases the risk of digoxin toxicity causing dangerous heart rhythms. Monitor potassium levels and watch for nausea, confusion, and visual disturbances.`
+        });
+      }
+    }
+    
+    // ADVANCED - Mechanism of Action Questions
+    if (meds.length > 0) {
+      const betaBlocker = meds.find(m => m.class === "Beta-blocker");
+      const acei = meds.find(m => m.class === "ACE inhibitor");
+      const statin = meds.find(m => m.class === "Statin");
+      const ppi = meds.find(m => m.class === "Proton pump inhibitor");
+      
+      if (betaBlocker) {
+        const correctAnswer = "Blocks adrenaline receptors, slowing heart rate and reducing force";
+        const options = [
+          correctAnswer,
+          "Increases heart rate and blood pressure",
+          "Only affects breathing",
+          "Dilates blood vessels only"
+        ];
+        const shuffledOptions = [...options].sort(() => Math.random() - 0.5);
+        questions.push({
+          question: `How does ${betaBlocker.name} work in the body?`,
+          options: shuffledOptions,
+          correctAnswer: shuffledOptions.indexOf(correctAnswer),
+          explanation: `Beta-blockers like ${betaBlocker.name} block beta-adrenergic receptors, reducing the effects of adrenaline. This slows heart rate, reduces myocardial oxygen demand, and lowers blood pressure. Critical for heart failure and post-MI management.`
+        });
+      } else if (acei) {
+        const correctAnswer = "Prevents angiotensin II formation, reducing blood pressure";
+        const options = [
+          correctAnswer,
+          "Increases sodium retention",
+          "Blocks calcium channels",
+          "Increases adrenaline release"
+        ];
+        const shuffledOptions = [...options].sort(() => Math.random() - 0.5);
+        questions.push({
+          question: `What is the mechanism of action of ${acei.name}?`,
+          options: shuffledOptions,
+          correctAnswer: shuffledOptions.indexOf(correctAnswer),
+          explanation: `ACE inhibitors like ${acei.name} block the enzyme that converts angiotensin I to angiotensin II, reducing vasoconstriction and aldosterone secretion. This lowers blood pressure and reduces cardiac workload, beneficial in heart failure.`
+        });
+      } else if (statin) {
+        const correctAnswer = "Inhibits cholesterol production in the liver";
+        const options = [
+          correctAnswer,
+          "Absorbs cholesterol from food",
+          "Breaks down existing cholesterol",
+          "Only reduces blood pressure"
+        ];
+        const shuffledOptions = [...options].sort(() => Math.random() - 0.5);
+        questions.push({
+          question: `How do statins like ${statin.name} reduce cholesterol?`,
+          options: shuffledOptions,
+          correctAnswer: shuffledOptions.indexOf(correctAnswer),
+          explanation: `Statins inhibit HMG-CoA reductase, the enzyme responsible for cholesterol synthesis in the liver. This reduces LDL cholesterol levels and has additional anti-inflammatory and plaque-stabilizing effects.`
+        });
+      } else if (ppi) {
+        const correctAnswer = "Blocks acid production in the stomach";
+        const options = [
+          correctAnswer,
+          "Neutralizes existing stomach acid",
+          "Increases gastric emptying",
+          "Protects stomach lining only"
+        ];
+        const shuffledOptions = [...options].sort(() => Math.random() - 0.5);
+        questions.push({
+          question: `How does ${ppi.name} work?`,
+          options: shuffledOptions,
+          correctAnswer: shuffledOptions.indexOf(correctAnswer),
+          explanation: `PPIs like ${ppi.name} irreversibly block the H+/K+-ATPase proton pump in gastric parietal cells, reducing acid secretion. They're more effective than H2 antagonists and used for GORD and peptic ulcers.`
+        });
+      }
+    }
+    
+    // ADVANCED - Red Flags and Safety Concerns
+    if (meds.length > 0) {
+      const clozapine = meds.find(m => m.name === "Clozapine");
+      const lithium = meds.find(m => m.name === "Lithium");
+      const methotrexate = meds.find(m => m.name === "Methotrexate");
+      const amiodarone = meds.find(m => m.name === "Amiodarone");
+      
+      if (clozapine) {
+        const correctAnswer = "Sore throat and fever - risk of agranulocytosis";
+        const options = [
+          correctAnswer,
+          "Mild headache - common side effect",
+          "Dry mouth - increase fluids",
+          "Drowsiness - reduce evening dose"
+        ];
+        const shuffledOptions = [...options].sort(() => Math.random() - 0.5);
+        questions.push({
+          question: "Patient on Clozapine reports a symptom. Which requires URGENT action?",
+          options: shuffledOptions,
+          correctAnswer: shuffledOptions.indexOf(correctAnswer),
+          explanation: "Clozapine can cause agranulocytosis (dangerously low white blood cells), making patients vulnerable to serious infections. Sore throat + fever requires immediate FBC and possible treatment discontinuation. This is a medical emergency."
+        });
+      } else if (lithium) {
+        const correctAnswer = "Coarse tremor, confusion, ataxia - toxicity";
+        const options = [
+          correctAnswer,
+          "Fine tremor - normal side effect",
+          "Weight gain - dietary advice",
+          "Polyuria - increase fluid intake"
+        ];
+        const shuffledOptions = [...options].sort(() => Math.random() - 0.5);
+        questions.push({
+          question: "Which symptoms in a Lithium patient indicate toxicity?",
+          options: shuffledOptions,
+          correctAnswer: shuffledOptions.indexOf(correctAnswer),
+          explanation: "Lithium toxicity presents with coarse tremor (not fine), confusion, slurred speech, ataxia, and GI symptoms. Risk increases with dehydration, NSAIDs, or renal impairment. Needs urgent lithium level and renal function tests."
+        });
+      } else if (methotrexate) {
+        const correctAnswer = "Mouth ulcers, bruising, breathlessness - bone marrow suppression";
+        const options = [
+          correctAnswer,
+          "Nausea after taking - common",
+          "Headache - take paracetamol",
+          "Fatigue - rest and hydrate"
+        ];
+        const shuffledOptions = [...options].sort(() => Math.random() - 0.5);
+        questions.push({
+          question: "Red flag symptoms in a patient on Methotrexate?",
+          options: shuffledOptions,
+          correctAnswer: shuffledOptions.indexOf(correctAnswer),
+          explanation: "Methotrexate causes bone marrow suppression. Mouth ulcers, bruising/bleeding, and respiratory symptoms suggest serious toxicity requiring urgent FBC. Taken weekly only - daily dosing is a common fatal error."
+        });
+      } else if (amiodarone) {
+        const correctAnswer = "New breathlessness - pulmonary fibrosis risk";
+        const options = [
+          correctAnswer,
+          "Slight bradycardia - expected effect",
+          "Photosensitivity - use sunscreen",
+          "Blue-grey skin - cosmetic only"
+        ];
+        const shuffledOptions = [...options].sort(() => Math.random() - 0.5);
+        questions.push({
+          question: "Most serious concern in patient on Amiodarone?",
+          options: shuffledOptions,
+          correctAnswer: shuffledOptions.indexOf(correctAnswer),
+          explanation: "Amiodarone can cause life-threatening pulmonary fibrosis. New or worsening breathlessness requires urgent investigation. Also monitor for thyroid dysfunction, liver toxicity, and corneal deposits. Long half-life means effects persist after stopping."
+        });
+      }
+    }
+    
+    // ADVANCED - Clinical Decision Making for Paramedics
+    if (meds.length >= 3) {
+      const steroid = meds.find(m => m.category === "Steroid");
+      const immunosuppressant = meds.find(m => m.category === "Immunosuppressant");
+      
+      if (steroid || immunosuppressant) {
+        const med = steroid || immunosuppressant;
+        const correctAnswer = "Increased infection risk - sepsis can develop rapidly";
+        const options = [
+          correctAnswer,
+          "No special considerations",
+          "Only affects wound healing",
+          "Reduces pain response only"
+        ];
+        const shuffledOptions = [...options].sort(() => Math.random() - 0.5);
+        questions.push({
+          question: `Patient on ${med?.name} has fever 38.5°C. What's your priority concern?`,
+          options: shuffledOptions,
+          correctAnswer: shuffledOptions.indexOf(correctAnswer),
+          explanation: `${med?.name} suppresses the immune system. Patients are at high risk of severe infections and sepsis. Fever may be the only sign - use NEWS2 scoring and have a low threshold for sepsis pathway activation.`
+        });
+      }
+      
+      const anticoagulant = meds.find(m => m.category === "Anticoagulant");
+      if (anticoagulant) {
+        const correctAnswer = "High-risk mechanism - potential for internal bleeding";
+        const options = [
+          correctAnswer,
+          "Low risk - anticoagulants don't affect trauma outcomes",
+          "Only worry about external bleeding",
+          "Falls are safe in anticoagulated patients"
+        ];
+        const shuffledOptions = [...options].sort(() => Math.random() - 0.5);
+        questions.push({
+          question: `Patient on ${anticoagulant.name} fell down stairs. What's your assessment?`,
+          options: shuffledOptions,
+          correctAnswer: shuffledOptions.indexOf(correctAnswer),
+          explanation: `Patients on anticoagulants like ${anticoagulant.name} are at high risk of internal bleeding, especially intracranial haemorrhage. Any head injury or high-energy trauma requires urgent hospital assessment even without obvious injuries. Document time of last dose.`
+        });
+      }
+    }
+    
+    // UK-Specific Paramedic Practice Questions
+    if (timeCriticalMeds.length > 0) {
+      const correctAnswer = "Take medications to hospital and inform receiving staff of doses and timings";
+      const options = [
+        correctAnswer,
+        "Leave all medications at home",
+        "Give double dose before transport",
+        "Medications can be collected later"
+      ];
+      const shuffledOptions = [...options].sort(() => Math.random() - 0.5);
+      questions.push({
+        question: "Patient is being transported with time-critical medications. What should you do?",
+        options: shuffledOptions,
+        correctAnswer: shuffledOptions.indexOf(correctAnswer),
+        explanation: "ALWAYS take time-critical medications to hospital. Document when last dose was taken and when next dose is due. Inform receiving staff immediately. Use the MISSED mnemonic to identify time-critical meds."
+      });
+    }
+    
+    // Polypharmacy and elderly patients
+    if (meds.length >= 5) {
+      const correctAnswer = "Increased falls risk, confusion, and drug interactions";
+      const options = [
+        correctAnswer,
+        "Better health outcomes with more medications",
+        "No additional risks",
+        "Only affects medication costs"
+      ];
+      const shuffledOptions = [...options].sort(() => Math.random() - 0.5);
+      questions.push({
+        question: `This elderly patient is on ${meds.length} medications. What are your concerns?`,
+        options: shuffledOptions,
+        correctAnswer: shuffledOptions.indexOf(correctAnswer),
+        explanation: `Polypharmacy (5+ medications) in elderly patients increases falls risk, confusion, adverse drug reactions, and poor adherence. Anticholinergic burden can cause delirium. Consider medication review and de-prescribing where appropriate.`
       });
     }
 
